@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>週報 2026-03-19</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Helvetica Neue', Arial, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      background: #f0f0f0;
+      padding: 30px 20px;
+    }
+
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* ===== ヘッダー ===== */
+    .header {
+      background: #1155cc;
+      color: white;
+      padding: 28px 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+      border-radius: 4px 4px 0 0;
+    }
+    .header-left { display: flex; align-items: center; gap: 20px; }
+    .header-icon {
+      width: 60px; height: 60px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px;
+    }
+    .header-label {
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: #a8c7fa;
+      margin-bottom: 4px;
+    }
+    .header-title {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: 4px;
+    }
+    .header-period {
+      text-align: right;
+      font-size: 13px;
+      color: #a8c7fa;
+      line-height: 1.8;
+    }
+    .header-period strong {
+      display: block;
+      font-size: 20px;
+      color: white;
+      font-weight: 700;
+    }
+
+    /* ===== セクション共通 ===== */
+    .section {
+      margin-bottom: 4px;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 28px;
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    .section-icon {
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .section-body {
+      background: white;
+      padding: 24px 28px;
+    }
+
+    /* ===== 今週行ったこと ===== */
+    .done-header { background: #1a73e8; }
+
+    .done-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .done-card {
+      border-left: 4px solid #1a73e8;
+      padding: 12px 16px;
+      background: #f8faff;
+      border-radius: 0 8px 8px 0;
+    }
+    .done-card-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #1a73e8;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .done-card ul {
+      list-style: none;
+      padding: 0;
+    }
+    .done-card ul li {
+      font-size: 13px;
+      color: #444;
+      padding: 3px 0;
+      padding-left: 14px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .done-card ul li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: #1a73e8;
+      font-size: 10px;
+      top: 5px;
+    }
+
+    /* ===== 共有事項 ===== */
+    .share-header { background: #e65100; }
+
+    .share-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .share-card {
+      background: #fff8f5;
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+      border: 1.5px solid #ffccbc;
+    }
+    .share-card-icon {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+    .share-card-text {
+      font-size: 13px;
+      color: #444;
+      line-height: 1.6;
+    }
+    .share-card-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #e65100;
+      margin-top: 8px;
+      letter-spacing: 1px;
+    }
+
+    /* ===== 来週 ===== */
+    .next-header { background: #2e7d32; }
+
+    .next-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .next-card {
+      background: #f1f8e9;
+      border-radius: 8px;
+      padding: 16px 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      border: 1.5px solid #c5e1a5;
+    }
+    .next-num {
+      min-width: 32px; height: 32px;
+      background: #2e7d32;
+      color: white;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .next-text {
+      font-size: 13px;
+      color: #333;
+      line-height: 1.6;
+      padding-top: 4px;
+    }
+
+    /* ===== フッター ===== */
+    .footer {
+      background: #333;
+      color: #999;
+      text-align: center;
+      padding: 14px;
+      font-size: 11px;
+      letter-spacing: 2px;
+      border-radius: 0 0 4px 4px;
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ヘッダー -->
+  <div class="header">
+    <div class="header-left">
+      <div class="header-icon">📊</div>
+      <div>
+        <div class="header-label">WEEKLY REPORT</div>
+        <div class="header-title">週　報</div>
+      </div>
+    </div>
+    <div class="header-period">
+      2026年
+      <strong>03.16 — 03.21</strong>
+      AI会社 / Claude Code
+    </div>
+  </div>
+
+  <!-- 今週行ったこと -->
+  <div class="section">
+    <div class="section-header done-header">
+      <div class="section-icon">✅</div>
+      今週行ったこと
+    </div>
+    <div class="section-body">
+      <div class="done-grid">
+
+        <div class="done-card">
+          <div class="done-card-title">🏗 会社体制の構築</div>
+          <ul>
+            <li>5部門体制を新規設計・構築した</li>
+            <li>PM・DX・EC・クリエイティブ・PR・開発 の6スキル作成</li>
+            <li>CLAUDE.md を5部門体制に全面改訂した</li>
+            <li>スラッシュコマンド呼び出し方を整備した</li>
+          </ul>
+        </div>
+
+        <div class="done-card">
+          <div class="done-card-title">🔧 DX支援部門の強化</div>
+          <ul>
+            <li>GooTorialマニュアルをスキルに組み込んだ</li>
+            <li>導入フロー（STEP 1〜6）を定義した</li>
+            <li>ヒアリングシート・トラブル対応表を整備した</li>
+          </ul>
+        </div>
+
+        <div class="done-card">
+          <div class="done-card-title">📋 週報システム構築</div>
+          <ul>
+            <li>週報自動作成スキルを新規作成した</li>
+            <li>HTMLインフォグラフィック出力を実装した</li>
+            <li>weekly-reportsアーカイブを整備した</li>
+          </ul>
+        </div>
+
+        <div class="done-card">
+          <div class="done-card-title">🔍 営業・リサーチ</div>
+          <ul>
+            <li>Googleワークスペース市場調査を実施した</li>
+            <li>競合サービスの料金・内容を比較した</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- 共有事項 -->
+  <div class="section">
+    <div class="section-header share-header">
+      <div class="section-icon">📢</div>
+      共有事項
+    </div>
+    <div class="section-body">
+      <div class="share-grid">
+
+        <div class="share-card">
+          <div class="share-card-icon">🏢</div>
+          <div class="share-card-text">会社体制が5部門制に刷新。旧・士業SNS運用代行から大幅拡張。</div>
+          <div class="share-card-label">体制変更</div>
+        </div>
+
+        <div class="share-card">
+          <div class="share-card-icon">⚡</div>
+          <div class="share-card-text">スラッシュコマンドで各部門エージェントを即時起動可能になった。</div>
+          <div class="share-card-label">操作性向上</div>
+        </div>
+
+        <div class="share-card">
+          <div class="share-card-icon">📖</div>
+          <div class="share-card-text">DX支援はGooTorialマニュアルをベースに導入支援できる体制が完成。</div>
+          <div class="share-card-label">サービス準備完了</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- 来週 -->
+  <div class="section">
+    <div class="section-header next-header">
+      <div class="section-icon">🗓</div>
+      来週行うこと
+    </div>
+    <div class="section-body">
+      <div class="next-grid">
+
+        <div class="next-card">
+          <div class="next-num">1</div>
+          <div class="next-text">各部門スキルの実案件テストを行う</div>
+        </div>
+
+        <div class="next-card">
+          <div class="next-num">2</div>
+          <div class="next-text">最初のクライアント向け提案書を作成する</div>
+        </div>
+
+        <div class="next-card">
+          <div class="next-num">3</div>
+          <div class="next-text">EC・クリエイティブ部門のマニュアルを強化する</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- フッター -->
+  <div class="footer">GENERATED BY CLAUDE CODE &nbsp;|&nbsp; 2026-03-19</div>
+
+</div>
+</body>
+</html>

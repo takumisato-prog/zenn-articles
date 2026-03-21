@@ -1,0 +1,22 @@
+# 依存パッケージ（npm install で復元可能）
+node_modules/
+
+# macOS
+.DS_Store
+
+# ローカル専用設定（APIキー・パーミッション等）
+.claude/settings.local.json
+
+# 環境変数
+.env
+.env.local
+.env*.local
+
+# ビルド成果物
+.next/
+dist/
+build/
+
+# ログ
+*.log
+npm-debug.log*

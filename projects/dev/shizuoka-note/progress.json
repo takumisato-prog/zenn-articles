@@ -1,0 +1,56 @@
+{
+  "next_article_index": 6,
+  "total": 50,
+  "posted": [
+    {
+      "index": 1,
+      "title": "富士山が「山梨県の山」だと思っている人に静岡県民が言いたい10のこと",
+      "file": "article-01.md",
+      "thumbnail": "thumbnail-01.png",
+      "note_url": null,
+      "posted_at": null,
+      "tags": ["#静岡", "#静岡県", "#静岡情報", "#富士山", "#静岡あるある", "#地方創生"],
+      "series": "A"
+    },
+    {
+      "index": 2,
+      "title": "静岡県の面積は東京都の5倍以上。「静岡って何もない」は完全な誤解だった",
+      "file": "article-02.md",
+      "thumbnail": "thumbnail-02.png",
+      "note_url": null,
+      "posted_at": null,
+      "tags": ["#静岡", "#静岡県", "#静岡情報", "#静岡観光", "#地方創生", "#ローカルメディア"],
+      "series": "A"
+    },
+    {
+      "index": 3,
+      "title": "浜松vs静岡市、100年以上続く「どっちが静岡の中心か」論争の全真相",
+      "file": "article-03.md",
+      "thumbnail": "thumbnail-03.png",
+      "note_url": null,
+      "posted_at": null,
+      "tags": ["#静岡", "#静岡県", "#静岡情報", "#浜松", "#静岡市", "#静岡あるある"],
+      "series": "A"
+    },
+    {
+      "index": 4,
+      "title": "うなぎパイが「夜のお菓子」な理由——春華堂の伝説マーケティング",
+      "file": "article-04.md",
+      "thumbnail": "thumbnail-04.png",
+      "note_url": null,
+      "posted_at": null,
+      "tags": ["#静岡", "#静岡県", "#静岡情報", "#うなぎパイ", "#静岡グルメ", "#ローカルメディア"],
+      "series": "A"
+    },
+    {
+      "index": 5,
+      "title": "静岡の人は「さわやか」なしで生きられない——げんこつハンバーグ教の実態",
+      "file": "article-05.md",
+      "thumbnail": "thumbnail-05.png",
+      "note_url": null,
+      "posted_at": null,
+      "tags": ["#静岡", "#静岡県", "#静岡情報", "#さわやか", "#静岡グルメ", "#静岡あるある"],
+      "series": "A"
+    }
+  ]
+}

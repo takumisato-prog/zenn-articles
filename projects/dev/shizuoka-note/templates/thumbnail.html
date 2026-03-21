@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Oswald:wght@700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 1280px;
+      height: 670px;
+      overflow: hidden;
+      font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic', Meiryo, sans-serif;
+      background: #0D1B2A;
+    }
+
+    .container {
+      width: 1280px;
+      height: 670px;
+      background: linear-gradient(135deg, #0D1B2A 0%, #1E3A5F 55%, #0A2540 100%);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px 90px 60px 110px;
+      overflow: hidden;
+    }
+
+    /* 左端アクセントライン */
+    .accent-line {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 10px;
+      height: 100%;
+      background: linear-gradient(180deg, #E63946 0%, #0077B6 100%);
+    }
+
+    /* 富士山シルエット（右下装飾） */
+    .fuji-bg {
+      position: absolute;
+      right: -20px;
+      bottom: -20px;
+      width: 420px;
+      height: 280px;
+      opacity: 0.07;
+    }
+
+    .fuji-bg svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* 茶畑ドット装飾（右上） */
+    .dots-group {
+      position: absolute;
+      top: 50px;
+      right: 90px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #2D6A4F;
+      opacity: 0.5;
+    }
+
+    /* 斜めライン装飾 */
+    .diagonal-lines {
+      position: absolute;
+      top: 0;
+      right: 200px;
+      width: 300px;
+      height: 670px;
+      opacity: 0.03;
+      background: repeating-linear-gradient(
+        -45deg,
+        #ffffff,
+        #ffffff 2px,
+        transparent 2px,
+        transparent 24px
+      );
+    }
+
+    /* シリーズバッジ */
+    .series-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .badge-label {
+      background: #E63946;
+      color: white;
+      font-size: 18px;
+      font-weight: 700;
+      padding: 5px 18px;
+      border-radius: 3px;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .badge-vol {
+      color: rgba(255, 255, 255, 0.45);
+      font-size: 16px;
+      font-family: 'Oswald', 'Noto Sans JP', sans-serif;
+      letter-spacing: 0.1em;
+    }
+
+    /* メインタイトル */
+    .title {
+      color: #FEFAE0;
+      font-weight: 900;
+      line-height: 1.45;
+      letter-spacing: -0.01em;
+      max-width: 940px;
+      text-shadow: 2px 3px 12px rgba(0, 0, 0, 0.6);
+      font-size: 54px;
+      margin-bottom: 36px;
+      word-break: break-all;
+    }
+
+    /* タイトル長さ別フォントサイズ */
+    .title.long  { font-size: 44px; }
+    .title.xlong { font-size: 36px; }
+    .title.xxlong { font-size: 30px; }
+
+    /* アンダーライン */
+    .title-underline {
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, #E63946, #0077B6);
+      border-radius: 2px;
+      margin-bottom: 28px;
+    }
+
+    /* 下部メタ情報 */
+    .meta {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .site-name {
+      font-family: 'Oswald', 'Noto Sans JP', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 0.15em;
+    }
+
+    .meta-divider {
+      width: 1px;
+      height: 18px;
+      background: rgba(255, 255, 255, 0.2);
+      margin: 0 16px;
+    }
+
+    .meta-sub {
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.35);
+      letter-spacing: 0.05em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="accent-line"></div>
+    <div class="diagonal-lines"></div>
+
+    <!-- 富士山シルエット -->
+    <div class="fuji-bg">
+      <svg viewBox="0 0 420 280" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,280 L70,180 L100,190 L130,150 L165,160 L210,60 L255,160 L290,150 L320,190 L350,180 L420,280 Z" fill="white"/>
+        <path d="M185,90 L210,60 L235,90 L225,85 L210,100 L195,85 Z" fill="white" opacity="0.8"/>
+      </svg>
+    </div>
+
+    <!-- ドット装飾 -->
+    <div class="dots-group">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+
+    <!-- シリーズバッジ -->
+    <div class="series-badge">
+      <span class="badge-label" id="series-label">静岡DEEP</span>
+      <span class="badge-vol" id="vol-text">vol.1</span>
+    </div>
+
+    <!-- メインタイトル -->
+    <h1 class="title" id="title">タイトルがここに入ります</h1>
+
+    <!-- アンダーライン -->
+    <div class="title-underline"></div>
+
+    <!-- メタ情報 -->
+    <div class="meta">
+      <span class="site-name">SHIZUOKA DEEP</span>
+      <div class="meta-divider"></div>
+      <span class="meta-sub">note</span>
+    </div>
+  </div>
+</body>
+</html>
