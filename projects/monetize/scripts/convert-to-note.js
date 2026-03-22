@@ -4,7 +4,6 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { execSync } from 'child_process';
 import { resolve } from 'path';
-import matter from 'gray-matter';
 import MarkdownIt from 'markdown-it';
 
 const md = new MarkdownIt({
@@ -19,7 +18,6 @@ md.renderer.rules.fence = (tokens, idx) => {
   const lang = token.info.trim() || 'text';
   const code = token.content;
 
-  // Mermaidダイアグラム（将来対応: 現在はPNG変換手順を表示）
   if (lang === 'mermaid') {
     const preview = code.trim().split('\n')[0];
     return `<p><em>[図: ${preview}... ← Mermaid図はPNG変換後に手動アップロード]</em></p>\n`;
@@ -36,7 +34,61 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
-// 引数チェック
+// ========================================
+// ハッシュタグ自動生成
+// ========================================
+
+// 常に含める基本タグ
+const BASE_TAGS = ['#ClaudeCode', '#AI活用'];
+
+// キーワード → タグのマッピング（優先度順）
+const HASHTAG_RULES = [
+  { keywords: ['CLAUDE.md', 'claudemd', 'claude.md'],        tags: ['#プロンプトエンジニアリング'] },
+  { keywords: ['スキルファイル', 'スキル機能', 'skills/'],     tags: ['#AIエージェント'] },
+  { keywords: ['エージェント', 'agent', 'Agent'],             tags: ['#AIエージェント'] },
+  { keywords: ['副業', '収益化', '稼ぐ', 'マネタイズ'],       tags: ['#AI副業'] },
+  { keywords: ['プロンプト', 'prompt', 'Prompt'],             tags: ['#プロンプトエンジニアリング'] },
+  { keywords: ['生産性', '効率化', '時短', '自動化'],         tags: ['#生産性向上'] },
+  { keywords: ['自動化', 'automation', 'GAS', 'Python'],      tags: ['#業務自動化'] },
+  { keywords: ['DX', 'デジタルトランスフォーメーション'],      tags: ['#DX推進'] },
+  { keywords: ['開発', 'プログラミング', 'コーディング'],      tags: ['#エンジニア'] },
+  { keywords: ['SEO', 'キーワード', '検索流入'],               tags: ['#SEO'] },
+  { keywords: ['SNS', 'X投稿', 'Instagram', 'マーケ'],        tags: ['#SNSマーケティング'] },
+  { keywords: ['中小企業', '経営者', 'B2B', '静岡'],          tags: ['#中小企業DX'] },
+  { keywords: ['note', 'Zenn', 'ブログ', '記事'],             tags: ['#技術ブログ'] },
+  { keywords: ['ChatGPT', 'OpenAI', 'LLM', 'GPT'],           tags: ['#生成AI'] },
+  { keywords: ['スタートアップ', '起業', '独立'],              tags: ['#起業'] },
+];
+
+// 最大タグ数（noteは多すぎると逆効果）
+const MAX_TAGS = 8;
+
+function generateHashtags(content) {
+  // 記事内にすでに #タグ が含まれている場合はそちらを優先
+  const existingTags = content.match(/#[^\s#、。！？\n]+/g);
+  if (existingTags && existingTags.length >= 3) {
+    return existingTags.join(' ');
+  }
+
+  const tags = new Set(BASE_TAGS);
+
+  for (const rule of HASHTAG_RULES) {
+    if (tags.size >= MAX_TAGS) break;
+    const matched = rule.keywords.some(kw =>
+      content.toLowerCase().includes(kw.toLowerCase())
+    );
+    if (matched) {
+      rule.tags.forEach(tag => tags.add(tag));
+    }
+  }
+
+  return [...tags].slice(0, MAX_TAGS).join(' ');
+}
+
+// ========================================
+// メイン処理
+// ========================================
+
 const args = process.argv.slice(2);
 if (args.length === 0) {
   console.error('使い方: node convert-to-note.js <markdownファイル>');
@@ -54,32 +106,32 @@ try {
   process.exit(1);
 }
 
-// フロントマター（最初の---区切りまでの管理情報）を除去
-// article-XX.md は YAML frontmatter 形式ではなくカスタム形式のため手動処理
-const lines = rawContent.split('\n');
+// 管理情報ヘッダー（---区切り前）を除去
+const allLines = rawContent.split('\n');
 let bodyStart = 0;
-let separatorCount = 0;
-
-for (let i = 0; i < lines.length; i++) {
-  if (lines[i].trim() === '---') {
-    separatorCount++;
-    if (separatorCount === 1) {
-      bodyStart = i + 1;
-      break;
-    }
+for (let i = 0; i < allLines.length; i++) {
+  if (allLines[i].trim() === '---') {
+    bodyStart = i + 1;
+    break;
   }
 }
 
-const bodyContent = lines.slice(bodyStart).join('\n')
+const bodyContent = allLines.slice(bodyStart).join('\n')
   .replace(/^\*\*公開先\*\*.*$/gm, '')
   .replace(/^\*\*価格\*\*.*$/gm, '')
   .replace(/^\*\*想定字数\*\*.*$/gm, '')
   .trim();
 
-// HTML変換
-const bodyHtml = md.render(bodyContent);
+// ハッシュタグ生成（本文末尾にまだなければ追加）
+const hashtags = generateHashtags(bodyContent);
+const hasTrailingTags = /#+\S+\s*$/.test(bodyContent.trimEnd());
+const finalContent = hasTrailingTags
+  ? bodyContent
+  : `${bodyContent}\n\n${hashtags}`;
 
-// クリップボード用HTML（スタイルなし、テキストとして渡す）
+// HTML変換
+const bodyHtml = md.render(finalContent);
+
 const fullHtml = `<!DOCTYPE html>
 <html><head><meta charset="utf-8"></head>
 <body>${bodyHtml}</body>
@@ -89,15 +141,14 @@ const fullHtml = `<!DOCTYPE html>
 const tmpFile = '/tmp/note-article.html';
 writeFileSync(tmpFile, fullHtml, 'utf8');
 
-// macOS: osascriptでHTMLとしてクリップボードにコピー + ブラウザを開く
+// macOS: クリップボードにHTMLコピー + ブラウザ起動
 try {
   execSync(`osascript -e 'set the clipboard to (read (POSIX file "${tmpFile}") as «class HTML»)'`);
-
-  // note.com/notes/new をブラウザで自動起動
   execSync('open https://note.com/notes/new');
 
   const fileName = args[0].split('/').pop();
   console.log(`✅ ${fileName} の準備完了`);
+  console.log(`📌 タグ: ${hashtags}`);
   console.log('');
   console.log('ブラウザが開きました。あとは:');
   console.log('  1. タイトルを入力');
@@ -107,7 +158,5 @@ try {
   console.log('投稿後: Claude Codeに「投稿した」と伝えてください');
 } catch (e) {
   console.error('エラーが発生しました:', e.message);
-  console.log('');
-  console.log('手動で https://note.com/notes/new を開き、以下のHTMLを貼り付けてください:');
   console.log(bodyHtml);
 }
