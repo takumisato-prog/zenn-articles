@@ -16,10 +16,10 @@
       "title": "CLAUDE.mdとは何か？Claude Codeを100倍使いやすくする設定ファイルの書き方",
       "file": "article-02.md",
       "zenn": true,
-      "note": true,
+      "note": false,
       "date": "2026-03-22",
-      "note_date": "2026-03-22",
-      "status": "Zenn投稿済み・note投稿済み"
+      "note_date": null,
+      "status": "Zenn投稿済み・note手動投稿待ち"
     },
     {
       "index": 3,
@@ -28,7 +28,8 @@
       "zenn": true,
       "note": false,
       "date": "2026-03-22",
-      "status": "auto-generated"
+      "note_date": null,
+      "status": "Zenn投稿済み・note手動投稿待ち"
     }
   ],
   "x_posts": [

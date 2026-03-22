@@ -1,10 +1,10 @@
 #!/bin/bash
-# 「note完了」入力時にprogress.jsonのnoteフラグを更新
+# 「note-done」入力時にprogress.jsonのnoteフラグを更新
 
 PROGRESS_FILE="/Users/satoutakumi/AI/projects/monetize/progress.json"
 TODAY=$(date +%Y-%m-%d)
 
-# 入力からファイル名を取得（例: "note完了 article-02.md"）
+# 入力からファイル名を取得（例: "note-done article-02.md"）
 INPUT="$CLAUDE_USER_INPUT"
 FILE=$(echo "$INPUT" | grep -oE 'article-[0-9]+\.md')
 
