@@ -21,3 +21,4 @@ build/
 *.log
 npm-debug.log*
 projects/monetize/zenn-repo/
+projects/monetize/scripts/browser-profile/
