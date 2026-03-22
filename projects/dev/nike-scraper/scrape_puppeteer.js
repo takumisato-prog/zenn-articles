@@ -168,8 +168,7 @@ async function main() {
 
   await browser.close();
 
-  // ========== 価格降順ソート ==========
-  allProducts.sort((a, b) => b.priceNum - a.priceNum);
+  // ソートなし: ページ表示順（上から左→右の順）をそのまま維持
 
   console.log(`\n取得完了: ${allProducts.length}件`);
   if (allProducts.length > 0) {
