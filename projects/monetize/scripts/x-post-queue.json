@@ -5,8 +5,9 @@
     {
       "index": 1,
       "text": "Claude CodeのTips💡\n\ncmuxを使うと、複数プロジェクトを同時並行で管理できる。\n\n切り替えがスムーズになって、AIエージェントに複数タスクを振りやすくなった。\n\nマルチプロジェクト運用してる人は試す価値あり。\n\n#ClaudeCode",
-      "posted": false,
-      "scheduled_time": "7:00"
+      "posted": true,
+      "scheduled_time": "7:00",
+      "posted_at": "2026-03-22T09:00:42.805Z"
     },
     {
       "index": 2,
