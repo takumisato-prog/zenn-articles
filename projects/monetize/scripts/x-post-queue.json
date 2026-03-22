@@ -12,14 +12,16 @@
     {
       "index": 2,
       "text": "実験12日目の正直な報告。\n\n47体のエージェント、動いてはいる。\nただ「稼ぐ」にはまだ遠い。\n\nタスクはこなせても、売上につなげる設計が甘かった。\n今週はそこを作り直してる。\n\n失敗も全部記録します。",
-      "posted": false,
-      "scheduled_time": "11:00"
+      "posted": true,
+      "scheduled_time": "11:00",
+      "posted_at": "2026-03-22T12:00:31.522Z"
     },
     {
       "index": 3,
       "text": "AIエージェントに任せてみて「これは無理だな」と思ったタスク、ありますか？\n\n逆に「意外といけた」も知りたい。\n\n自分の実験の参考にさせてください🙏\n\n#AIエージェント",
-      "posted": false,
-      "scheduled_time": "14:00"
+      "posted": true,
+      "scheduled_time": "14:00",
+      "posted_at": "2026-03-22T22:00:30.215Z"
     },
     {
       "index": 4,
