@@ -19,6 +19,8 @@ import matter from 'gray-matter';
 // 設定（自分の環境に合わせて変更する）
 // ========================================
 const ZENN_REPO_PATH = path.resolve('../zenn-repo'); // Zenn用リポジトリのパス
+const ZENN_USERNAME = 'takumisato_prog'; // ZennユーザーID（要確認）
+const PROGRESS_FILE = path.resolve('../progress.json'); // 投稿管理ファイル
 
 // ========================================
 // 記事のフロントマターをZenn形式に変換
@@ -148,6 +150,20 @@ async function main() {
 
   console.log('\n🚀 GitHubにpush中...');
   pushToGitHub(ZENN_REPO_PATH, outputPath, title);
+
+  // progress.json に zenn_url を記録
+  const zennUrl = `https://zenn.dev/${ZENN_USERNAME}/articles/${slug}`;
+  if (fs.existsSync(PROGRESS_FILE)) {
+    const progress = JSON.parse(fs.readFileSync(PROGRESS_FILE, 'utf-8'));
+    const articleFileName = path.basename(resolvedPath);
+    const matched = progress.posted.find((a) => a.file === articleFileName);
+    if (matched) {
+      matched.zenn_url = zennUrl;
+      fs.writeFileSync(PROGRESS_FILE, JSON.stringify(progress, null, 2), 'utf-8');
+      console.log(`✅ progress.json に zenn_url を記録しました: ${zennUrl}`);
+    }
+  }
+  console.log(`\n🔗 Zenn URL: ${zennUrl}`);
 }
 
 main().catch((err) => {

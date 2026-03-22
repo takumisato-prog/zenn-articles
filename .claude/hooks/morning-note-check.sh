@@ -1,8 +1,44 @@
 #!/bin/bash
-# 「開始」入力時にnote未投稿の記事を検出してコピペ手順を表示
+# 「開始」入力時に公開中記事URL一覧 + note未投稿チェックを表示
 
 MONETIZE_DIR="/Users/satoutakumi/AI/projects/monetize"
 PROGRESS_FILE="$MONETIZE_DIR/progress.json"
+
+# ========================================
+# 公開中記事一覧を表示
+# ========================================
+PUBLISHED=$(python3 -c "
+import json
+with open('$PROGRESS_FILE') as f:
+    data = json.load(f)
+articles = [a for a in data['posted'] if a.get('zenn') or a.get('note')]
+if articles:
+    for a in articles:
+        print(a['title'] + '|' + (a.get('zenn_url') or '') + '|' + (a.get('note_url') or ''))
+")
+
+if [ -n "$PUBLISHED" ]; then
+  echo "========================================"
+  echo "  📊 公開中の記事一覧"
+  echo "========================================"
+  echo ""
+  i=1
+  while IFS='|' read -r title zenn_url note_url; do
+    echo "[$i] $title"
+    if [ -n "$zenn_url" ]; then
+      echo "    Zenn: $zenn_url"
+    else
+      echo "    Zenn: （URL未登録）"
+    fi
+    if [ -n "$note_url" ]; then
+      echo "    note: $note_url"
+    else
+      echo "    note: （URL未登録）"
+    fi
+    echo ""
+    i=$((i + 1))
+  done <<< "$PUBLISHED"
+fi
 
 # jqがなければpythonで代替
 if command -v jq &> /dev/null; then
