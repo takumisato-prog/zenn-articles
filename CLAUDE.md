@@ -59,7 +59,8 @@ AIを活用して、中小企業・個人事業主の「売上・業務効率・
 │       ├── creative-director.md     # クリエイティブ部門
 │       ├── pr-sns-manager.md        # PR・SNS部門
 │       ├── developer.md             # 開発部門
-│       └── weekly-report.md         # 週報書記
+│       ├── weekly-report.md         # 週報書記
+│       └── pre-check.md             # 実装前確認部隊（10名）
 ├── company/
 │   ├── business-plan.md             # 事業ポートフォリオ
 │   ├── daily-tasks.md               # 進行中タスク管理
@@ -87,6 +88,7 @@ AIを活用して、中小企業・個人事業主の「売上・業務効率・
 | `/pr-sns-manager` | PR・SNS部門 | `/pr-sns-manager` → 依頼内容を伝える |
 | `/developer` | 開発部門 | `/developer` → 依頼内容を伝える |
 | `/weekly-report` | 週報書記 | `/weekly-report` → 自動で週報作成を開始 |
+| `/pre-check` | 実装前確認部隊 | `/pre-check` → 実装前に10名が実現可能性を検証 |
 
 ### ショートカット（自然言語トリガー）
 
