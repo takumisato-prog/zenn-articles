@@ -143,31 +143,34 @@ function scrapeNikeProducts() {
 
 // ========== Nike 全商品取得 ==========
 function fetchAllNikeProducts(slug, sortBy) {
-  const seen     = {};
-  const products = [];
+  var seen     = {};
+  var products = [];
 
-  // "over-XXXXX" はプロモーション名であり個別商品の価格条件ではないため価格フィルタは適用しない
-  // 例: "bundle-promo-over-15000" = 合計15,000円以上で割引が適用されるプロモ名
-  // → 全カラーウェイを取得して価格降順で出力する
-
-  // まずHTMLページから totalResources（ページ表示件数）を取得
-  const html = fetchNikePageHtml(slug);
-  const totalResources = extractTotalResources(html);
+  // HTMLページ取得: sortByをクエリパラメータに含めて __NEXT_DATA__ の順序を正確に取得
+  var slugWithSort = sortBy ? slug + '?sortBy=' + sortBy : slug;
+  var html = fetchNikePageHtml(slugWithSort);
+  var totalResources = extractTotalResources(html);
   Logger.log('Nike ページ表示件数 (totalResources): ' + totalResources);
 
-  const attributeIds = extractChannelIdFromSlug(slug);
+  // ① __NEXT_DATA__ の productGroupings から最初のページ商品を取得
+  // product_feed API に含まれない商品（例: HJ2147-003）を確保するために必須
+  var nextDataProducts = parseProductGroupings(html);
+  nextDataProducts.forEach(function(p) {
+    if (!seen[p.styleColor]) { seen[p.styleColor] = true; products.push(p); }
+  });
+  Logger.log('__NEXT_DATA__ 取得: ' + nextDataProducts.length + '件');
+
+  // ② product_feed API で全ページのスウォッチバリエーションを取得
+  var attributeIds = extractChannelIdFromSlug(slug);
   Logger.log('attributeIds: ' + attributeIds);
 
-  // 製品フィード API を anchor=0 からページネーション
-  // totalResources はロールアップ（カード）数 → ページネーション終了判定にのみ使用
-  // rollup.threads 展開後の商品数はカード数より多くなるため上限には使わない
   if (attributeIds) {
-    let anchor = 0;
-    let rollupFetched = 0;
-    const maxPages = 15;
+    var anchor = 0;
+    var rollupFetched = 0;
+    var maxPages = 15;
 
     for (var page = 0; page < maxPages; page++) {
-      const result = fetchFromProductFeedApi(attributeIds, anchor);
+      var result = fetchFromProductFeedApi(attributeIds, anchor);
       Logger.log('フィードAPI anchor=' + anchor + ': raw=' + result.rawCount + '件 / 解析=' + result.products.length + '件');
 
       result.products.forEach(function(p) {
@@ -176,23 +179,99 @@ function fetchAllNikeProducts(slug, sortBy) {
 
       rollupFetched += result.rawCount;
 
-      // 最終ページ判定（48件未満 = 最終ページ）を優先し全件取得する
       if (result.rawCount === 0 || result.rawCount < 48) break;
-      // totalResources（ページ表示カード数）を超えたら終了
       if (totalResources > 0 && rollupFetched >= totalResources) break;
       anchor += 48;
       Utilities.sleep(400);
     }
-    Logger.log('製品フィードAPI 総取得: ' + products.length + '件 (カード数: ' + rollupFetched + '/' + totalResources + ')');
+    Logger.log('フィードAPI 総取得: ' + products.length + '件 (カード数: ' + rollupFetched + '/' + totalResources + ')');
   }
 
-  // 常に価格の高い順（降順）にソート（Nike ページの「価格：高〜低」表示順に合わせる）
-  // URL に ?sortBy=priceAsc が含まれる場合のみ昇順にする
+  // FOOTWEAR のみ（product_feed API 由来の APPAREL/EQUIPMENT を除外）
+  // productType が空（__NEXT_DATA__ 由来の一部）は除外しない
+  var hasTypes = products.some(function(p) { return p.productType; });
+  if (hasTypes) {
+    var before = products.length;
+    products = products.filter(function(p) { return !p.productType || p.productType === 'FOOTWEAR'; });
+    Logger.log('FOOTWEARフィルタ: ' + before + '件 → ' + products.length + '件');
+  }
+
+  // 価格降順ソート（URL に ?sortBy=priceAsc のみ昇順）
   if (sortBy === 'priceAsc') {
     products.sort(function(a, b) { return a.priceNum - b.priceNum; });
   } else {
     products.sort(function(a, b) { return b.priceNum - a.priceNum; });
   }
+
+  return products;
+}
+
+// ========== __NEXT_DATA__ の productGroupings から商品を抽出 ==========
+// product_feed API では取得できない商品（高価格帯など）を補完するために使用
+function parseProductGroupings(html) {
+  var products = [];
+  if (!html) return products;
+
+  var marker     = 'id="__NEXT_DATA__"';
+  var mIdx       = html.indexOf(marker);
+  if (mIdx === -1) { Logger.log('__NEXT_DATA__ タグなし'); return products; }
+  var contentStart = html.indexOf('>', mIdx) + 1;
+  var contentEnd   = html.indexOf('</script>', contentStart);
+  if (contentStart <= 0 || contentEnd <= 0) return products;
+
+  var jsonStr = html.substring(contentStart, contentEnd);
+  var data;
+  try { data = JSON.parse(jsonStr); } catch(e) { Logger.log('__NEXT_DATA__ JSON.parse エラー: ' + e); return products; }
+
+  // productGroupings コンテナを再帰的に探す
+  function findGroupingsContainer(obj, depth) {
+    if (!obj || typeof obj !== 'object' || depth > 20) return null;
+    if (obj.productGroupings && Array.isArray(obj.productGroupings)) return obj;
+    if (Array.isArray(obj)) {
+      for (var i = 0; i < obj.length; i++) {
+        var r = findGroupingsContainer(obj[i], depth + 1);
+        if (r) return r;
+      }
+    } else {
+      var keys = Object.keys(obj);
+      for (var k = 0; k < keys.length; k++) {
+        var r = findGroupingsContainer(obj[keys[k]], depth + 1);
+        if (r) return r;
+      }
+    }
+    return null;
+  }
+
+  var container = findGroupingsContainer(data, 0);
+  if (!container) { Logger.log('productGroupings コンテナが見つかりません'); return products; }
+
+  var seen = {};
+  (container.productGroupings || []).forEach(function(g) {
+    (g.products || []).forEach(function(p) {
+      var sc = p.productCode;
+      if (!sc || !/^[A-Z]{2}\d{4}-\d{3}$/.test(sc) || seen[sc]) return;
+      seen[sc] = true;
+
+      // By You（カスタム）商品はURLで識別して除外
+      var pdpUrl = (p.pdpUrl && p.pdpUrl.url) || '';
+      if (pdpUrl.indexOf('by-you') !== -1) return;
+
+      var pr       = p.prices || {};
+      var priceNum = pr.currentPrice || pr.fullPrice || 0;
+      var fullPrice = pr.initialPrice || priceNum;
+
+      products.push({
+        styleColor:  sc,
+        color:       '',   // productGroupings にカラー名フィールドなし
+        priceNum:    priceNum,
+        fullPrice:   fullPrice,
+        url:         pdpUrl,
+        productType: p.productType || '',
+        amazonAsin:  '', amazonUrl: '', amazonPrice: 0,
+        grossProfit: 0, grossMargin: 0, salesRank: 0, profitFlag: '',
+      });
+    });
+  });
 
   return products;
 }
