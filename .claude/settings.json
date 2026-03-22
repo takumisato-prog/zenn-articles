@@ -31,6 +31,16 @@
     ],
     "UserPromptSubmit": [
       {
+        "matcher": "note完了",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /Users/satoutakumi/AI/.claude/hooks/note-complete.sh",
+            "statusMessage": "note投稿完了を記録中..."
+          }
+        ]
+      },
+      {
         "matcher": "終了",
         "hooks": [
           {
@@ -47,6 +57,11 @@
             "type": "command",
             "command": "bash /Users/satoutakumi/AI/.claude/hooks/git-pull-on-start.sh",
             "statusMessage": "GitHubから最新データを取得中..."
+          },
+          {
+            "type": "command",
+            "command": "bash /Users/satoutakumi/AI/.claude/hooks/morning-note-check.sh",
+            "statusMessage": "note投稿チェック中..."
           }
         ]
       }
