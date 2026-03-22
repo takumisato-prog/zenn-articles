@@ -1,13 +1,31 @@
 {
-  "next_article_index": 2,
+  "next_article_index": 3,
   "posted": [
     {
       "index": 1,
       "title": "Claude Codeで「AIだけで動く会社」を作った話",
       "file": "article-01.md",
       "zenn": true,
+      "note": true,
+      "date": "2026-03-19",
+      "note_date": "2026-03-22",
+      "status": "修正済み（誤記訂正・47名体制・実験宣言追加）"
+    },
+    {
+      "index": 2,
+      "title": "CLAUDE.mdとは何か？Claude Codeを100倍使いやすくする設定ファイルの書き方",
+      "file": "article-02.md",
+      "zenn": false,
       "note": false,
-      "date": "2026-03-19"
+      "date": null,
+      "status": "執筆完了・投稿待ち"
+    }
+  ],
+  "x_posts": [
+    {
+      "file": "x-post-experiment-start.md",
+      "status": "作成完了・投稿待ち",
+      "date": "2026-03-22"
     }
   ]
 }
