@@ -1,6 +1,0 @@
-test_scrape.js
-*.md
-.claspignore
-node_modules/**
-package.json
-package-lock.json
