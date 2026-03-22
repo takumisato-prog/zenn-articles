@@ -89,23 +89,25 @@ const fullHtml = `<!DOCTYPE html>
 const tmpFile = '/tmp/note-article.html';
 writeFileSync(tmpFile, fullHtml, 'utf8');
 
-// macOS: osascriptでHTMLとしてクリップボードにコピー
+// macOS: osascriptでHTMLとしてクリップボードにコピー + ブラウザを開く
 try {
   execSync(`osascript -e 'set the clipboard to (read (POSIX file "${tmpFile}") as «class HTML»)'`);
 
+  // note.com/notes/new をブラウザで自動起動
+  execSync('open https://note.com/notes/new');
+
   const fileName = args[0].split('/').pop();
-  console.log(`✅ ${fileName} をクリップボードにコピーしました`);
+  console.log(`✅ ${fileName} の準備完了`);
   console.log('');
-  console.log('投稿手順:');
-  console.log('  1. https://note.com/notes/new を開く');
-  console.log('  2. タイトルを入力');
-  console.log('  3. 本文欄をクリック → Cmd+V で貼り付け');
-  console.log('  4. 右上「公開設定」→「公開する」');
+  console.log('ブラウザが開きました。あとは:');
+  console.log('  1. タイトルを入力');
+  console.log('  2. 本文欄をクリック → Cmd+V で貼り付け');
+  console.log('  3. 右上「公開設定」→「公開する」');
   console.log('');
   console.log('投稿後: Claude Codeに「投稿した」と伝えてください');
 } catch (e) {
-  console.error('クリップボードへのコピーに失敗しました');
-  console.log('生成されたHTMLを手動でコピーしてください:');
+  console.error('エラーが発生しました:', e.message);
   console.log('');
+  console.log('手動で https://note.com/notes/new を開き、以下のHTMLを貼り付けてください:');
   console.log(bodyHtml);
 }
