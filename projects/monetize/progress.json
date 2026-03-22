@@ -1,5 +1,5 @@
 {
-  "next_article_index": 3,
+  "next_article_index": 4,
   "posted": [
     {
       "index": 1,
@@ -19,6 +19,15 @@
       "note": false,
       "date": null,
       "status": "執筆完了・投稿待ち"
+    },
+    {
+      "index": 3,
+      "title": "Claude Codeのスキル機能で専門家AIを10体作った方法（スレッド）",
+      "file": "article-03.md",
+      "zenn": true,
+      "note": false,
+      "date": "2026-03-22",
+      "status": "auto-generated"
     }
   ],
   "x_posts": [
