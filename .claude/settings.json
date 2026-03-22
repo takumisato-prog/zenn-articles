@@ -31,16 +31,6 @@
     ],
     "UserPromptSubmit": [
       {
-        "matcher": "note-done",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash /Users/satoutakumi/AI/.claude/hooks/note-complete.sh",
-            "statusMessage": "note投稿完了を記録中..."
-          }
-        ]
-      },
-      {
         "matcher": "終了",
         "hooks": [
           {

@@ -63,6 +63,6 @@ for line in lines:
 " | sed '/^\*\*公開先\*\*/d' | sed '/^\*\*価格\*\*/d' | sed '/^\*\*想定字数\*\*/d'
   echo "---本文ここまで---"
   echo ""
-  echo "投稿完了後に [完了] と入力してください: note-done $file"
+  echo ">>> 投稿後はClaude Codeに「投稿した」と伝えてください <<<"
   echo ""
 done <<< "$PENDING"
