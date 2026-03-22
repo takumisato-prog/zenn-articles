@@ -50,7 +50,7 @@ async function postArticle(page, title, body, draftOnly) {
   console.log('   エディタ読み込み待機中...');
   const titleEl = await page.waitForSelector(
     '.ProseMirror, [contenteditable="true"], h1[contenteditable]',
-    { timeout: 20000 }
+    { timeout: 60000 }
   ).catch(() => null);
 
   if (!titleEl) throw new Error('エディタが開きませんでした。セッションが切れた可能性があります。');
