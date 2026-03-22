@@ -6,6 +6,7 @@
 const puppeteer = require('puppeteer');
 const fs        = require('fs');
 const path      = require('path');
+const { execSync } = require('child_process');
 
 const NIKE_URL = process.argv[2] || 'https://www.nike.com/jp/w/bundle-promo-over-15000-shoes-6bt7oztll2zy7ok?sortBy=priceDesc';
 const OUTPUT_FILE = path.join(__dirname, 'nike_products.csv');
@@ -189,6 +190,14 @@ async function main() {
   });
   fs.writeFileSync(OUTPUT_FILE, '\uFEFF' + lines.join('\n'), 'utf8'); // BOM付きUTF-8（Excel対応）
   console.log(`\nCSV出力完了: ${OUTPUT_FILE}`);
+
+  // 完了後、Finderでファイルを選択した状態で開く
+  try {
+    execSync(`open -R "${OUTPUT_FILE}"`);
+    console.log('Finderを開きました');
+  } catch (e) {
+    // Finder起動失敗は無視
+  }
 }
 
 function sleep(ms) {
