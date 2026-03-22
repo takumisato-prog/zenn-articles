@@ -102,9 +102,12 @@ function convertToZennFormat(articlePath) {
 // ========================================
 function pushToGitHub(repoPath, filePath, title) {
   try {
-    execSync(`git -C "${repoPath}" add "${filePath}"`, { stdio: 'inherit' });
-    execSync(`git -C "${repoPath}" commit -m "記事追加: ${title}"`, { stdio: 'inherit' });
-    execSync(`git -C "${repoPath}" push origin main`, { stdio: 'inherit' });
+    const gitDir = path.join(repoPath, '.git');
+    const gitCmd = `git --git-dir="${gitDir}" --work-tree="${repoPath}"`;
+    const relFilePath = path.relative(repoPath, filePath);
+    execSync(`${gitCmd} add "${relFilePath}"`, { stdio: 'inherit' });
+    execSync(`${gitCmd} commit -m "記事追加: ${title}"`, { stdio: 'inherit' });
+    execSync(`${gitCmd} push origin main`, { stdio: 'inherit' });
     console.log('\n✅ GitHubにpushしました。Zennに自動公開されます。');
   } catch (err) {
     console.error('\n❌ git push に失敗しました:', err.message);
