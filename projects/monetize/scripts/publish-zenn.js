@@ -19,7 +19,7 @@ import matter from 'gray-matter';
 // 設定（自分の環境に合わせて変更する）
 // ========================================
 const ZENN_REPO_PATH = path.resolve('../zenn-repo'); // Zenn用リポジトリのパス
-const ZENN_USERNAME = 'takumisato_prog'; // ZennユーザーID（要確認）
+const ZENN_USERNAME = 'ti_ai'; // ZennユーザーID
 const PROGRESS_FILE = path.resolve('../progress.json'); // 投稿管理ファイル
 
 // ========================================
