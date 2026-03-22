@@ -20,3 +20,4 @@ build/
 # ログ
 *.log
 npm-debug.log*
+projects/monetize/zenn-repo/
