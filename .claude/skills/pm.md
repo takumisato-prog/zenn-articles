@@ -126,20 +126,33 @@ OUT:
 
 ### EC新規参入（フルパッケージ）
 ```
-Week1-2: researcher → 市場調査・競合分析
-Week2-3: ec-ads → 商品ページ最適化
-Week3-4: creative → 商品画像・LP制作
-Week4-5: developer → LP実装
-Week5: pr-sns → 初回PR・SNS告知
-Week6: analyst → 初期データ分析・改善提案
+Week1-2: research-lead（market-researcher/competitor-analyst/keyword-researcher）→ 市場調査
+Week2-3: ec-ads-lead（amazon-specialist/ec-strategist）→ 商品ページ最適化
+Week3-4: creative-lead（copywriter/lp-designer/ad-creative）→ 商品画像・LP制作
+Week4-5: dev-lead（frontend-developer）→ LP実装
+Week5: pr-sns-lead（pr-writer/x-specialist/instagram-specialist）→ 初回PR・SNS告知
+Week6: analytics-lead（ec-analyst/ads-analyst/report-specialist）→ 初期データ分析
 ```
 
 ### DX導入パッケージ
 ```
-Week1: researcher → 現状業務調査
-Week1-2: dx-consultant → 導入提案・設定
-Week3-4: creative → 社内説明資料・研修資料制作
-Week5: qa-manager → 動作確認・検収
+Week1: process-analyst → 現状業務フロー分析
+Week1-2: dx-lead（gws-specialist）→ 導入設計・設定
+Week3-4: training-specialist → 研修資料・マニュアル制作
+Week5: qa-lead → 動作確認・検収
+Week6: analytics-lead → 効果測定・ROIレポート
+```
+
+### 新規サービスリリース（フルパッケージ）
+```
+Week1: strategy → 事業戦略・ポジショニング設計
+Week1-2: research-lead → 市場・競合調査
+Week2-3: sales-lead（proposal-writer）→ 営業戦略・提案書作成
+Week2-4: dev-lead（frontend/backend）→ サービス開発
+Week4-5: creative-lead（copywriter/lp-designer）→ LP・クリエイティブ
+Week5-6: pr-sns-lead → PR・SNS告知
+Week6: qa-lead → 納品前品質チェック
+Week7以降: analytics-lead → 効果測定・改善PDCA
 ```
 
 ---

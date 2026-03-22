@@ -34,22 +34,104 @@ AIを活用して、中小企業・個人事業主の「売上・業務効率・
 
 ---
 
-## 各部門の担当領域
+## 各部門の担当領域（全47名体制）
 
-| 部門 | スキル名 | モデル | 担当サービス |
-|------|---------|--------|------------|
-| 全体PM | `pm` | claude-sonnet-4-6 | 案件振り分け・進捗管理・部門間調整 |
-| DX支援 | `dx-consultant` | claude-opus-4-6 | Googleワークスペース導入・業務自動化・DX推進 |
-| EC・広告 | `ec-ads-specialist` | claude-sonnet-4-6 | Amazon販売支援・商品ページ・SEO・広告運用（AmazonAds/Google認定） |
-| クリエイティブ | `creative-director` | claude-sonnet-4-6 | LP作成・商品画像ディレクション・コピーライティング |
-| PR・SNS | `pr-sns-manager` | claude-sonnet-4-6 | PR TIMES記事・プレスリリース・SNS運用 |
-| 開発 | `developer` | claude-sonnet-4-6 | Webアプリ・ツール開発・自動化スクリプト |
-| リサーチ | `researcher` | claude-sonnet-4-6 | 市場調査・競合分析・キーワードリサーチ・トレンド調査 |
-| アナリスト | `analyst` | claude-sonnet-4-6 | KPI分析・効果測定・ROI算出・月次レポート |
-| 営業 | `sales` | claude-sonnet-4-6 | 新規顧客獲得・クロージング・顧客フォロー・アップセル |
-| 提案書作成 | `proposal-writer` | claude-sonnet-4-6 | 提案書・見積書・サービス資料作成 |
-| 品質管理 | `qa-manager` | claude-sonnet-4-6 | 納品前品質チェック・5名検査官レビュー |
-| 財務 | `finance` | claude-sonnet-4-6 | 請求書・収支管理・料金設定・キャッシュフロー |
+### 統括層
+| 役職 | スキル名 | モデル | 担当 |
+|-----|---------|--------|------|
+| 全体PM | `pm` | sonnet-4-6 | 案件振り分け・進捗管理・部門間調整 |
+| 事業戦略 | `strategy` | opus-4-6 | 事業計画・成長戦略・新規事業設計 |
+
+### 戦略・情報部門（4名）
+| 役職 | スキル名 | 担当 |
+|-----|---------|------|
+| 部門長 | `research-lead` | 調査統括・統合レポート |
+| 市場調査 | `market-researcher` | 市場規模・顧客インサイト |
+| 競合分析 | `competitor-analyst` | 競合分析・ポジショニング |
+| KWリサーチ | `keyword-researcher` | SEO/Amazon/広告KW設計 |
+
+### アナリスト部門（4名）
+| 役職 | スキル名 | 担当 |
+|-----|---------|------|
+| 部門長 | `analytics-lead` | KPI設計・全社分析統括 |
+| EC分析 | `ec-analyst` | Amazon・EC売上分析 |
+| 広告分析 | `ads-analyst` | ROAS・ACOS・CPA最適化 |
+| レポート | `report-specialist` | 月次レポート・ダッシュボード |
+
+### 営業部門（5名）
+| 役職 | スキル名 | 担当 |
+|-----|---------|------|
+| 部門長 | `sales-lead` | 営業戦略・目標管理 |
+| 新規開拓 | `outbound-sales` | テレアポ・DM・リスト作成 |
+| 商談クロージング | `inbound-sales` | 問い合わせ対応・クロージング |
+| 顧客管理 | `account-manager` | 既存顧客フォロー・アップセル |
+| 提案書 | `proposal-writer` | 提案書・見積書作成 |
+
+### EC・広告部門（5名）
+| 役職 | スキル名 | 担当 |
+|-----|---------|------|
+| 部門長 | `ec-ads-lead` | EC戦略・予算配分統括 |
+| Amazon | `amazon-specialist` | 商品ページ・AmazonAds |
+| Google広告 | `google-ads-specialist` | 検索/ショッピング/P-MAX |
+| SEO | `seo-specialist` | 検索最適化・コンテンツSEO |
+| EC戦略 | `ec-strategist` | 価格・レビュー・CRO |
+
+### クリエイティブ部門（5名）
+| 役職 | スキル名 | 担当 |
+|-----|---------|------|
+| 部門長 | `creative-lead` | クリエイティブ戦略・統括 |
+| コピー | `copywriter` | セールスコピー・広告文 |
+| LP | `lp-designer` | LP構成・UX・ワイヤーフレーム |
+| 広告素材 | `ad-creative` | バナー・SNS画像・動画構成 |
+| ブランド | `brand-designer` | ロゴ・VI・ブランドガイドライン |
+
+### PR・SNS部門（5名）
+| 役職 | スキル名 | 担当 |
+|-----|---------|------|
+| 部門長 | `pr-sns-lead` | PR/SNS戦略統括 |
+| PR | `pr-writer` | プレスリリース・PR TIMES |
+| X運用 | `x-specialist` | X（Twitter）バズ戦略 |
+| Instagram | `instagram-specialist` | リール・フィード・ストーリーズ |
+| コンテンツ戦略 | `content-strategist` | 全媒体統合コンテンツ設計 |
+
+### 開発部門（6名）
+| 役職 | スキル名 | 担当 |
+|-----|---------|------|
+| テックリード | `dev-lead` | 技術設計・アーキテクチャ |
+| フロントエンド | `frontend-developer` | Next.js・React・LP実装 |
+| バックエンド | `backend-developer` | API・DB・認証 |
+| 自動化 | `automation-engineer` | GAS・Python・n8n |
+| インフラ | `infra-engineer` | クラウド・CI/CD・セキュリティ |
+| データ収集 | `scraping-specialist` | スクレイピング・API連携 |
+
+### DX支援部門（4名）
+| 役職 | スキル名 | 担当 |
+|-----|---------|------|
+| 部門長 | `dx-lead` | DX戦略・クライアント折衝 |
+| GWS | `gws-specialist` | Google Workspace設定・運用 |
+| 業務分析 | `process-analyst` | 業務フロー分析・改善設計 |
+| 研修 | `training-specialist` | マニュアル・研修・定着化 |
+
+### 品質管理部門（4名）
+| 役職 | スキル名 | 担当 |
+|-----|---------|------|
+| 部門長 | `qa-lead` | 品質統括・最終承認 |
+| コードレビュー | `code-reviewer` | コード品質・セキュリティ |
+| コンテンツレビュー | `content-reviewer` | 文書・コピー品質 |
+| コンプライアンス | `compliance-checker` | 薬機法・景表法・規約確認 |
+
+### 財務・管理部門（3名）
+| 役職 | スキル名 | 担当 |
+|-----|---------|------|
+| 部門長 | `finance-lead` | 財務戦略・収支統括 |
+| 請求管理 | `billing-specialist` | 請求書・入金・未収金 |
+| 料金戦略 | `pricing-specialist` | 価格設定・プラン設計・見積 |
+
+### サポート（2名）
+| 役職 | スキル名 | 担当 |
+|-----|---------|------|
+| 週報書記 | `weekly-report` | 週次レポート自動生成 |
+| 実装前確認 | `pre-check` | 実装前10名検証チーム |
 
 ---
 
@@ -60,32 +142,39 @@ AIを活用して、中小企業・個人事業主の「売上・業務効率・
 ├── CLAUDE.md                        # この会社定義ファイル
 ├── .claude/
 │   ├── settings.json
-│   └── skills/
-│       ├── pm.md                    # 全体PM
-│       ├── dx-consultant.md         # DX支援部門
-│       ├── ec-ads-specialist.md     # EC・広告部門
-│       ├── creative-director.md     # クリエイティブ部門
-│       ├── pr-sns-manager.md        # PR・SNS部門
-│       ├── developer.md             # 開発部門
-│       ├── researcher.md            # リサーチ部門
-│       ├── analyst.md               # アナリスト部門
-│       ├── sales.md                 # 営業部門
-│       ├── proposal-writer.md       # 提案書作成部門
-│       ├── qa-manager.md            # 品質管理部門
-│       ├── finance.md               # 財務部門
-│       ├── weekly-report.md         # 週報書記
-│       └── pre-check.md             # 実装前確認部隊（10名）
+│   └── skills/                      # 全47名 + サポート2名
+│       ├── pm.md / strategy.md      # 統括層
+│       ├── research-lead.md / market-researcher.md / competitor-analyst.md / keyword-researcher.md
+│       ├── analytics-lead.md / ec-analyst.md / ads-analyst.md / report-specialist.md
+│       ├── sales-lead.md / outbound-sales.md / inbound-sales.md / account-manager.md / proposal-writer.md
+│       ├── ec-ads-lead.md / amazon-specialist.md / google-ads-specialist.md / seo-specialist.md / ec-strategist.md
+│       ├── creative-lead.md / copywriter.md / lp-designer.md / ad-creative.md / brand-designer.md
+│       ├── pr-sns-lead.md / pr-writer.md / x-specialist.md / instagram-specialist.md / content-strategist.md
+│       ├── dev-lead.md / frontend-developer.md / backend-developer.md / automation-engineer.md / infra-engineer.md / scraping-specialist.md
+│       ├── dx-lead.md / gws-specialist.md / process-analyst.md / training-specialist.md
+│       ├── qa-lead.md / code-reviewer.md / content-reviewer.md / compliance-checker.md
+│       ├── finance-lead.md / billing-specialist.md / pricing-specialist.md
+│       └── weekly-report.md / pre-check.md  # サポート
 ├── company/
-│   ├── business-plan.md             # 事業ポートフォリオ
-│   ├── daily-tasks.md               # 進行中タスク管理
+│   ├── business-plan.md
+│   ├── daily-tasks.md
+│   ├── strategy/                    # 事業戦略資料
 │   ├── finance/                     # 請求書・収支管理
-│   └── weekly-reports/              # 週報アーカイブ
-└── projects/                        # 実装・成果物格納
+│   │   └── billing/
+│   └── weekly-reports/
+└── projects/
     ├── dx/
+    │   ├── gws/ / process/ / training/
     ├── ec-ads/
+    │   ├── amazon/ / google/ / seo/
     ├── creative/
+    │   ├── copy/ / lp/ / ads/ / brand/
     ├── pr-sns/
-    └── dev/
+    │   ├── pr/ / x/ / instagram/
+    ├── dev/
+    │   ├── automation/ / infra/ / data/
+    ├── research/
+    └── analytics/
 ```
 
 ---
