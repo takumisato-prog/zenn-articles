@@ -178,19 +178,20 @@ function fetchAllNikeProducts(slug, sortBy) {
 
       // 最終ページ判定（48件未満 = 最終ページ）を優先し全件取得する
       if (result.rawCount === 0 || result.rawCount < 48) break;
-      // totalResources を超えたら念のため終了（無限ループ防止）
-      if (totalResources > 0 && rollupFetched >= totalResources * 2) break;
+      // totalResources（ページ表示カード数）を超えたら終了
+      if (totalResources > 0 && rollupFetched >= totalResources) break;
       anchor += 48;
       Utilities.sleep(400);
     }
     Logger.log('製品フィードAPI 総取得: ' + products.length + '件 (カード数: ' + rollupFetched + '/' + totalResources + ')');
   }
 
-  // Nike ページの表示順（価格降順）に合わせてソート
-  if (sortBy === 'priceDesc') {
-    products.sort(function(a, b) { return b.priceNum - a.priceNum; });
-  } else if (sortBy === 'priceAsc') {
+  // 常に価格の高い順（降順）にソート（Nike ページの「価格：高〜低」表示順に合わせる）
+  // URL に ?sortBy=priceAsc が含まれる場合のみ昇順にする
+  if (sortBy === 'priceAsc') {
     products.sort(function(a, b) { return a.priceNum - b.priceNum; });
+  } else {
+    products.sort(function(a, b) { return b.priceNum - a.priceNum; });
   }
 
   return products;
@@ -385,12 +386,13 @@ function fetchFromProductFeedApi(attributeIds, anchor) {
       });
     }
 
-    // APPARELのみ除外（サンダル・スライド・スパイク等は FOOTWEAR 以外のタイプのため除外しない）
+    // FOOTWEAR のみ取得（Nike ページの shoes カテゴリフィルタに対応）
+    // APPAREL はページに表示されないため除外。ソックスも FOOTWEAR に分類されるため含まれる。
     var hasProductType = parsed.some(function(p) { return p.productType; });
     if (hasProductType) {
       var beforeFilter = parsed.length;
-      parsed = parsed.filter(function(p) { return p.productType !== 'APPAREL'; });
-      Logger.log('  productTypeフィルタ: ' + beforeFilter + '件 → ' + parsed.length + '件 (APPAREL除外)');
+      parsed = parsed.filter(function(p) { return p.productType === 'FOOTWEAR'; });
+      Logger.log('  productTypeフィルタ: ' + beforeFilter + '件 → ' + parsed.length + '件 (FOOTWEAR のみ)');
     }
 
     parsed.forEach(function(p) { results.push(p); });
@@ -418,6 +420,10 @@ function parseNikeFeedItem(obj) {
     const sc = mp.styleColor;
     if (!sc || !/^[A-Z]{2}\d{4}-\d{3}$/.test(sc) || seen[sc]) return;
     seen[sc] = true;
+
+    // By You（カスタム）商品はバンドルプロモページに表示されないため除外
+    const pcSlug = (info.productContent && info.productContent.slug) || '';
+    if (pcSlug.indexOf('by-you') !== -1) return;
 
     // 価格: currentPrice（セール価格）と fullPrice（定価）を両方保持
     const mpr       = info.merchPrice || {};
@@ -643,24 +649,25 @@ function highlightProfitableRows(sheet, cols) {
 }
 
 // ========== スプレッドシートへ書き込み（Nike基本データのみ） ==========
+// setValues で列ごと一括書き込み（setValue 1セルずつはタイムアウトの原因のため廃止）
 function writeProducts(sheet, products, cols, discountRate) {
-  const now = Utilities.formatDate(new Date(), 'Asia/Tokyo', 'yyyy/MM/dd HH:mm');
+  if (products.length === 0) return;
 
-  products.forEach(function(p, i) {
-    const row = 3 + i;
-    if (cols.styleColor) sheet.getRange(row, cols.styleColor).setValue(p.styleColor);
-    if (cols.color)      sheet.getRange(row, cols.color).setValue(p.color);
-    if (cols.url) {
-      // 日本語を含むURLはHYPERLINK数式でエラーになるためプレーンテキストで書く
-      sheet.getRange(row, cols.url).setValue(p.url);
-    }
-    if (cols.price)          sheet.getRange(row, cols.price).setValue(p.priceNum || '');
-    if (cols.discountedPrice && p.priceNum > 0 && discountRate > 0)
-                             sheet.getRange(row, cols.discountedPrice).setValue(Math.floor(p.priceNum * (1 - discountRate / 100)));
-  });
+  if (cols.styleColor) sheet.getRange(3, cols.styleColor, products.length, 1)
+    .setValues(products.map(function(p) { return [p.styleColor]; }));
+  if (cols.color) sheet.getRange(3, cols.color, products.length, 1)
+    .setValues(products.map(function(p) { return [p.color]; }));
+  if (cols.url) sheet.getRange(3, cols.url, products.length, 1)
+    .setValues(products.map(function(p) { return [p.url]; }));
+  if (cols.price) sheet.getRange(3, cols.price, products.length, 1)
+    .setValues(products.map(function(p) { return [p.priceNum || '']; }));
+  if (cols.discountedPrice && discountRate > 0)
+    sheet.getRange(3, cols.discountedPrice, products.length, 1)
+      .setValues(products.map(function(p) {
+        return [p.priceNum > 0 ? Math.floor(p.priceNum * (1 - discountRate / 100)) : ''];
+      }));
 
-  // D1 に取得日時を記録（Row1の設定セルエリア、Row2ヘッダーは上書きしない）
-  sheet.getRange('D1').setValue('最終取得: ' + now);
+  sheet.getRange('D1').setValue('最終取得: ' + Utilities.formatDate(new Date(), 'Asia/Tokyo', 'yyyy/MM/dd HH:mm'));
 }
 
 // ========== Keepa結果をシートに反映（Nikeデータ書込み後に呼ぶ） ==========
@@ -695,11 +702,11 @@ function findColumnsByHeader(sheet) {
 function clearDataArea(sheet, cols) {
   const lastRow = sheet.getLastRow();
   if (lastRow < 3) return;
-  Object.values(cols).filter(Boolean).forEach(function(colNum) {
-    const range = sheet.getRange(3, colNum, lastRow - 2, 1);
-    range.clearContent();
-    range.setBackground(null);
-  });
+  const colNums = Object.values(cols).filter(Boolean);
+  if (colNums.length === 0) return;
+  const maxCol = Math.max.apply(null, colNums);
+  // 一括クリア（列ごとのループより高速）
+  sheet.getRange(3, 1, lastRow - 2, maxCol).clearContent().setBackground(null);
 }
 
 // ========== URLを確実に取得 ==========
