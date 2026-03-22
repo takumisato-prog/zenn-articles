@@ -45,11 +45,13 @@ function main() {
   console.log(nextPost.text);
   console.log('');
 
+  // 一時ファイル経由で改行を正しく渡す
   const scriptPath = path.join(SCRIPTS_DIR, 'publish-tokai-x.js');
-  const escaped = nextPost.text.replace(/"/g, '\\"').replace(/\n/g, '\\n');
+  const tmpFile = `/tmp/x-post-${Date.now()}.txt`;
+  fs.writeFileSync(tmpFile, nextPost.text, 'utf-8');
 
   try {
-    execSync(`/usr/local/bin/node "${scriptPath}" "${escaped}"`, {
+    execSync(`/usr/local/bin/node "${scriptPath}" --file "${tmpFile}"`, {
       stdio: 'inherit',
       cwd: SCRIPTS_DIR,
     });
