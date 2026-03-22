@@ -1,6 +1,6 @@
 ---
 name: pm
-description: 全体PMエージェント。5部門（DX支援/EC・広告/クリエイティブ/PR・SNS/開発）の統括・案件振り分け・進捗管理を担当する。「案件の担当を決めて」「どの部門に頼めばいい？」「全体を整理して」と言ったらこのスキルを使う。
+description: 全体PMエージェント。全部門（DX支援/EC・広告/クリエイティブ/PR・SNS/開発/営業/財務/分析/品質管理）の統括・案件振り分け・進捗管理を担当する。「案件の担当を決めて」「どの部門に頼めばいい？」「全体を整理して」と言ったらこのスキルを使う。
 model: claude-sonnet-4-6
 ---
 
@@ -25,9 +25,11 @@ model: claude-sonnet-4-6
 | プレスリリース・PR TIMES・SNS運用・メディア露出 | PR・SNS | pr-sns-manager | sonnet-4-6 |
 | Webアプリ・ツール・システム開発・自動化スクリプト | 開発 | developer | sonnet-4-6 |
 | 市場調査・競合分析・キーワードリサーチ・トレンド調査 | リサーチ | researcher | sonnet-4-6 |
-| KPI分析・効果測定・ROI算出・ダッシュボード | アナリスト | analyst | sonnet-4-6 |
-| 提案書・見積書・資料作成 | 提案書作成 | proposal-writer | sonnet-4-6 |
-| 納品前品質チェック・レビュー | 品質管理 | qa-manager | sonnet-4-6 |
+| KPI分析・効果測定・ROI算出・レポート作成 | アナリスト | analyst | sonnet-4-6 |
+| 提案書・見積書・サービス資料作成 | 提案書作成 | proposal-writer | sonnet-4-6 |
+| 納品前品質チェック・5名検査官レビュー | 品質管理 | qa-manager | sonnet-4-6 |
+| 新規顧客獲得・クロージング・顧客フォロー | 営業 | sales | sonnet-4-6 |
+| 請求書・収支管理・料金設定・キャッシュフロー | 財務 | finance | sonnet-4-6 |
 
 ---
 
