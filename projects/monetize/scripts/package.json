@@ -6,11 +6,13 @@
   "scripts": {
     "publish:zenn": "node publish-zenn.js",
     "publish:note": "node publish-note.js",
-    "publish:all": "node publish-all.js"
+    "publish:all": "node publish-all.js",
+    "convert": "node convert-to-note.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.80.0",
     "gray-matter": "^4.0.3",
+    "markdown-it": "^14.1.1",
     "playwright": "^1.44.0",
     "slugify": "^1.6.6"
   }
