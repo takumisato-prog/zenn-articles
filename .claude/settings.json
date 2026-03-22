@@ -13,7 +13,8 @@
       "Bash(ls:*)",
       "Bash(npm install:*)",
       "Read(//Users/satoutakumi/.npm-global/bin/**)",
-      "Bash(~/.npm-global/bin/clasp --version)"
+      "Bash(~/.npm-global/bin/clasp --version)",
+      "Bash(chmod +x /Users/satoutakumi/AI/.claude/hooks/git-push-on-end.sh /Users/satoutakumi/AI/.claude/hooks/git-pull-on-start.sh)"
     ]
   },
   "hooks": {
@@ -24,6 +25,28 @@
             "type": "command",
             "command": "bash /Users/satoutakumi/AI/.claude/hooks/session-start-pm.sh",
             "statusMessage": "PMモードを起動中..."
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "終了",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /Users/satoutakumi/AI/.claude/hooks/git-push-on-end.sh",
+            "statusMessage": "GitHubへ保存中..."
+          }
+        ]
+      },
+      {
+        "matcher": "開始",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /Users/satoutakumi/AI/.claude/hooks/git-pull-on-start.sh",
+            "statusMessage": "GitHubから最新データを取得中..."
           }
         ]
       }
