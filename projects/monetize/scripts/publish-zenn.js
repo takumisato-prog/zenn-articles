@@ -96,6 +96,18 @@ function convertToZennFormat(articlePath) {
   // gray-matterでフロントマター付きファイルを生成
   const zennContent = matter.stringify(body.trim(), frontmatter);
 
+  // バリデーション: 生成されたファイルのフロントマターが正常か確認
+  const parsed = matter(zennContent);
+  if (!parsed.data.title || typeof parsed.data.title !== 'string') {
+    throw new Error(
+      `フロントマターの生成に失敗しました。titleが正常に設定されていません。\n` +
+      `生成内容の先頭:\n${zennContent.slice(0, 200)}`
+    );
+  }
+  if (!parsed.data.emoji || !parsed.data.type) {
+    throw new Error(`フロントマターに必須フィールドが不足しています: emoji=${parsed.data.emoji}, type=${parsed.data.type}`);
+  }
+
   return { outputPath, zennContent, slug, title };
 }
 
