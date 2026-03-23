@@ -173,9 +173,11 @@ async function main() {
     process.exit(1);
   }
 
-  // キューに保存
+  // キューに保存（夜に実行するため翌日の日付を使用）
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
   const queue = {
-    date: new Date().toISOString().slice(0, 10),
+    date: tomorrow.toISOString().slice(0, 10),
     news_fetched: newsHeadlines.length,
     posts: posts.map((text, i) => ({
       index: i + 1,

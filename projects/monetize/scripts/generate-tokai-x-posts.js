@@ -39,9 +39,11 @@ function loadEnv() {
 
 async function generatePosts(apiKey) {
   const client = new Anthropic({ apiKey });
-  const now = new Date();
-  const dayInfo = WEEKDAY_THEMES[now.getDay()];
-  const today = now.toLocaleDateString('ja-JP', { month: 'long', day: 'numeric', weekday: 'short' });
+  // 夜に実行するため翌日の曜日・日付を使用
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const dayInfo = WEEKDAY_THEMES[tomorrow.getDay()];
+  const today = tomorrow.toLocaleDateString('ja-JP', { month: 'long', day: 'numeric', weekday: 'short' });
 
   const prompt = `あなたは静岡・東海地方の地域情報を発信するXアカウントの担当者です。
 
@@ -128,9 +130,11 @@ async function main() {
   console.log(`  ${new Date().toLocaleString('ja-JP')}`);
   console.log('========================================');
 
-  const now = new Date();
-  const dayInfo = WEEKDAY_THEMES[now.getDay()];
-  console.log(`\n本日のテーマ: 【${dayInfo.name}・${dayInfo.pillar}】`);
+  // 夜に実行するため翌日基準
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const dayInfo = WEEKDAY_THEMES[tomorrow.getDay()];
+  console.log(`\n明日のテーマ: 【${dayInfo.name}・${dayInfo.pillar}】`);
 
   const { apiKey } = loadEnv();
   const posts = await generatePosts(apiKey);
@@ -141,7 +145,7 @@ async function main() {
   }
 
   const queue = {
-    date: new Date().toISOString().slice(0, 10),
+    date: tomorrow.toISOString().slice(0, 10),
     account: '静岡・東海消費者向けアカウント',
     theme: dayInfo.theme,
     posts: posts.map((text, i) => ({
