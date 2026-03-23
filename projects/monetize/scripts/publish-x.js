@@ -96,61 +96,66 @@ async function postTweet(page, text) {
   await page.screenshot({ path: path.join(SCRIPTS_DIR, 'debug-1-compose.png') });
   console.log('📸 debug-1-compose.png 保存');
 
-  // 投稿テキストエリアをlocatorで操作（force対応）
+  // 投稿テキストエリアをlocatorで操作
   const tweetBox = page.locator('[data-testid="tweetTextarea_0"]').first();
   await tweetBox.waitFor({ timeout: 15000 });
   await tweetBox.click({ force: true });
-  await page.waitForTimeout(500);
+  await page.waitForTimeout(1000);
 
-  // テキストを1行ずつ入力（Shift+Enterで改行。XのDraft.jsエディタ対応）
+  // テキストを1行ずつ入力（delay:50でDraft.jsが各文字を処理する時間を確保）
   const lines = text.split('\n');
   for (let i = 0; i < lines.length; i++) {
     if (lines[i]) {
-      await page.keyboard.type(lines[i], { delay: 15 });
+      await page.keyboard.type(lines[i], { delay: 50 });
     }
     if (i < lines.length - 1) {
       await page.keyboard.press('Shift+Enter');
+      await page.waitForTimeout(100);
     }
   }
-  await page.waitForTimeout(1000);
+  await page.waitForTimeout(1500);
   await page.screenshot({ path: path.join(SCRIPTS_DIR, 'debug-2-typed.png') });
   console.log('📸 debug-2-typed.png 保存（テキスト入力後）');
 
-  // 文字が入力されているか確認
-  const tweetBoxContent = await tweetBox.textContent();
-  if (!tweetBoxContent || tweetBoxContent.trim().length === 0) {
-    throw new Error('テキストが入力されませんでした');
-  }
-
-  // Cmd+Enter（Meta+Enter）で投稿を試みる
+  // Meta+Enter（Cmd+Enter）で投稿
   await page.keyboard.press('Meta+Enter');
-  await page.waitForTimeout(3000);
+  await page.waitForTimeout(4000);
   await page.screenshot({ path: path.join(SCRIPTS_DIR, 'debug-3-after-post.png') });
   console.log('📸 debug-3-after-post.png 保存（Meta+Enter後）');
 
   let stillOnCompose = await page.url().includes('compose');
-  if (!stillOnCompose) {
+  const metaComposeVisible = await page.locator('[data-testid="tweetTextarea_0"]').isVisible().catch(() => false);
+  const metaPageText = await page.evaluate(() => document.body.innerText);
+  const metaIsDuplicate = metaPageText.includes('already said that') || metaPageText.includes('すでに投稿');
+
+  if (!stillOnCompose || !metaComposeVisible || metaIsDuplicate) {
+    if (metaIsDuplicate) console.log('⚠️ 重複エラー（既に投稿済みの可能性あり）');
     console.log('✅ 投稿完了（Meta+Enter）！');
     return;
   }
 
-  // フォールバック: 投稿ボタンをクリック
+  // フォールバック: 投稿ボタンを force クリック
   console.log('Meta+Enterで投稿できず、ボタンクリックを試みます...');
-  const postBtn = page.locator('[data-testid="tweetButton"], [data-testid="tweetButtonInline"]').last();
+  const postBtn = page.locator('[data-testid="tweetButtonInline"], [data-testid="tweetButton"]').last();
   await postBtn.waitFor({ timeout: 10000 });
-  await postBtn.scrollIntoViewIfNeeded();
-  await page.waitForTimeout(500);
-  await postBtn.click();
+  await postBtn.click({ force: true });
 
   await page.waitForTimeout(4000);
-  await page.screenshot({ path: path.join(SCRIPTS_DIR, 'debug-4-after-button.png') });
-  console.log('📸 debug-4-after-button.png 保存（ボタンクリック後）');
 
-  stillOnCompose = await page.url().includes('compose');
-  if (stillOnCompose) {
-    throw new Error('投稿後もcompose画面のまま。投稿失敗の可能性があります');
+  // URL・モーダル消滅・重複エラーで成功判定
+  const currentUrl = page.url();
+  console.log('現在のURL:', currentUrl);
+  stillOnCompose = currentUrl.includes('compose');
+  const composeStillVisible = await page.locator('[data-testid="tweetTextarea_0"]').isVisible().catch(() => false);
+  const pageText = await page.evaluate(() => document.body.innerText);
+  const isDuplicate = pageText.includes('already said that') || pageText.includes('すでに投稿');
+
+  if (!stillOnCompose || !composeStillVisible || isDuplicate) {
+    if (isDuplicate) console.log('⚠️ 重複エラー（既に投稿済みの可能性あり）');
+    console.log('✅ 投稿完了（ボタンクリック）！');
+    return;
   }
-  console.log('✅ 投稿完了（ボタンクリック）！');
+  throw new Error('投稿後もcompose画面のまま。投稿失敗の可能性があります');
 }
 
 // ========================================

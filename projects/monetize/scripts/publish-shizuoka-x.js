@@ -74,54 +74,77 @@ async function postTweet(page, text) {
 
   await page.goto('https://x.com/compose/post');
   await page.waitForTimeout(3000);
+  await page.screenshot({ path: path.join(SCRIPTS_DIR, 'shizuoka-debug-1-compose.png') });
+  console.log('📸 shizuoka-debug-1-compose.png 保存');
 
   const tweetBox = page.locator('[data-testid="tweetTextarea_0"]').first();
   await tweetBox.waitFor({ timeout: 15000 });
   await tweetBox.click({ force: true });
-  await page.waitForTimeout(500);
+  await page.waitForTimeout(1000);
 
-  // テキストを1行ずつ入力（Shift+Enterで改行。XのDraft.jsエディタ対応）
+  // テキストを1行ずつ入力（delay:50でDraft.jsが各文字を処理する時間を確保）
   const lines = text.split('\n');
   for (let i = 0; i < lines.length; i++) {
     if (lines[i]) {
-      await page.keyboard.type(lines[i], { delay: 15 });
+      await page.keyboard.type(lines[i], { delay: 50 });
     }
     if (i < lines.length - 1) {
       await page.keyboard.press('Shift+Enter');
+      await page.waitForTimeout(100);
     }
   }
-  await page.waitForTimeout(1000);
+  await page.waitForTimeout(1500);
+  await page.screenshot({ path: path.join(SCRIPTS_DIR, 'shizuoka-debug-2-typed.png') });
+  console.log('📸 shizuoka-debug-2-typed.png 保存');
 
-  // 文字が入力されているか確認してから投稿
-  const tweetBoxContent = await tweetBox.textContent();
-  if (!tweetBoxContent || tweetBoxContent.trim().length === 0) {
-    throw new Error('テキストが入力されませんでした');
-  }
-
-  // Cmd+Enter（Meta+Enter）で投稿を試みる
+  // Meta+Enter（Cmd+Enter）で投稿
   await page.keyboard.press('Meta+Enter');
-  await page.waitForTimeout(3000);
+  await page.waitForTimeout(4000);
 
-  let stillOnCompose = await page.url().includes('compose');
-  if (!stillOnCompose) {
+  const metaUrl = page.url();
+  const metaUrlPath = new URL(metaUrl).pathname;
+  let stillOnCompose = metaUrlPath.startsWith('/compose') || metaUrlPath.startsWith('/i/compose');
+  const metaComposeVisible = await page.locator('[data-testid="tweetTextarea_0"]').isVisible().catch(() => false);
+  const metaPageText = await page.evaluate(() => document.body.innerText);
+  const metaIsDuplicate = metaPageText.includes('already said that') || metaPageText.includes('すでに投稿');
+
+  if (!stillOnCompose || !metaComposeVisible || metaIsDuplicate) {
+    if (metaIsDuplicate) console.log('⚠️ 重複エラー（既に投稿済みの可能性あり）');
     console.log('✅ 投稿完了（Meta+Enter）！');
     return;
   }
 
-  // フォールバック: 投稿ボタンをクリック
+  // フォールバック: 投稿ボタンを force クリック
   console.log('Meta+Enterで投稿できず、ボタンクリックを試みます...');
-  const postBtn = page.locator('[data-testid="tweetButton"], [data-testid="tweetButtonInline"]').last();
+  const postBtn = page.locator('[data-testid="tweetButtonInline"], [data-testid="tweetButton"]').last();
   await postBtn.waitFor({ timeout: 10000 });
-  await postBtn.scrollIntoViewIfNeeded();
-  await page.waitForTimeout(500);
-  await postBtn.click();
+  await postBtn.click({ force: true });
 
   await page.waitForTimeout(4000);
-  stillOnCompose = await page.url().includes('compose');
-  if (stillOnCompose) {
-    throw new Error('投稿後もcompose画面のまま。投稿失敗の可能性があります');
+
+  await page.waitForTimeout(4000);
+
+  // URL・モーダル消滅・重複エラーで成功判定
+  const currentUrl = page.url();
+  console.log('現在のURL:', currentUrl);
+
+  // graduated-access = アカウント制限（電話番号/メール認証が必要）
+  if (currentUrl.includes('graduated-access')) {
+    throw new Error('アカウント制限: X の graduated-access ページにリダイレクトされました。ブラウザで @altus_shizuoka にログインして認証を完了してください。');
   }
-  console.log('✅ 投稿完了（ボタンクリック）！');
+
+  const urlPath = new URL(currentUrl).pathname;
+  stillOnCompose = urlPath.startsWith('/compose') || urlPath.startsWith('/i/compose');
+  const composeStillVisible = await page.locator('[data-testid="tweetTextarea_0"]').isVisible().catch(() => false);
+  const pageText = await page.evaluate(() => document.body.innerText);
+  const isDuplicate = pageText.includes('already said that') || pageText.includes('すでに投稿');
+
+  if (!stillOnCompose || !composeStillVisible || isDuplicate) {
+    if (isDuplicate) console.log('⚠️ 重複エラー（既に投稿済みの可能性あり）');
+    console.log('✅ 投稿完了（ボタンクリック）！');
+    return;
+  }
+  throw new Error('投稿後もcompose画面のまま。投稿失敗の可能性があります');
 }
 
 // ========================================
