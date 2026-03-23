@@ -1,11 +1,9 @@
 import React, { useRef } from 'react';
 import {
   View, Text, TouchableOpacity, StyleSheet, SafeAreaView,
-  ScrollView, Share,
+  ScrollView, Share, Platform,
 } from 'react-native';
 import { RouteProp, useRoute, useNavigation } from '@react-navigation/native';
-import { captureRef } from 'react-native-view-shot';
-import * as Sharing from 'expo-sharing';
 import * as Haptics from 'expo-haptics';
 import { LinearGradient } from 'expo-linear-gradient';
 import { mbtiTypes } from '../data/mbtiTypes';
@@ -26,15 +24,24 @@ export function ResultScreen() {
   const shareCardRef = useRef<View>(null);
 
   const handleShare = async () => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    if (Platform.OS !== 'web') {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    }
     try {
-      const uri = await captureRef(shareCardRef, { format: 'png', quality: 1.0 });
-      const isAvailable = await Sharing.isAvailableAsync();
-      if (isAvailable) {
-        await Sharing.shareAsync(uri, { mimeType: 'image/png', dialogTitle: 'MBTIの結果をシェア！' });
+      if (Platform.OS !== 'web') {
+        const { captureRef } = await import('react-native-view-shot');
+        const { shareAsync, isAvailableAsync } = await import('expo-sharing');
+        const uri = await captureRef(shareCardRef, { format: 'png', quality: 1.0 });
+        const isAvailable = await isAvailableAsync();
+        if (isAvailable) {
+          await shareAsync(uri, { mimeType: 'image/png', dialogTitle: 'MBTIの結果をシェア！' });
+          return;
+        }
       }
+      await Share.share({
+        message: `私のMBTIは ${mbtiType}（${typeData.nickname}）でした${typeData.emoji}\n\nあなたも診断してみて！`,
+      });
     } catch {
-      // テキストシェアにフォールバック
       await Share.share({
         message: `私のMBTIは ${mbtiType}（${typeData.nickname}）でした${typeData.emoji}\n\nあなたも診断してみて！`,
       });
@@ -113,6 +120,12 @@ export function ResultScreen() {
             >
               <Text style={styles.secondaryBtnText}>💕 相性チェックへ</Text>
             </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.homeBtn}
+              onPress={() => navigation.navigate('Main')}
+            >
+              <Text style={styles.homeBtnText}>🏠 ホームへ戻る</Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -175,4 +188,13 @@ const styles = StyleSheet.create({
     borderColor: '#2A2A4A',
   },
   secondaryBtnText: { color: Colors.textSecondary, fontSize: 14, fontWeight: '600' },
+  homeBtn: {
+    backgroundColor: 'transparent',
+    borderRadius: 16,
+    padding: 14,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#3A3A5A',
+  },
+  homeBtnText: { color: Colors.textMuted, fontSize: 14, fontWeight: '600' },
 });

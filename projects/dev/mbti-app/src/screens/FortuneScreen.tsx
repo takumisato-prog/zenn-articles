@@ -1,11 +1,9 @@
 import React, { useRef } from 'react';
 import {
   View, Text, TouchableOpacity, StyleSheet, SafeAreaView,
-  ScrollView, Share,
+  ScrollView, Share, Platform,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { captureRef } from 'react-native-view-shot';
-import * as Sharing from 'expo-sharing';
 import * as Haptics from 'expo-haptics';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useMBTIStore } from '../store/mbtiStore';
@@ -49,13 +47,23 @@ export function FortuneScreen() {
   const today = new Date().toLocaleDateString('ja-JP', { month: 'long', day: 'numeric' });
 
   const handleShare = async () => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    if (Platform.OS !== 'web') {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    }
     try {
-      const uri = await captureRef(shareCardRef, { format: 'png', quality: 1.0 });
-      const isAvailable = await Sharing.isAvailableAsync();
-      if (isAvailable) {
-        await Sharing.shareAsync(uri, { mimeType: 'image/png', dialogTitle: '今日の運勢をシェア！' });
+      if (Platform.OS !== 'web') {
+        const { captureRef } = await import('react-native-view-shot');
+        const { shareAsync, isAvailableAsync } = await import('expo-sharing');
+        const uri = await captureRef(shareCardRef, { format: 'png', quality: 1.0 });
+        const isAvailable = await isAvailableAsync();
+        if (isAvailable) {
+          await shareAsync(uri, { mimeType: 'image/png', dialogTitle: '今日の運勢をシェア！' });
+          return;
+        }
       }
+      await Share.share({
+        message: `今日の${myMBTIType}の運勢 ${toStars(fortune.overall)}\n恋愛:${toStars(fortune.love)} 仕事:${toStars(fortune.work)} 金運:${toStars(fortune.money)}\n#MBTI運勢 #${myMBTIType}`,
+      });
     } catch {
       await Share.share({
         message: `今日の${myMBTIType}の運勢 ${toStars(fortune.overall)}\n恋愛:${toStars(fortune.love)} 仕事:${toStars(fortune.work)} 金運:${toStars(fortune.money)}\n#MBTI運勢 #${myMBTIType}`,
