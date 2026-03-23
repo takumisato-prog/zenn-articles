@@ -33,8 +33,9 @@
     {
       "index": 5,
       "text": "今日、AIエージェントの指示文を30本書き直した。\n\n気づいたこと：\n「賢いAI」より「明確な指示」のほうが100倍大事。\n\nどんなに優秀なエージェントも、\n曖昧な指示には曖昧にしか動かない。\n\n結局、言語化から逃げられない。\n\n#ClaudeCode",
-      "posted": false,
-      "scheduled_time": "21:00"
+      "posted": true,
+      "scheduled_time": "21:00",
+      "posted_at": "2026-03-23T12:00:47.138Z"
     }
   ]
 }
