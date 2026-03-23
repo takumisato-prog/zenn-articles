@@ -77,18 +77,34 @@ async function postTweet(page, text) {
   await tweetBox.click({ force: true });
   await page.waitForTimeout(500);
 
-  // macOSシステムクリップボードに書き込んで貼り付け（改行保持のためpbcopy使用）
-  const clipFile = `/tmp/x-clip-${Date.now()}.txt`;
-  fs.writeFileSync(clipFile, text, 'utf-8');
-  execSync(`pbcopy < "${clipFile}"`);
-  try { fs.unlinkSync(clipFile); } catch {}
-  await page.keyboard.press('Meta+v');
-  await page.waitForTimeout(1500);
+  // テキストを1行ずつ入力（Shift+Enterで改行。XのDraft.jsエディタ対応）
+  const lines = text.split('\n');
+  for (let i = 0; i < lines.length; i++) {
+    if (lines[i]) {
+      await page.keyboard.type(lines[i], { delay: 15 });
+    }
+    if (i < lines.length - 1) {
+      await page.keyboard.press('Shift+Enter');
+    }
+  }
+  await page.waitForTimeout(1000);
+
+  // 文字が入力されているか確認してから投稿
+  const tweetBoxContent = await tweetBox.textContent();
+  if (!tweetBoxContent || tweetBoxContent.trim().length === 0) {
+    throw new Error('テキストが入力されませんでした');
+  }
 
   const postBtn = page.locator('[data-testid="tweetButton"]');
   await postBtn.waitFor({ timeout: 10000 });
   await postBtn.click({ force: true });
-  await page.waitForTimeout(3000);
+
+  // 投稿後にモーダルが閉じるまで待機（投稿成功の確認）
+  await page.waitForTimeout(4000);
+  const stillOnCompose = await page.url().includes('compose');
+  if (stillOnCompose) {
+    throw new Error('投稿後もcompose画面のまま。投稿失敗の可能性があります');
+  }
   console.log('✅ 投稿完了！');
 }
 
