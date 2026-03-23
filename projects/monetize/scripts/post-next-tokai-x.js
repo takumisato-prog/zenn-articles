@@ -35,36 +35,56 @@ function main() {
     process.exit(0);
   }
 
-  const nextPost = queue.posts.find(p => !p.posted);
-  if (!nextPost) {
-    console.log('✅ 今日のキューは全件投稿済みです。');
+  // 現在時刻を分単位に変換
+  const now = new Date();
+  const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+  function parseTime(timeStr) {
+    const [h, m] = timeStr.split(':').map(Number);
+    return h * 60 + (m || 0);
+  }
+
+  // 未投稿かつ予定時刻が現在以前のものを全件取得（PC電源オフで溜まった分も対応）
+  const postsToSend = queue.posts.filter(p => !p.posted && parseTime(p.scheduled_time) <= currentMinutes);
+
+  if (postsToSend.length === 0) {
+    const nextPost = queue.posts.find(p => !p.posted);
+    if (nextPost) {
+      console.log(`⏳ 次の投稿は ${nextPost.scheduled_time} 予定です。`);
+    } else {
+      console.log('✅ 今日のキューは全件投稿済みです。');
+    }
     process.exit(0);
   }
 
-  console.log(`\n投稿 [${nextPost.index}/5] ${nextPost.scheduled_time} 予定:`);
-  console.log(nextPost.text);
-  console.log('');
+  console.log(`\n📋 投稿対象: ${postsToSend.length}件`);
 
-  // 一時ファイル経由で改行を正しく渡す
   const scriptPath = path.join(SCRIPTS_DIR, 'publish-tokai-x.js');
-  const tmpFile = `/tmp/x-post-${Date.now()}.txt`;
-  fs.writeFileSync(tmpFile, nextPost.text, 'utf-8');
 
-  try {
-    execSync(`/usr/local/bin/node "${scriptPath}" --file "${tmpFile}"`, {
-      stdio: 'inherit',
-      cwd: SCRIPTS_DIR,
-    });
+  for (const post of postsToSend) {
+    console.log(`\n投稿 [${post.index}/5] ${post.scheduled_time} 予定:`);
+    console.log(post.text);
+    console.log('');
 
-    nextPost.posted = true;
-    nextPost.posted_at = new Date().toISOString();
-    fs.writeFileSync(QUEUE_PATH, JSON.stringify(queue, null, 2), 'utf-8');
+    const tmpFile = `/tmp/x-post-${Date.now()}.txt`;
+    fs.writeFileSync(tmpFile, post.text, 'utf-8');
 
-    const remaining = queue.posts.filter(p => !p.posted).length;
-    console.log(`\n✅ 投稿完了（残り ${remaining} 件）`);
-  } catch (err) {
-    console.error('❌ 投稿エラー:', err.message);
-    process.exit(1);
+    try {
+      execSync(`/usr/local/bin/node "${scriptPath}" --file "${tmpFile}"`, {
+        stdio: 'inherit',
+        cwd: SCRIPTS_DIR,
+      });
+
+      post.posted = true;
+      post.posted_at = new Date().toISOString();
+      fs.writeFileSync(QUEUE_PATH, JSON.stringify(queue, null, 2), 'utf-8');
+
+      const remaining = queue.posts.filter(p => !p.posted).length;
+      console.log(`\n✅ 投稿完了（残り ${remaining} 件）`);
+    } catch (err) {
+      console.error(`❌ 投稿エラー [${post.index}]:`, err.message);
+      process.exit(1);
+    }
   }
 }
 
