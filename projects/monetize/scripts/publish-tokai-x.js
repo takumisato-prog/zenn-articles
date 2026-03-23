@@ -8,6 +8,7 @@
  */
 
 import { chromium } from 'playwright';
+import { execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 
@@ -76,11 +77,12 @@ async function postTweet(page, text) {
   await tweetBox.click({ force: true });
   await page.waitForTimeout(500);
 
-  await page.evaluate(async (t) => {
-    await navigator.clipboard.writeText(t);
-  }, text);
-  const isMac = process.platform === 'darwin';
-  await page.keyboard.press(isMac ? 'Meta+v' : 'Control+v');
+  // macOSシステムクリップボードに書き込んで貼り付け（改行保持のためpbcopy使用）
+  const clipFile = `/tmp/x-clip-${Date.now()}.txt`;
+  fs.writeFileSync(clipFile, text, 'utf-8');
+  execSync(`pbcopy < "${clipFile}"`);
+  try { fs.unlinkSync(clipFile); } catch {}
+  await page.keyboard.press('Meta+v');
   await page.waitForTimeout(1500);
 
   const postBtn = page.locator('[data-testid="tweetButton"]');
