@@ -5,14 +5,16 @@
     {
       "index": 1,
       "text": "Claude CodeでCLAUDE.mdを書くとき、一番効くのは「禁止事項」の明記。\n\n「〇〇しない」を3つ書くだけで\nAIの暴走が激減する。\n\n許可より禁止。\nこれだけで出力の質が変わる。\n\n#ClaudeCode",
-      "posted": false,
-      "scheduled_time": "7:00"
+      "posted": true,
+      "scheduled_time": "7:00",
+      "posted_at": "2026-03-23T04:32:25.560Z"
     },
     {
       "index": 2,
       "text": "47体のAIエージェント、今週の稼働状況。\n\n動いてる：31体\n止まってる：16体（主に設定ミス）\n\n稼働率65%。\n思ったより低い。\n\n原因は「指示の曖昧さ」がほとんど。\nAIより人間の言語化力が問題だった。\n\n#AI副業",
-      "posted": false,
-      "scheduled_time": "11:00"
+      "posted": true,
+      "scheduled_time": "11:00",
+      "posted_at": "2026-03-23T04:32:50.083Z"
     },
     {
       "index": 3,
