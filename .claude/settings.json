@@ -14,7 +14,8 @@
       "Bash(npm install:*)",
       "Read(//Users/satoutakumi/.npm-global/bin/**)",
       "Bash(~/.npm-global/bin/clasp --version)",
-      "Bash(chmod +x /Users/satoutakumi/AI/.claude/hooks/git-push-on-end.sh /Users/satoutakumi/AI/.claude/hooks/git-pull-on-start.sh)"
+      "Bash(chmod +x /Users/satoutakumi/AI/.claude/hooks/git-push-on-end.sh /Users/satoutakumi/AI/.claude/hooks/git-pull-on-start.sh)",
+      "WebSearch"
     ]
   },
   "hooks": {
