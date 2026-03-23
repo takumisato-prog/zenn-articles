@@ -93,6 +93,8 @@ async function postTweet(page, text) {
   // 投稿作成URLに直接アクセス
   await page.goto('https://x.com/compose/post');
   await page.waitForTimeout(3000);
+  await page.screenshot({ path: path.join(SCRIPTS_DIR, 'debug-1-compose.png') });
+  console.log('📸 debug-1-compose.png 保存');
 
   // 投稿テキストエリアをlocatorで操作（force対応）
   const tweetBox = page.locator('[data-testid="tweetTextarea_0"]').first();
@@ -111,25 +113,44 @@ async function postTweet(page, text) {
     }
   }
   await page.waitForTimeout(1000);
+  await page.screenshot({ path: path.join(SCRIPTS_DIR, 'debug-2-typed.png') });
+  console.log('📸 debug-2-typed.png 保存（テキスト入力後）');
 
-  // 文字が入力されているか確認してから投稿
+  // 文字が入力されているか確認
   const tweetBoxContent = await tweetBox.textContent();
   if (!tweetBoxContent || tweetBoxContent.trim().length === 0) {
     throw new Error('テキストが入力されませんでした');
   }
 
-  // 投稿ボタンをクリック
-  const postBtn = page.locator('[data-testid="tweetButton"]');
-  await postBtn.waitFor({ timeout: 10000 });
-  await postBtn.click({ force: true });
+  // Cmd+Enter（Meta+Enter）で投稿を試みる
+  await page.keyboard.press('Meta+Enter');
+  await page.waitForTimeout(3000);
+  await page.screenshot({ path: path.join(SCRIPTS_DIR, 'debug-3-after-post.png') });
+  console.log('📸 debug-3-after-post.png 保存（Meta+Enter後）');
 
-  // 投稿後にモーダルが閉じるまで待機（投稿成功の確認）
+  let stillOnCompose = await page.url().includes('compose');
+  if (!stillOnCompose) {
+    console.log('✅ 投稿完了（Meta+Enter）！');
+    return;
+  }
+
+  // フォールバック: 投稿ボタンをクリック
+  console.log('Meta+Enterで投稿できず、ボタンクリックを試みます...');
+  const postBtn = page.locator('[data-testid="tweetButton"], [data-testid="tweetButtonInline"]').last();
+  await postBtn.waitFor({ timeout: 10000 });
+  await postBtn.scrollIntoViewIfNeeded();
+  await page.waitForTimeout(500);
+  await postBtn.click();
+
   await page.waitForTimeout(4000);
-  const stillOnCompose = await page.url().includes('compose');
+  await page.screenshot({ path: path.join(SCRIPTS_DIR, 'debug-4-after-button.png') });
+  console.log('📸 debug-4-after-button.png 保存（ボタンクリック後）');
+
+  stillOnCompose = await page.url().includes('compose');
   if (stillOnCompose) {
     throw new Error('投稿後もcompose画面のまま。投稿失敗の可能性があります');
   }
-  console.log('✅ 投稿完了！');
+  console.log('✅ 投稿完了（ボタンクリック）！');
 }
 
 // ========================================
@@ -186,6 +207,8 @@ async function main() {
   } catch (err) {
     console.error('\n❌ エラー:', err.message);
     await page.screenshot({ path: path.join(SCRIPTS_DIR, 'x-error.png') }).catch(() => {});
+    await context.close().catch(() => {});
+    process.exit(1);
   } finally {
     await page.waitForTimeout(2000);
     await context.close();

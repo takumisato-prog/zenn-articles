@@ -98,17 +98,30 @@ async function postTweet(page, text) {
     throw new Error('テキストが入力されませんでした');
   }
 
-  const postBtn = page.locator('[data-testid="tweetButton"]');
-  await postBtn.waitFor({ timeout: 10000 });
-  await postBtn.click({ force: true });
+  // Cmd+Enter（Meta+Enter）で投稿を試みる
+  await page.keyboard.press('Meta+Enter');
+  await page.waitForTimeout(3000);
 
-  // 投稿後にモーダルが閉じるまで待機（投稿成功の確認）
+  let stillOnCompose = await page.url().includes('compose');
+  if (!stillOnCompose) {
+    console.log('✅ 投稿完了（Meta+Enter）！');
+    return;
+  }
+
+  // フォールバック: 投稿ボタンをクリック
+  console.log('Meta+Enterで投稿できず、ボタンクリックを試みます...');
+  const postBtn = page.locator('[data-testid="tweetButton"], [data-testid="tweetButtonInline"]').last();
+  await postBtn.waitFor({ timeout: 10000 });
+  await postBtn.scrollIntoViewIfNeeded();
+  await page.waitForTimeout(500);
+  await postBtn.click();
+
   await page.waitForTimeout(4000);
-  const stillOnCompose = await page.url().includes('compose');
+  stillOnCompose = await page.url().includes('compose');
   if (stillOnCompose) {
     throw new Error('投稿後もcompose画面のまま。投稿失敗の可能性があります');
   }
-  console.log('✅ 投稿完了！');
+  console.log('✅ 投稿完了（ボタンクリック）！');
 }
 
 // ========================================
@@ -163,6 +176,8 @@ async function main() {
   } catch (err) {
     console.error('\n❌ エラー:', err.message);
     await page.screenshot({ path: path.join(SCRIPTS_DIR, 'shizuoka-x-error.png') }).catch(() => {});
+    await context.close().catch(() => {});
+    process.exit(1);
   } finally {
     await page.waitForTimeout(2000);
     await context.close();
