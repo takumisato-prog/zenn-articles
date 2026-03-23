@@ -28,7 +28,8 @@ function main() {
   }
 
   const queue = JSON.parse(fs.readFileSync(QUEUE_PATH, 'utf-8'));
-  const today = new Date().toISOString().slice(0, 10);
+  // UTCではなくローカル日付（JST）で比較
+  const today = new Date().toLocaleDateString('sv');
 
   // 今日のキューか確認
   if (queue.date !== today) {
