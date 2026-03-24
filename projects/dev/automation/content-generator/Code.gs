@@ -20,8 +20,8 @@
 // ============================================================
 
 // ドライブフォルダID
-const GWS_FOLDER_ID    = '1Omeg88bBO10he33_iiFXGl9I40TTUk0Z';
-const AMAZON_FOLDER_ID = '1D2bYPRC2lZ_n9G6D8_zoknEVMP_6YMOW';
+const GWS_FOLDER_ID    = '1D2bYPRC2lZ_n9G6D8_zoknEVMP_6YMOW';
+const AMAZON_FOLDER_ID = '1Omeg88bBO10he33_iiFXGl9I40TTUk0Z';
 
 // Claude API
 const CLAUDE_API_URL = 'https://api.anthropic.com/v1/messages';
