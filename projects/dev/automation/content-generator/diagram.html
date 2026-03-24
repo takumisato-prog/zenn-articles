@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>コンテンツ自動生成の仕組み</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Hiragino Sans', 'Meiryo', sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #f1f5f9;
+  }
+  .subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: #94a3b8;
+    margin-bottom: 48px;
+  }
+
+  .flow {
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* ステップカード */
+  .step {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 24px 28px;
+    border-radius: 16px;
+    position: relative;
+  }
+  .step.trigger  { background: #1e293b; border: 1px solid #334155; }
+  .step.gas      { background: #0c2340; border: 1px solid #1e4d7b; }
+  .step.claude   { background: #1a0f2e; border: 1px solid #4c1d95; }
+  .step.drive    { background: #0d2818; border: 1px solid #166534; }
+  .step.studio   { background: #1a1200; border: 1px solid #854d0e; }
+
+  .icon {
+    font-size: 40px;
+    min-width: 56px;
+    text-align: center;
+    line-height: 1;
+    padding-top: 4px;
+  }
+  .content { flex: 1; }
+  .step-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    opacity: 0.6;
+  }
+  .step-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #f8fafc;
+  }
+  .step-desc {
+    font-size: 14px;
+    color: #94a3b8;
+    line-height: 1.7;
+  }
+  .step-desc strong { color: #e2e8f0; }
+
+  /* タグ */
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .tag {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 999px;
+  }
+  .tag.blue   { background: #1e3a5f; color: #60a5fa; }
+  .tag.purple { background: #2e1065; color: #a78bfa; }
+  .tag.green  { background: #052e16; color: #4ade80; }
+  .tag.orange { background: #431407; color: #fb923c; }
+
+  /* 矢印 */
+  .arrow {
+    text-align: center;
+    font-size: 28px;
+    color: #475569;
+    padding: 8px 0;
+    line-height: 1;
+  }
+
+  /* 分岐 */
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 0;
+  }
+  .split-arrow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    padding: 8px 0;
+  }
+  .split-arrow .arrow { padding: 0; }
+
+  .folder-card {
+    padding: 20px 24px;
+    border-radius: 16px;
+    border: 1px solid;
+  }
+  .folder-card.gws     { background: #0d2818; border-color: #166534; }
+  .folder-card.amazon  { background: #0c1a2e; border-color: #1e4d7b; }
+
+  .folder-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #f8fafc;
+  }
+  .folder-sub {
+    font-size: 13px;
+    color: #94a3b8;
+    margin-bottom: 10px;
+  }
+  .count-badge {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 999px;
+  }
+  .count-badge.green  { background: #166534; color: #4ade80; }
+  .count-badge.blue   { background: #1e3a5f; color: #60a5fa; }
+
+  /* 手動セクション */
+  .manual-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: #431407;
+    color: #fb923c;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+
+  /* サマリーボックス */
+  .summary {
+    max-width: 860px;
+    margin: 32px auto 0;
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 16px;
+    padding: 28px 32px;
+  }
+  .summary h2 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #f1f5f9;
+  }
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .summary-item {
+    text-align: center;
+    padding: 16px;
+    background: #0f172a;
+    border-radius: 12px;
+  }
+  .summary-number {
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .summary-label {
+    font-size: 12px;
+    color: #64748b;
+    line-height: 1.4;
+  }
+  .green-text  { color: #4ade80; }
+  .blue-text   { color: #60a5fa; }
+  .orange-text { color: #fb923c; }
+</style>
+</head>
+<body>
+
+<h1>コンテンツ自動生成の仕組み</h1>
+<p class="subtitle">一度セットアップすれば、毎週自動で記事が増え続けます</p>
+
+<div class="flow">
+
+  <!-- STEP 1: トリガー -->
+  <div class="step trigger">
+    <div class="icon">⏰</div>
+    <div class="content">
+      <div class="step-label">STEP 1 — 自動起動</div>
+      <div class="step-title">毎週月曜日 朝9時になる</div>
+      <div class="step-desc">
+        Googleのタイマー機能（トリガー）が<strong>自動でスクリプトを起動</strong>します。<br>
+        あなたが何もしなくても、毎週動き始めます。
+      </div>
+      <div class="tags">
+        <span class="tag blue">Google Apps Script</span>
+        <span class="tag blue">毎週月曜 9:00</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow">↓</div>
+
+  <!-- STEP 2: Claude API -->
+  <div class="step claude">
+    <div class="icon">🤖</div>
+    <div class="content">
+      <div class="step-label">STEP 2 — AI記事生成</div>
+      <div class="step-title">Claude AIが10本の記事を書く</div>
+      <div class="step-desc">
+        スクリプトがAI（Claude）に「記事を書いて」と依頼。<br>
+        <strong>GWS記事5本 + Amazon記事5本</strong> を自動で生成します。<br>
+        Amazon記事の末尾には「Altusに相談」のCTAが自動で入ります。
+      </div>
+      <div class="tags">
+        <span class="tag purple">Claude API (claude-sonnet-4-6)</span>
+        <span class="tag purple">1記事 600〜800文字</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow">↓</div>
+
+  <!-- STEP 3: Drive保存（分岐） -->
+  <div style="max-width:860px;margin:0 auto;width:100%;">
+    <div class="split-arrow">
+      <div class="arrow">↓</div>
+      <div class="arrow">↓</div>
+    </div>
+    <div class="split">
+      <div class="folder-card gws">
+        <div class="folder-title">📁 GWSフォルダ</div>
+        <div class="folder-sub">Googleワークスペース記事</div>
+        <span class="count-badge green">週5本 自動保存</span>
+        <div style="margin-top:10px;font-size:12px;color:#4ade80;">
+          「知らなかった！」系の小ネタ記事
+        </div>
+      </div>
+      <div class="folder-card amazon">
+        <div class="folder-title">📁 Amazonフォルダ</div>
+        <div class="folder-sub">Amazon販売ノウハウ記事</div>
+        <span class="count-badge blue">週5本 自動保存</span>
+        <div style="margin-top:10px;font-size:12px;color:#60a5fa;">
+          セラーセントラルの使い方 + Altus CTA
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow">↓</div>
+
+  <!-- STEP 4: STUDIO（手動） -->
+  <div class="step studio">
+    <div class="icon">🌐</div>
+    <div class="content">
+      <div class="manual-badge">手動</div>
+      <div class="step-title">STUDIOのHPに記事をコピー</div>
+      <div class="step-desc">
+        Driveに保存された記事を確認して、<strong>STUDIOのCMSにコピー&amp;ペースト</strong>します。<br>
+        週1回・10分程度の作業です。
+      </div>
+      <div class="tags">
+        <span class="tag orange">STUDIO (studio.design)</span>
+        <span class="tag orange">週1回 手動</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- サマリー -->
+<div class="summary">
+  <h2>📊 週ごとの成果</h2>
+  <div class="summary-grid">
+    <div class="summary-item">
+      <div class="summary-number green-text">10</div>
+      <div class="summary-label">本/週<br>自動生成される記事数</div>
+    </div>
+    <div class="summary-item">
+      <div class="summary-number blue-text">520</div>
+      <div class="summary-label">本/年<br>1年間で蓄積される記事数</div>
+    </div>
+    <div class="summary-item">
+      <div class="summary-number orange-text">0</div>
+      <div class="summary-label">分/週<br>記事生成にかかる手間</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
