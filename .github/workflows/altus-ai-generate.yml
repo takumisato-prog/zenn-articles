@@ -1,0 +1,38 @@
+name: Generate @altus_ai_jp daily posts
+
+on:
+  schedule:
+    - cron: '57 20 * * *'  # 20:57 UTC = 翌日 5:57 JST（≒6時）
+  workflow_dispatch:       # 手動実行も可能
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: cd projects/monetize/scripts && npm install
+
+      - name: Generate daily posts
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: cd projects/monetize/scripts && node generate-daily-x-posts.js
+
+      - name: Commit and push queue
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "Altus Auto Publisher"
+          git add projects/monetize/scripts/x-post-queue.json
+          git diff --staged --quiet || git commit -m "自動生成: @altus_ai_jp 翌日の投稿キュー $(TZ='Asia/Tokyo' date '+%Y-%m-%d')"
+          git push

@@ -27,6 +27,13 @@ const RSS_SOURCES = [
 ];
 
 function loadEnv() {
+  // GitHub Actions 環境では process.env から読む
+  if (process.env.ANTHROPIC_API_KEY) {
+    return { apiKey: process.env.ANTHROPIC_API_KEY };
+  }
+  if (!fs.existsSync(ENV_PATH)) {
+    throw new Error('ANTHROPIC_API_KEY が環境変数にも .env にも見つかりません');
+  }
   const env = fs.readFileSync(ENV_PATH, 'utf-8');
   const apiKey = env.match(/ANTHROPIC_API_KEY=(.+)/)?.[1]?.trim();
   if (!apiKey) throw new Error('ANTHROPIC_API_KEY が .env に見つかりません');
@@ -34,8 +41,12 @@ function loadEnv() {
 }
 
 function getPostedArticles() {
-  const progress = JSON.parse(fs.readFileSync(PROGRESS_PATH, 'utf-8'));
-  return progress.posted.filter(a => a.zenn).map(a => a.title);
+  try {
+    const progress = JSON.parse(fs.readFileSync(PROGRESS_PATH, 'utf-8'));
+    return progress.posted.filter(a => a.zenn).map(a => a.title);
+  } catch {
+    return []; // GitHub Actions 環境など progress.json がない場合はスキップ
+  }
 }
 
 // RSSから最新ニュースタイトルを取得
