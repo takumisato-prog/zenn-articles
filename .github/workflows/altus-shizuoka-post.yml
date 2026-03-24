@@ -1,0 +1,45 @@
+name: Post @altus_shizuoka scheduled tweet
+
+on:
+  schedule:
+    - cron: '3 23 * * *'   # 23:03 UTC = 8:03 JST
+    - cron: '3 3 * * *'    # 03:03 UTC = 12:03 JST
+    - cron: '3 6 * * *'    # 06:03 UTC = 15:03 JST
+    - cron: '3 10 * * *'   # 10:03 UTC = 19:03 JST
+    - cron: '3 13 * * *'   # 13:03 UTC = 22:03 JST
+  workflow_dispatch:       # 手動実行も可能
+
+permissions:
+  contents: write
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: cd projects/monetize/scripts && npm install
+
+      - name: Post next tweet
+        env:
+          X_CONSUMER_KEY: ${{ secrets.X_SHIZUOKA_CONSUMER_KEY }}
+          X_CONSUMER_SECRET: ${{ secrets.X_SHIZUOKA_CONSUMER_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_SHIZUOKA_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_SHIZUOKA_ACCESS_TOKEN_SECRET }}
+        run: cd projects/monetize/scripts && node post-next-xapi.js shizuoka-x-post-queue.json
+
+      - name: Commit updated queue
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "Altus Auto Publisher"
+          git add projects/monetize/scripts/shizuoka-x-post-queue.json
+          git diff --staged --quiet || git commit -m "投稿済み: @altus_shizuoka $(TZ='Asia/Tokyo' date '+%Y-%m-%d %H:%M JST')"
+          git push
