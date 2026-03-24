@@ -1,0 +1,38 @@
+name: 毎日Zenn記事自動生成・投稿
+
+on:
+  schedule:
+    - cron: '0 23 * * *'  # 毎日 23:00 UTC = 翌日 8:00 JST
+  workflow_dispatch:       # 手動実行も可能
+
+permissions:
+  contents: write
+
+jobs:
+  generate-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Anthropic SDK
+        run: npm install @anthropic-ai/sdk
+
+      - name: Generate article
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node scripts/generate-article.js
+
+      - name: Commit and push
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "Altus Auto Publisher"
+          git add articles/ scripts/article-topics.json
+          git diff --staged --quiet || git commit -m "自動投稿: $(TZ='Asia/Tokyo' date '+%Y-%m-%d %H:%M JST')"
+          git push
