@@ -19,8 +19,9 @@
     {
       "index": 3,
       "text": "AIに仕事を「奪われる人」と\nAIに仕事を「渡せる人」。\n\nこの差、何だと思う？",
-      "posted": false,
-      "scheduled_time": "14:00"
+      "posted": true,
+      "scheduled_time": "14:00",
+      "posted_at": "2026-03-24T05:00:41.413Z"
     },
     {
       "index": 4,
