@@ -165,6 +165,7 @@ AIを活用して、中小企業・個人事業主の「売上・業務効率・
 │       ├── dx-lead.md / gws-specialist.md / process-analyst.md / training-specialist.md
 │       ├── qa-lead.md / code-reviewer.md / content-reviewer.md / compliance-checker.md
 │       ├── finance-lead.md / billing-specialist.md / pricing-specialist.md
+│       ├── web-production-lead.md / figma-specialist.md / hp-developer.md
 │       └── weekly-report.md / pre-check.md  # サポート
 ├── company/
 │   ├── business-plan.md
@@ -185,7 +186,11 @@ AIを活用して、中小企業・個人事業主の「売上・業務効率・
     ├── dev/
     │   ├── automation/ / infra/ / data/
     ├── research/
-    └── analytics/
+    ├── analytics/
+    └── hp/
+        ├── designs/          # Figmaファイル・書き出し
+        ├── src/              # コードリポジトリ
+        └── assets/           # 画像・フォント
 ```
 
 ---
