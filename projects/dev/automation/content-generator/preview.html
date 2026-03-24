@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>記事プレビュー — 株式会社ふじサンバ</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Hiragino Sans', 'Meiryo', sans-serif;
+    background: #f8f9fa;
+    color: #1a1a2e;
+    line-height: 1.8;
+  }
+
+  /* ナビバー */
+  .nav {
+    background: #fff;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    height: 60px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  }
+  .nav-logo { font-size: 18px; font-weight: 800; color: #1a1a2e; }
+  .nav-logo span { color: #3b82f6; }
+  .nav-links { margin-left: auto; display: flex; gap: 28px; font-size: 14px; color: #6b7280; }
+
+  /* タブ切り替え */
+  .tabs {
+    max-width: 860px;
+    margin: 32px auto 0;
+    padding: 0 24px;
+    display: flex;
+    gap: 8px;
+  }
+  .tab-btn {
+    padding: 10px 24px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: inherit;
+    transition: all .2s;
+  }
+  .tab-btn.active { background: #3b82f6; color: #fff; }
+  .tab-btn:not(.active) { background: #e5e7eb; color: #6b7280; }
+  .tab-btn:not(.active):hover { background: #d1d5db; }
+
+  /* メインコンテナ */
+  .container {
+    max-width: 860px;
+    margin: 24px auto 80px;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    gap: 32px;
+  }
+
+  /* 記事 */
+  article {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,.06);
+  }
+
+  .article-hero {
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    padding: 40px 40px 32px;
+    color: #fff;
+  }
+  .article-hero.amazon {
+    background: linear-gradient(135deg, #92400e 0%, #f59e0b 100%);
+  }
+  .article-category {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    background: rgba(255,255,255,.2);
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+  }
+  .article-title {
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.4;
+    margin-bottom: 16px;
+  }
+  .article-meta {
+    font-size: 13px;
+    opacity: .8;
+    display: flex;
+    gap: 16px;
+  }
+
+  .article-body { padding: 40px; }
+
+  /* 悩みボックス */
+  .pain-box {
+    background: #eff6ff;
+    border-left: 4px solid #3b82f6;
+    border-radius: 0 12px 12px 0;
+    padding: 20px 24px;
+    margin-bottom: 28px;
+  }
+  .pain-box.amazon { background: #fffbeb; border-color: #f59e0b; }
+  .pain-box p { font-weight: 700; margin-bottom: 10px; font-size: 15px; }
+  .pain-box ul { padding-left: 0; list-style: none; }
+  .pain-box ul li { padding: 4px 0 4px 20px; position: relative; font-size: 14px; color: #374151; }
+  .pain-box ul li::before { content: '・'; position: absolute; left: 0; }
+
+  /* わかることボックス */
+  .learn-box {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 28px;
+  }
+  .learn-box p { font-weight: 700; color: #166534; margin-bottom: 10px; font-size: 14px; }
+  .learn-box ul { padding-left: 0; list-style: none; }
+  .learn-box ul li { padding: 4px 0 4px 24px; position: relative; font-size: 14px; color: #374151; }
+  .learn-box ul li::before { content: '✅'; position: absolute; left: 0; font-size: 12px; top: 5px; }
+
+  /* 見出し */
+  .article-body h2 {
+    font-size: 20px;
+    font-weight: 800;
+    color: #1e3a8a;
+    border-bottom: 2px solid #dbeafe;
+    padding-bottom: 8px;
+    margin: 36px 0 16px;
+  }
+  .article-body h2.amazon-h { color: #92400e; border-color: #fde68a; }
+  .article-body h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 24px 0 10px;
+  }
+
+  /* STEP */
+  .steps { display: flex; flex-direction: column; gap: 14px; margin: 16px 0 24px; }
+  .step-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    background: #f9fafb;
+    border-radius: 12px;
+    padding: 16px 20px;
+    border: 1px solid #e5e7eb;
+  }
+  .step-num {
+    background: #3b82f6;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+    min-width: 60px;
+    text-align: center;
+  }
+  .step-num.amazon { background: #f59e0b; }
+  .step-content { flex: 1; }
+  .step-content strong { display: block; font-size: 15px; margin-bottom: 4px; }
+  .step-content p { font-size: 13px; color: #6b7280; }
+
+  /* ポイント */
+  .point-box {
+    background: #fef3c7;
+    border: 1px solid #fde68a;
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 14px;
+    margin: 14px 0;
+    color: #92400e;
+  }
+  .point-box strong { color: #78350f; }
+
+  /* テーブル */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+  }
+  thead { background: #1e3a8a; color: #fff; }
+  thead.amazon { background: #92400e; }
+  th { padding: 12px 16px; text-align: left; font-weight: 700; }
+  td { padding: 12px 16px; border-bottom: 1px solid #e5e7eb; }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) { background: #f9fafb; }
+
+  /* まとめ */
+  .summary-box {
+    background: #f0f9ff;
+    border: 1px solid #bae6fd;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-top: 32px;
+  }
+  .summary-box h3 { color: #0369a1; margin-bottom: 10px; font-size: 16px; }
+  .summary-box p { font-size: 14px; color: #374151; }
+
+  /* CTA */
+  .cta-box {
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    border-radius: 16px;
+    padding: 32px;
+    margin-top: 36px;
+    color: #fff;
+    text-align: center;
+  }
+  .cta-box.amazon {
+    background: linear-gradient(135deg, #92400e 0%, #f59e0b 100%);
+  }
+  .cta-box h3 { font-size: 18px; font-weight: 800; margin-bottom: 12px; }
+  .cta-box p { font-size: 14px; opacity: .9; margin-bottom: 8px; line-height: 1.7; }
+  .cta-btn {
+    display: inline-block;
+    margin-top: 16px;
+    background: #fff;
+    color: #1e3a8a;
+    font-weight: 800;
+    font-size: 15px;
+    padding: 14px 36px;
+    border-radius: 999px;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,.2);
+  }
+  .cta-btn.amazon { color: #92400e; }
+
+  /* サイドバー */
+  .sidebar { display: flex; flex-direction: column; gap: 20px; }
+  .sidebar-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+  }
+  .sidebar-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 12px; color: #374151; }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: #eff6ff;
+    color: #3b82f6;
+    font-weight: 600;
+  }
+  .tag.orange { background: #fffbeb; color: #d97706; }
+  .recent-list { list-style: none; }
+  .recent-list li { padding: 8px 0; border-bottom: 1px solid #f3f4f6; font-size: 13px; color: #374151; }
+  .recent-list li:last-child { border-bottom: none; }
+
+  /* タブコンテンツ */
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* テキスト段落 */
+  .article-body p { font-size: 15px; color: #374151; margin: 10px 0; }
+</style>
+</head>
+<body>
+
+<!-- ナビバー -->
+<nav class="nav">
+  <div class="nav-logo">ふじ<span>サンバ</span></div>
+  <div class="nav-links">
+    <span>サービス</span>
+    <span>事例</span>
+    <span>ブログ</span>
+    <span>お問い合わせ</span>
+  </div>
+</nav>
+
+<!-- タブ -->
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('gws', this)">Googleワークスペース記事</button>
+  <button class="tab-btn" onclick="switchTab('amazon', this)">Amazon販売記事</button>
+</div>
+
+<!-- メインコンテナ -->
+<div class="container">
+
+  <!-- ======== GWS記事 ======== -->
+  <div id="tab-gws" class="tab-content active">
+    <article>
+      <div class="article-hero">
+        <span class="article-category">GOOGLE WORKSPACE</span>
+        <h1 class="article-title">Gmailのフィルターとラベルで<br>受信トレイを自動整理する方法</h1>
+        <div class="article-meta">
+          <span>📅 2026年3月24日</span>
+          <span>⏱ 3分で読める</span>
+        </div>
+      </div>
+
+      <div class="article-body">
+
+        <!-- 悩みボックス -->
+        <div class="pain-box">
+          <p>💬 こんな悩みありませんか？</p>
+          <ul>
+            <li>重要なメールが大量のメールに埋もれてしまう</li>
+            <li>取引先ごとにメールを探すのが手間でストレス</li>
+            <li>メルマガと業務メールが混在して見づらい</li>
+          </ul>
+        </div>
+
+        <!-- わかることボックス -->
+        <div class="learn-box">
+          <p>📌 この記事でわかること</p>
+          <ul>
+            <li>Gmailのフィルター機能の基本と設定手順</li>
+            <li>ラベルを使った自動整理の方法</li>
+            <li>業務効率が上がる活用パターン3選</li>
+          </ul>
+        </div>
+
+        <h2>フィルターとは何か？</h2>
+        <p>フィルターとは「特定の条件に当てはまるメールに、自動でアクションを実行する」機能です。一度設定すれば、毎回手動で仕分けする必要がなくなります。</p>
+
+        <div class="point-box">
+          <strong>✅ ポイント：</strong> フィルターはGmailの設定画面から無料で作成できます。作成数に上限はありません。
+        </div>
+
+        <h2>設定手順</h2>
+        <div class="steps">
+          <div class="step-item">
+            <span class="step-num">STEP 1</span>
+            <div class="step-content">
+              <strong>設定画面を開く</strong>
+              <p>Gmailの右上の歯車アイコン → 「すべての設定を表示」をクリック</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">STEP 2</span>
+            <div class="step-content">
+              <strong>フィルターを新規作成</strong>
+              <p>「フィルターとブロック中のアドレス」タブ → 「新しいフィルタを作成」</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">STEP 3</span>
+            <div class="step-content">
+              <strong>条件とアクションを設定</strong>
+              <p>Fromにメールアドレスを入力 → 「ラベルを付ける」にチェック → 完了</p>
+            </div>
+          </div>
+        </div>
+
+        <h2>活用パターン比較</h2>
+        <table>
+          <thead>
+            <tr><th>活用パターン</th><th>設定内容</th><th>効果</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>取引先別仕分け</td><td>Fromにドメイン指定</td><td>会社ごとに自動分類</td></tr>
+            <tr><td>メルマガ整理</td><td>既読にする＋受信トレイをスキップ</td><td>受信トレイがすっきり</td></tr>
+            <tr><td>社内・社外分離</td><td>自社ドメイン以外を「外部」ラベル</td><td>緊急度の判断が楽に</td></tr>
+          </tbody>
+        </table>
+
+        <!-- まとめ -->
+        <div class="summary-box">
+          <h3>📝 まとめ</h3>
+          <p>フィルターとラベルは1度設定すれば後は自動で動き続けます。取引先・メルマガ・社内外の3パターンから始めるだけで、メール管理の時間が大幅に削減できます。</p>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-box">
+          <h3>Googleワークスペースの導入・活用でお困りの方へ</h3>
+          <p>「設定が複雑でわからない」「もっと業務効率を上げたい」「社員への研修をどうすればいい？」<br>そんなお悩みは、ぜひ<strong>株式会社ふじサンバ</strong>にご相談ください。</p>
+          <p>導入支援から運用サポート・社員研修まで、ワンストップで対応しています。</p>
+          <a href="#" class="cta-btn">無料相談はこちら →</a>
+        </div>
+
+      </div>
+    </article>
+  </div>
+
+  <!-- ======== Amazon記事 ======== -->
+  <div id="tab-amazon" class="tab-content">
+    <article>
+      <div class="article-hero amazon">
+        <span class="article-category">AMAZON 販売</span>
+        <h1 class="article-title">FBAの始め方：納品プラン作成から<br>在庫送付まで完全ガイド</h1>
+        <div class="article-meta">
+          <span>📅 2026年3月24日</span>
+          <span>⏱ 4分で読める</span>
+        </div>
+      </div>
+
+      <div class="article-body">
+
+        <!-- 悩みボックス -->
+        <div class="pain-box amazon">
+          <p>💬 こんな疑問ありませんか？</p>
+          <ul>
+            <li>FBAって聞くけど、実際どうやって始めるの？</li>
+            <li>納品の手順が複雑そうで不安…</li>
+            <li>倉庫への送り方・ラベルの貼り方がわからない</li>
+          </ul>
+        </div>
+
+        <!-- わかることボックス -->
+        <div class="learn-box">
+          <p>📌 この記事でわかること</p>
+          <ul>
+            <li>FBAとは何か・自己発送との違い</li>
+            <li>FBA開始から初回納品までの5ステップ</li>
+            <li>FBAを使うメリットとコストの目安</li>
+          </ul>
+        </div>
+
+        <h2 class="amazon-h">FBAとは？自己発送との違い</h2>
+
+        <table>
+          <thead class="amazon">
+            <tr><th>比較項目</th><th>FBA</th><th>自己発送（MFN）</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>発送作業</td><td>Amazonが代行</td><td>自分で対応</td></tr>
+            <tr><td>Primeバッジ</td><td>✅ 付く</td><td>❌ 付かない</td></tr>
+            <tr><td>カスタマー対応</td><td>Amazonが対応</td><td>自分で対応</td></tr>
+            <tr><td>手数料</td><td>FBA手数料あり</td><td>なし</td></tr>
+          </tbody>
+        </table>
+
+        <div class="point-box">
+          <strong>✅ ポイント：</strong> FBAを使うとPrimeマークが付き、検索順位と購入率が上がりやすくなります。
+        </div>
+
+        <h2 class="amazon-h">FBA開始から初回納品までの手順</h2>
+        <div class="steps">
+          <div class="step-item">
+            <span class="step-num amazon">STEP 1</span>
+            <div class="step-content">
+              <strong>FBAを有効化する</strong>
+              <p>セラーセントラル → 設定 → フルフィルメントチャンネル → FBAを有効に</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num amazon">STEP 2</span>
+            <div class="step-content">
+              <strong>商品にFBAを設定する</strong>
+              <p>在庫管理 → 対象商品を選択 → 「Amazonが発送・カスタマーサービスを担当」に変更</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num amazon">STEP 3</span>
+            <div class="step-content">
+              <strong>納品プランを作成する</strong>
+              <p>在庫管理 → FBA納品手続き → 商品・数量を入力すると倉庫が自動割り当て</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num amazon">STEP 4</span>
+            <div class="step-content">
+              <strong>ラベルを印刷して梱包する</strong>
+              <p>FNSKUラベルを商品に貼付 → 箱に詰めてAmazon指定の配送業者で発送</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num amazon">STEP 5</span>
+            <div class="step-content">
+              <strong>入荷を確認する</strong>
+              <p>発送後3〜5営業日で倉庫に入荷。セラーセントラルの在庫管理画面で確認</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- まとめ -->
+        <div class="summary-box">
+          <h3>📝 まとめ</h3>
+          <p>最初の納品は手順が多く感じますが、2回目からはスムーズになります。FBAを活用することで発送作業から解放され、商品開発や販促に集中できます。</p>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-box amazon">
+          <h3>Amazonで販売を始めたいけど、何から手をつければいいかわからない方へ</h3>
+          <p>「セラーセントラルの設定が複雑でわからない」「広告の費用対効果をどう改善すればいいの？」<br>そんなお悩みは、ぜひ<strong>株式会社ふじサンバ</strong>にご相談ください。</p>
+          <p>Amazon販売の立ち上げから、商品ページ最適化・広告運用まで、ワンストップで支援しています。</p>
+          <a href="#" class="cta-btn amazon">無料相談はこちら →</a>
+        </div>
+
+      </div>
+    </article>
+  </div>
+
+  <!-- サイドバー -->
+  <aside class="sidebar">
+    <div class="sidebar-card">
+      <h4>🏷 タグ</h4>
+      <div class="tag-list">
+        <span class="tag">Gmail</span>
+        <span class="tag">Googleドライブ</span>
+        <span class="tag">Google Meet</span>
+        <span class="tag">GWS</span>
+        <span class="tag orange">Amazon</span>
+        <span class="tag orange">FBA</span>
+        <span class="tag orange">セラーセントラル</span>
+      </div>
+    </div>
+    <div class="sidebar-card">
+      <h4>📄 最近の記事</h4>
+      <ul class="recent-list">
+        <li>Googleドライブの共有権限の使い分け</li>
+        <li>Google Meetで録画・文字起こし</li>
+        <li>Amazon商品ページ最適化の方法</li>
+        <li>スポンサー広告の設定と活用法</li>
+        <li>Googleカレンダーで複数人の予定確認</li>
+      </ul>
+    </div>
+    <div class="sidebar-card" style="background:linear-gradient(135deg,#1e3a8a,#3b82f6);color:#fff;">
+      <h4 style="color:#fff;margin-bottom:10px;">無料相談受付中</h4>
+      <p style="font-size:13px;opacity:.9;margin-bottom:14px;">GWS導入・Amazon販売のお悩みをプロが解決します</p>
+      <a href="#" style="display:block;text-align:center;background:#fff;color:#1e3a8a;font-weight:800;font-size:13px;padding:10px;border-radius:8px;text-decoration:none;">今すぐ相談する →</a>
+    </div>
+  </aside>
+
+</div>
+
+<script>
+function switchTab(tabId, btn) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + tabId).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
