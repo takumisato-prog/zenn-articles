@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STUDIO実装ガイド — 株式会社ふじサンバ</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Hiragino Sans', 'Meiryo', sans-serif; background: #f1f5f9; color: #1e293b; }
+
+  /* ヘッダー */
+  header {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    color: #fff;
+    padding: 48px 32px;
+    text-align: center;
+  }
+  header h1 { font-size: 28px; font-weight: 800; margin-bottom: 10px; }
+  header p { font-size: 15px; color: #94a3b8; }
+
+  .main { max-width: 860px; margin: 40px auto 80px; padding: 0 24px; }
+
+  /* セクション */
+  .section {
+    background: #fff;
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #f1f5f9;
+  }
+  .step-circle {
+    width: 40px; height: 40px;
+    background: #3b82f6;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 800;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .section-header h2 { font-size: 20px; font-weight: 800; }
+  .section-header p { font-size: 13px; color: #64748b; margin-top: 2px; }
+
+  /* CMSフィールド */
+  .fields-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .field-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .field-icon {
+    font-size: 20px;
+    min-width: 28px;
+    text-align: center;
+  }
+  .field-name { font-weight: 700; font-size: 14px; margin-bottom: 2px; }
+  .field-type {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: #eff6ff;
+    color: #3b82f6;
+    margin-bottom: 4px;
+  }
+  .field-desc { font-size: 12px; color: #64748b; }
+
+  /* コピー用テンプレート */
+  .template-box {
+    background: #0f172a;
+    border-radius: 12px;
+    padding: 24px;
+    position: relative;
+  }
+  .template-box pre {
+    color: #e2e8f0;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+  .copy-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: #3b82f6;
+    color: #fff;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .copy-btn:active { background: #2563eb; }
+
+  /* ワークフロー */
+  .workflow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+  .wf-item {
+    flex-shrink: 0;
+    text-align: center;
+    width: 130px;
+  }
+  .wf-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 14px 10px;
+    margin-bottom: 6px;
+  }
+  .wf-box .icon { font-size: 28px; margin-bottom: 4px; }
+  .wf-box .label { font-size: 12px; font-weight: 700; }
+  .wf-sub { font-size: 11px; color: #94a3b8; }
+  .wf-arrow {
+    font-size: 22px;
+    color: #cbd5e1;
+    padding: 0 4px;
+    margin-top: -20px;
+    flex-shrink: 0;
+  }
+
+  /* 貼り付けガイド */
+  .paste-steps { display: flex; flex-direction: column; gap: 12px; }
+  .paste-step {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 14px 18px;
+    background: #f8fafc;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+  }
+  .paste-num {
+    background: #3b82f6;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 800;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .paste-content strong { font-size: 14px; display: block; margin-bottom: 3px; }
+  .paste-content span { font-size: 13px; color: #64748b; }
+
+  /* コンポーネント参照 */
+  .comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .comp-card {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+  }
+  .comp-label {
+    background: #334155;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 8px 14px;
+  }
+  .comp-preview { padding: 16px; }
+
+  /* プレビューコンポーネント */
+  .prev-pain {
+    background: #eff6ff;
+    border-left: 3px solid #3b82f6;
+    padding: 12px 14px;
+    border-radius: 0 8px 8px 0;
+    font-size: 13px;
+  }
+  .prev-step {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background: #f9fafb;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 13px;
+    border: 1px solid #e5e7eb;
+  }
+  .prev-step-num {
+    background: #3b82f6;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 999px;
+  }
+  .prev-table { width: 100%; font-size: 12px; border-collapse: collapse; }
+  .prev-table th { background: #334155; color: #fff; padding: 8px 10px; text-align: left; }
+  .prev-table td { padding: 7px 10px; border-bottom: 1px solid #e5e7eb; }
+  .prev-cta {
+    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+    color: #fff;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    text-align: center;
+  }
+
+  /* 注意事項 */
+  .notice {
+    background: #fef3c7;
+    border: 1px solid #fde68a;
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 13px;
+    color: #92400e;
+    margin-top: 16px;
+  }
+  .notice strong { display: block; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>STUDIO 実装ガイド</h1>
+  <p>GAS自動生成記事をSTUDIOのHPに実装するための完全手順書</p>
+</header>
+
+<div class="main">
+
+  <!-- ワークフロー全体像 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="step-circle" style="background:#64748b;">▶</div>
+      <div>
+        <h2>全体の流れ</h2>
+        <p>毎週このフローで記事がHPに追加されていきます</p>
+      </div>
+    </div>
+    <div class="workflow">
+      <div class="wf-item">
+        <div class="wf-box"><div class="icon">⏰</div><div class="label">月曜9時</div></div>
+        <div class="wf-sub">自動起動</div>
+      </div>
+      <div class="wf-arrow">→</div>
+      <div class="wf-item">
+        <div class="wf-box"><div class="icon">🤖</div><div class="label">Claude AI</div></div>
+        <div class="wf-sub">記事を生成</div>
+      </div>
+      <div class="wf-arrow">→</div>
+      <div class="wf-item">
+        <div class="wf-box"><div class="icon">📁</div><div class="label">Googleドライブ</div></div>
+        <div class="wf-sub">自動保存</div>
+      </div>
+      <div class="wf-arrow">→</div>
+      <div class="wf-item">
+        <div class="wf-box"><div class="icon">📋</div><div class="label">コピー</div></div>
+        <div class="wf-sub">ドライブから</div>
+      </div>
+      <div class="wf-arrow">→</div>
+      <div class="wf-item">
+        <div class="wf-box"><div class="icon">🌐</div><div class="label">STUDIO</div></div>
+        <div class="wf-sub">ペースト&公開</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP1: CMSの設定 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="step-circle">1</div>
+      <div>
+        <h2>STUDIOのCMSフィールドを作成する</h2>
+        <p>STUDIO管理画面 → CMS → 新規コレクション → 以下のフィールドを追加</p>
+      </div>
+    </div>
+    <div class="fields-grid">
+      <div class="field-card">
+        <div class="field-icon">📝</div>
+        <div>
+          <div class="field-name">タイトル</div>
+          <span class="field-type">テキスト</span>
+          <div class="field-desc">記事のタイトル（必須）</div>
+        </div>
+      </div>
+      <div class="field-card">
+        <div class="field-icon">🏷</div>
+        <div>
+          <div class="field-name">カテゴリ</div>
+          <span class="field-type">セレクト</span>
+          <div class="field-desc">「GWS」または「Amazon」</div>
+        </div>
+      </div>
+      <div class="field-card">
+        <div class="field-icon">📄</div>
+        <div>
+          <div class="field-name">本文</div>
+          <span class="field-type">リッチテキスト</span>
+          <div class="field-desc">記事の本文（メイン）</div>
+        </div>
+      </div>
+      <div class="field-card">
+        <div class="field-icon">📅</div>
+        <div>
+          <div class="field-name">公開日</div>
+          <span class="field-type">日付</span>
+          <div class="field-desc">記事の公開日</div>
+        </div>
+      </div>
+      <div class="field-card">
+        <div class="field-icon">🔖</div>
+        <div>
+          <div class="field-name">抜粋</div>
+          <span class="field-type">テキストエリア</span>
+          <div class="field-desc">一覧ページ用の短い説明文</div>
+        </div>
+      </div>
+      <div class="field-card">
+        <div class="field-icon">🖼</div>
+        <div>
+          <div class="field-name">サムネイル</div>
+          <span class="field-type">画像</span>
+          <div class="field-desc">一覧ページ用のアイキャッチ</div>
+        </div>
+      </div>
+    </div>
+    <div class="notice">
+      <strong>⚠️ コレクション名の推奨</strong>
+      GWS記事用に「articles-gws」、Amazon記事用に「articles-amazon」を別々に作成するか、カテゴリフィールドで1つのコレクションに統合するか選んでください。
+    </div>
+  </div>
+
+  <!-- STEP2: 記事コンポーネントの作成 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="step-circle">2</div>
+      <div>
+        <h2>STUDIOで記事コンポーネントを作成する</h2>
+        <p>以下のデザインパーツをSTUDIOエディタで1回だけ作成 → 毎回使い回せます</p>
+      </div>
+    </div>
+    <div class="comp-grid">
+      <div class="comp-card">
+        <div class="comp-label">① 悩みボックス（冒頭）</div>
+        <div class="comp-preview">
+          <div class="prev-pain">
+            💬 こんな悩みありませんか？<br>
+            ・〜〜<br>・〜〜<br>・〜〜
+          </div>
+        </div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-label">② STEPカード</div>
+        <div class="comp-preview">
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div class="prev-step"><span class="prev-step-num">STEP 1</span> 手順の説明</div>
+            <div class="prev-step"><span class="prev-step-num">STEP 2</span> 手順の説明</div>
+          </div>
+        </div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-label">③ 比較テーブル</div>
+        <div class="comp-preview">
+          <table class="prev-table">
+            <thead><tr><th>項目</th><th>内容A</th><th>内容B</th></tr></thead>
+            <tbody>
+              <tr><td>比較1</td><td>○</td><td>×</td></tr>
+              <tr><td>比較2</td><td>△</td><td>○</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-label">④ CTAボックス（末尾）</div>
+        <div class="comp-preview">
+          <div class="prev-cta">
+            お悩みは<strong>株式会社ふじサンバ</strong>へ<br>
+            <small>初回相談無料 → 詳しく見る</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP3: 記事の貼り付け手順 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="step-circle">3</div>
+      <div>
+        <h2>毎週の記事貼り付け手順</h2>
+        <p>月曜にドライブに記事が届いたら、この手順でSTUDIOに追加します（約10分）</p>
+      </div>
+    </div>
+    <div class="paste-steps">
+      <div class="paste-step">
+        <div class="paste-num">1</div>
+        <div class="paste-content">
+          <strong>Googleドライブを開く</strong>
+          <span>GWSフォルダ or Amazonフォルダを開き、今週追加された記事（5本）を確認</span>
+        </div>
+      </div>
+      <div class="paste-step">
+        <div class="paste-num">2</div>
+        <div class="paste-content">
+          <strong>記事の内容をコピー</strong>
+          <span>Googleドキュメントを開く → Ctrl+A（全選択）→ Ctrl+C（コピー）</span>
+        </div>
+      </div>
+      <div class="paste-step">
+        <div class="paste-num">3</div>
+        <div class="paste-content">
+          <strong>STUDIOのCMSで新規記事を作成</strong>
+          <span>STUDIO管理画面 → CMS → 「新規追加」→ タイトルを入力</span>
+        </div>
+      </div>
+      <div class="paste-step">
+        <div class="paste-num">4</div>
+        <div class="paste-content">
+          <strong>本文フィールドにペースト</strong>
+          <span>リッチテキストフィールドにカーソルを置いて Ctrl+V → 見出し・箇条書きが自動で反映される</span>
+        </div>
+      </div>
+      <div class="paste-step">
+        <div class="paste-num">5</div>
+        <div class="paste-content">
+          <strong>CTAボックスを末尾に追加</strong>
+          <span>STEP2で作成したCTAコンポーネントを記事末尾にドラッグ&ドロップ</span>
+        </div>
+      </div>
+      <div class="paste-step">
+        <div class="paste-num">6</div>
+        <div class="paste-content">
+          <strong>カテゴリ・日付を設定して公開</strong>
+          <span>カテゴリを「GWS」or「Amazon」に設定 → 「公開」ボタンを押す</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP4: GASの出力フォーマット確認 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="step-circle">4</div>
+      <div>
+        <h2>GASが生成する記事の構造（貼り付けイメージ）</h2>
+        <p>Googleドライブに保存される記事はこの形式で出力されます</p>
+      </div>
+    </div>
+    <div class="template-box">
+      <button class="copy-btn" onclick="copyTemplate()">コピー</button>
+      <pre id="template-text">## タイトル：〇〇の使い方
+
+こんな悩みありませんか？
+・悩み1
+・悩み2
+・悩み3
+
+この記事でわかること
+・ポイント1
+・ポイント2
+・ポイント3
+
+━━━━━━━━━━━━
+## 〇〇とは何か？
+
+本文テキスト...
+
+✅ ポイント：重要な点をここに記載
+
+━━━━━━━━━━━━
+## 手順・使い方
+
+STEP 1: 最初にすること
+→ 説明テキスト
+
+STEP 2: 次にすること
+→ 説明テキスト
+
+STEP 3: 最後にすること
+→ 説明テキスト
+
+━━━━━━━━━━━━
+## 比較・一覧
+
+| 項目 | A | B |
+|------|---|---|
+| 内容1 | ○ | × |
+| 内容2 | △ | ○ |
+
+━━━━━━━━━━━━
+## まとめ
+
+3行以内でまとめ。
+
+━━━━━━━━━━━━
+## 株式会社ふじサンバへのご相談
+
+「〜でお困りですか？」
+ぜひ株式会社ふじサンバにご相談ください。
+初回相談は無料です。</pre>
+    </div>
+    <div class="notice">
+      <strong>💡 STUDIOへのペースト時のヒント</strong>
+      「##」で始まる行はH2見出しとして認識されます。箇条書き（・）はリストとして自動変換されます。表（| |形式）はSTUDIOのリッチテキストにペーストするとそのまま表になります。
+    </div>
+  </div>
+
+</div>
+
+<script>
+function copyTemplate() {
+  const text = document.getElementById('template-text').innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    btn.textContent = 'コピー完了 ✅';
+    setTimeout(() => btn.textContent = 'コピー', 2000);
+  });
+}
+</script>
+</body>
+</html>
