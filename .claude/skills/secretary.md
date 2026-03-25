@@ -28,13 +28,20 @@ model: claude-sonnet-4-6
 ### ステップ2: Googleカレンダー取得
 `mcp__claude_ai_Google_Calendar__gcal_list_events` を使い、今日の予定を取得する。
 
-### ステップ3: Gmail確認
+### ステップ3: Gmail受信確認
 `mcp__claude_ai_Gmail__gmail_search_messages` を使い、重要メールを確認する。
 - 検索クエリ: `is:inbox newer_than:2d -category:promotions -category:social` で2日以内・プロモーション除外
 - 表示対象: 未読 または IMPORTANT ラベルのもののみ表示
 - 除外: CATEGORY_PROMOTIONS（セール・広告）は表示しない
 
-### ステップ4: ブリーフィング表示
+### ステップ4: 送信済みフォローアップ確認
+`mcp__claude_ai_Gmail__gmail_search_messages` を使い、返信待ちのメールを確認する。
+- 検索クエリ: `in:sent older_than:3d newer_than:14d`
+- 各スレッドを `mcp__claude_ai_Gmail__gmail_read_thread` で確認する
+- **抽出条件**: スレッドの最後のメッセージが自分の送信メールである（＝相手からの返信がない）もの
+- 表示対象: 3日以上返信がない送信済みメール
+
+### ステップ5: ブリーフィング表示
 
 以下のフォーマットで出力する：
 
@@ -54,9 +61,14 @@ model: claude-sonnet-4-6
 ⚪ 低: [タスク名] ｜期限: [日付]
 
 ━━━━━━━━━━━━━━━━━━━
-📬 要返信メール
+📬 要返信メール（受信）
 [件名 / 送信者 / 受信日時]
 （なければ「要返信メールはありません」）
+
+━━━━━━━━━━━━━━━━━━━
+📤 フォローアップ待ち（送信済み・未返信）
+⚠️ [件名] ｜送信先: [相手名] ｜送信日: [日付]（[経過日数]日経過）
+（なければ「フォローアップ待ちはありません」）
 
 ━━━━━━━━━━━━━━━━━━━
 ✅ 今日まず取り組むべきこと:
