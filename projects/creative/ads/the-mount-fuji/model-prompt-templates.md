@@ -181,10 +181,80 @@ bad anatomy, low quality, pixelated
 
 ---
 
-## 一貫したモデルを複数枚作る方法（Ideogram）
-1. 最初の1枚を生成してシード値をメモ
-2. 次の生成時に「Seed: [番号]」を追加
-3. 背景だけ変えて同じ人物で量産できる
+## 顔を固定して量産する方法（CM制作必須）
+
+### CMで顔が変わってしまう問題の解決策
+
+---
+
+### 方法1: Leonardo AI「Character Reference」★一番簡単
+
+**手順:**
+1. [leonardo.ai](https://leonardo.ai) にアクセス（無料150トークン/日）
+2. まず「ベース顔」を1枚生成して気に入ったものを選ぶ
+3. その画像を **Character Reference** にアップロード登録
+4. 以降はポーズ・背景を変えるだけで**同じ顔**で量産可能
+
+**ベース顔生成プロンプト（例）:**
+```
+A Japanese woman, 25 years old, slim build, neutral expression,
+white studio background, portrait, sharp focus, high quality
+```
+
+**量産プロンプト（背景だけ変える）:**
+```
+[同じキャラクター設定] wearing white t-shirt with "THE MOUNT FUJI" logo,
+standing on rocky mountain trail, full body shot
+```
+
+---
+
+### 方法2: Kling AI「Subject Reference」★動画でも顔固定
+
+静止画→動画にするとき顔が変わる問題をこれで解決:
+
+1. Kling AI → 「Image to Video」を開く
+2. **Subject Reference** に顔画像をアップロード
+3. 別シーンの動画を生成しても同じ顔が維持される
+
+---
+
+### 方法3: Ideogram シード値固定
+
+**手順:**
+1. 最初の1枚を生成してシード番号をメモ
+2. 次の生成時にプロンプトの末尾に `seed: [番号]` を追加
+3. 背景・ポーズを変えても顔がほぼ同じになる
+
+> ⚠️ Ideogramはシード固定でも完全一致はしないため、
+> 精度重視なら Leonardo の Character Reference を推奨
+
+---
+
+### 方法4: ComfyUI × IP-Adapter FaceID★精度最高（完全無料・ローカル）
+
+Mac（M1/M2/M3）でも動作する。精度はダントツ。
+
+- **IP-Adapter FaceID**: 1枚の顔写真から全シーンで完全に同じ顔を生成
+- インストールが必要だがコスト0円・商用利用可
+- 初回セットアップさえすれば最強のワークフロー
+
+---
+
+### CMワークフロー（顔固定版）
+
+```
+Step 1: Leonardo AI でベースモデルを1枚生成・決定
+   ↓
+Step 2: その画像を Character Reference に登録
+   ↓
+Step 3: シーン別に量産（5〜6パターン）
+   富士山 / 渋谷 / コンビニ / 白背景 / 登山道
+   ↓
+Step 4: 全画像を Kling AI（Subject Reference）で動画化
+   ↓
+Step 5: CapCut で繋げて15秒CMに編集・完成
+```
 
 ---
 
