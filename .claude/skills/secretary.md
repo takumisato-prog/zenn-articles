@@ -29,8 +29,10 @@ model: claude-sonnet-4-6
 `mcp__claude_ai_Google_Calendar__gcal_list_events` を使い、今日の予定を取得する。
 
 ### ステップ3: Gmail確認
-`mcp__claude_ai_Gmail__gmail_search_messages` を使い、返信が必要なメールを確認する。
-- 検索クエリ: `is:unread is:inbox` で未読メールを取得
+`mcp__claude_ai_Gmail__gmail_search_messages` を使い、重要メールを確認する。
+- 検索クエリ: `is:inbox newer_than:2d -category:promotions -category:social` で2日以内・プロモーション除外
+- 表示対象: 未読 または IMPORTANT ラベルのもののみ表示
+- 除外: CATEGORY_PROMOTIONS（セール・広告）は表示しない
 
 ### ステップ4: ブリーフィング表示
 
