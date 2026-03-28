@@ -1,0 +1,65 @@
+{
+  "meta": {
+    "id": "GWS-001",
+    "status": "hearing",
+    "created_at": "2026-03-28",
+    "updated_at": "2026-03-28",
+    "assigned_to": "佐藤"
+  },
+  "client": {
+    "company_name": "老三ジャパン株式会社",
+    "contact_name": "厳",
+    "contact_role": "",
+    "industry": "",
+    "employee_count": "25名",
+    "email": "",
+    "phone": "",
+    "location": "大阪府（大阪本社・埼玉事務所 2拠点）"
+  },
+  "hearing": {
+    "current_email_service": ["Bizメール＆ウェブ ビジネス（メールソフト使用）"],
+    "has_custom_domain": "あり（san-ta.co.jp）",
+    "current_storage": ["社内サーバー", "Google Drive（個人）"],
+    "communication_tools": ["WeChat", "LINE"],
+    "migration_email": "既存メールをGmailへ移行希望（Bizメール＆ウェブ → Gmail）",
+    "migration_files": "未確認",
+    "migration_excel": "未確認",
+    "security_requirements": [],
+    "org_policy": "未確認",
+    "training_needs": ["初期設定サポート希望", "運用開始までのサポート希望"],
+    "has_it_person": "社内での対応が難しいため外部サポート希望",
+    "schedule": "未確認",
+    "budget_type": "未確認",
+    "top_issue": "Bizメール＆ウェブが古く利便性に欠けるため刷新したい。GeminiなどGWSのAI活用も目的",
+    "purposes": [
+      "メールを会社のドメインで統一したい",
+      "Google Workspace AI（Gemini）を活用したい",
+      "現行メールサービスからの移行"
+    ],
+    "requested_plan": "Business Standard",
+    "requested_users": 25,
+    "other_notes": "ドメイン san-ta.co.jp をそのまま使用してGmailへ切り替え希望。初期設定・移行作業をフルサポート希望。"
+  },
+  "proposal": {
+    "plan": "",
+    "account_count": 25,
+    "monthly_fee": null,
+    "initial_fee": null,
+    "contract_type": "",
+    "subsidy_applicable": false,
+    "proposed_at": ""
+  },
+  "progress": [
+    {
+      "date": "2026-03-28",
+      "action": "問い合わせ受付",
+      "note": "GWS Business Standard 25名の見積もり・資料・導入フロー希望。Bizメール＆ウェブからの移行サポートも要望あり。",
+      "next_action": "見積書・提案資料の作成・送付"
+    }
+  ],
+  "result": {
+    "status": "hearing",
+    "closed_at": "",
+    "reason": ""
+  }
+}

@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Googleドキュメントの使い方【IT未経験者向け完全ガイド2026年版】 | 株式会社ふじサンバ</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic', sans-serif;
+      background: #f5f5f5;
+      color: #1a1a1a;
+      line-height: 1.8;
+    }
+
+    /* ナビ */
+    nav {
+      background: #fff;
+      border-bottom: 2px solid #4285F4;
+      padding: 0 40px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(66,133,244,0.08);
+    }
+    .nav-logo {
+      font-size: 18px;
+      font-weight: 700;
+      color: #1a1a2e;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-logo-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: #4285F4; display: inline-block;
+    }
+    .nav-links { display: flex; gap: 28px; font-size: 14px; color: #555; }
+    .nav-links a { text-decoration: none; color: #555; transition: color 0.2s; }
+    .nav-links a:hover { color: #4285F4; }
+    .nav-badge {
+      background: #E8F0FE;
+      color: #4285F4;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    /* ヒーロー */
+    .hero {
+      background: linear-gradient(135deg, #4285F4 0%, #1a56c4 100%);
+      color: #fff;
+      padding: 72px 40px 64px;
+      text-align: center;
+    }
+    .hero .tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 20px;
+      padding: 4px 16px;
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(20px, 3.5vw, 34px);
+      font-weight: 800;
+      line-height: 1.4;
+      margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: 16px;
+      opacity: 0.85;
+      max-width: 620px;
+      margin: 0 auto 28px;
+    }
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      font-size: 13px;
+      opacity: 0.75;
+    }
+
+    /* メインレイアウト */
+    .layout {
+      max-width: 1200px;
+      margin: 48px auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 32px;
+      align-items: start;
+    }
+
+    /* 記事本文 */
+    .article-body {
+      background: #fff;
+      border-radius: 14px;
+      padding: 48px 52px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    }
+
+    .article-body h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin: 48px 0 16px;
+      padding-left: 16px;
+      border-left: 4px solid #4285F4;
+      line-height: 1.5;
+    }
+    .article-body h2:first-child { margin-top: 0; }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin: 32px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .article-body h3::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      background: #34A853;
+      border-radius: 50%;
+    }
+
+    .article-body h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #4285F4;
+      margin: 24px 0 8px;
+    }
+
+    .article-body p {
+      font-size: 15px;
+      line-height: 1.9;
+      color: #333;
+      margin-bottom: 16px;
+    }
+
+    .article-body ul, .article-body ol {
+      padding-left: 24px;
+      margin-bottom: 20px;
+    }
+    .article-body li {
+      font-size: 15px;
+      line-height: 1.9;
+      color: #333;
+      margin-bottom: 6px;
+    }
+
+    .article-body hr {
+      border: none;
+      border-top: 2px solid #F0F4FF;
+      margin: 40px 0;
+    }
+
+    /* テーブル */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 24px 0;
+      border-radius: 10px;
+      border: 1px solid #E8EAED;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    thead tr {
+      background: #4285F4;
+      color: white;
+    }
+    th, td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid #E8EAED;
+    }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:nth-child(even) { background: #F8F9FF; }
+    tbody tr:hover { background: #E8F0FE; transition: background 0.15s; }
+
+    /* コールアウト */
+    .callout {
+      border-radius: 10px;
+      padding: 18px 20px;
+      margin: 24px 0;
+      font-size: 14px;
+      line-height: 1.8;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .callout-info {
+      background: #E8F0FE;
+      border-left: 4px solid #4285F4;
+      color: #1a56c4;
+    }
+    .callout-success {
+      background: #E6F4EA;
+      border-left: 4px solid #34A853;
+      color: #1e6a34;
+    }
+    .callout-warn {
+      background: #FFF8E1;
+      border-left: 4px solid #FBBC05;
+      color: #7a5800;
+    }
+    .callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+
+    /* 画像エリア */
+    .img-block {
+      margin: 32px 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      border: 1px solid #E8EAED;
+    }
+    .img-block svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .img-caption {
+      text-align: center;
+      font-size: 13px;
+      color: #757575;
+      padding: 10px 16px;
+      background: #F8F9FA;
+      border-top: 1px solid #E8EAED;
+    }
+
+    /* FAQ */
+    .faq-item {
+      border: 1px solid #E8EAED;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+    .faq-q {
+      background: #F8F9FA;
+      padding: 16px 20px;
+      font-weight: 700;
+      font-size: 15px;
+      color: #1a1a2e;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .faq-q::before {
+      content: 'Q';
+      background: #4285F4;
+      color: white;
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .faq-a {
+      padding: 16px 20px 16px 54px;
+      font-size: 14px;
+      color: #444;
+      line-height: 1.8;
+      border-top: 1px solid #E8EAED;
+    }
+
+    /* まとめリスト */
+    .summary-list {
+      list-style: none;
+      padding: 0;
+    }
+    .summary-list li {
+      padding: 14px 16px 14px 48px;
+      background: #F8F9FF;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      font-size: 15px;
+      color: #333;
+      position: relative;
+      border-left: 3px solid #4285F4;
+    }
+    .summary-list li::before {
+      content: attr(data-num);
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #4285F4;
+      color: white;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* STEP バッジ */
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #4285F4;
+      color: white;
+      padding: 4px 16px 4px 8px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .step-badge-num {
+      background: white;
+      color: #4285F4;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    /* サイドバー */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* 目次 */
+    .toc {
+      background: #fff;
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+      position: sticky;
+      top: 88px;
+    }
+    .toc-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #757575;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .toc-title::before {
+      content: '';
+      display: block;
+      width: 3px; height: 14px;
+      background: #4285F4;
+      border-radius: 2px;
+    }
+    .toc-list { list-style: none; }
+    .toc-list li {
+      margin-bottom: 2px;
+    }
+    .toc-list a {
+      display: block;
+      padding: 7px 10px;
+      font-size: 13px;
+      color: #555;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.15s;
+    }
+    .toc-list a:hover {
+      background: #E8F0FE;
+      color: #4285F4;
+    }
+    .toc-list .toc-step {
+      font-size: 11px;
+      font-weight: 700;
+      color: #4285F4;
+      background: #E8F0FE;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-right: 4px;
+    }
+
+    /* CTAカード */
+    .cta-card {
+      background: linear-gradient(135deg, #4285F4 0%, #1a56c4 100%);
+      border-radius: 14px;
+      padding: 28px 24px;
+      color: white;
+      text-align: center;
+    }
+    .cta-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .cta-card p {
+      font-size: 13px;
+      opacity: 0.85;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .cta-btn {
+      display: block;
+      background: white;
+      color: #4285F4;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 12px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: transform 0.15s;
+    }
+    .cta-btn:hover { transform: translateY(-1px); }
+
+    /* 関連記事カード */
+    .related-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    }
+    .related-card h4 {
+      font-size: 13px;
+      font-weight: 700;
+      color: #757575;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+    .related-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid #F0F0F0;
+      text-decoration: none;
+      color: #333;
+      font-size: 13px;
+      transition: color 0.15s;
+    }
+    .related-item:last-child { border-bottom: none; }
+    .related-item:hover { color: #4285F4; }
+    .related-icon { font-size: 20px; }
+
+    /* フッター */
+    footer {
+      background: #1a1a2e;
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 14px;
+      margin-top: 60px;
+    }
+    footer strong { color: white; }
+  </style>
+</head>
+<body>
+
+<!-- ナビバー -->
+<nav>
+  <div class="nav-logo">
+    <span class="nav-logo-dot"></span>
+    株式会社ふじサンバ
+  </div>
+  <div class="nav-links">
+    <a href="#">サービス</a>
+    <a href="#">お役立ち記事</a>
+    <a href="#">事例</a>
+    <a href="#">お問い合わせ</a>
+  </div>
+  <span class="nav-badge">DX支援部門</span>
+</nav>
+
+<!-- ヒーロー -->
+<div class="hero">
+  <div class="tag">Googleワークスペース入門</div>
+  <h1>Googleドキュメントの使い方<br>【IT未経験者向け完全ガイド2026年版】</h1>
+  <p>基本操作・共同編集・コメント・バージョン履歴・Wordとの違いをわかりやすく解説</p>
+  <div class="hero-meta">
+    <span>📅 2026年3月19日</span>
+    <span>👤 DX支援部門</span>
+    <span>⏱️ 読了時間 約8分</span>
+  </div>
+</div>
+
+<!-- メインレイアウト -->
+<div class="layout">
+
+  <!-- 記事本文 -->
+  <main class="article-body">
+
+    <p>「Wordと何が違うの？」「共同編集って怖くない？」「誰かに上書きされたらどうしよう…」——Googleドキュメントを初めて使う方から、こんな不安をよく聞きます。</p>
+    <p>Googleドキュメントは、<strong>インターネット上で文書を作成・編集・共有できる無料ツール</strong>です。Wordに似ていますが、複数人が同時に編集できる・自動保存される・どのデバイスからでも開けるという点で、チームでの業務に特に適しています。</p>
+    <p>この記事では、IT未経験の方に向けて、Googleドキュメントの基本操作から共同編集・コメント・バージョン履歴まで、ひとつひとつ丁寧に解説します。</p>
+
+    <hr>
+
+    <h2 id="diff">GoogleドキュメントとWordの違い——まずここを理解しよう</h2>
+    <p>Googleドキュメントを使い始める前に、MicrosoftのWordとの違いを理解しておきましょう。</p>
+
+    <!-- SVG 1 インライン -->
+    <div class="img-block">
+      <svg width="800" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" font-family="'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif">
+        <rect width="800" height="400" fill="#F8F9FA" rx="12"/>
+        <rect x="0" y="0" width="800" height="56" fill="#4285F4" rx="12"/>
+        <rect x="0" y="44" width="800" height="12" fill="#4285F4"/>
+        <text x="400" y="36" text-anchor="middle" fill="white" font-size="18" font-weight="bold">GoogleドキュメントとWordの違い</text>
+        <rect x="24" y="76" width="350" height="304" fill="white" rx="10" stroke="#E0E0E0" stroke-width="1.5"/>
+        <rect x="426" y="76" width="350" height="304" fill="white" rx="10" stroke="#4285F4" stroke-width="2"/>
+        <rect x="24" y="76" width="350" height="50" fill="#2B579A" rx="10"/>
+        <rect x="24" y="114" width="350" height="12" fill="#2B579A"/>
+        <text x="199" y="107" text-anchor="middle" fill="white" font-size="16" font-weight="bold">Microsoft Word</text>
+        <rect x="426" y="76" width="350" height="50" fill="#4285F4" rx="10"/>
+        <rect x="426" y="114" width="350" height="12" fill="#4285F4"/>
+        <text x="601" y="107" text-anchor="middle" fill="white" font-size="16" font-weight="bold">Googleドキュメント</text>
+        <circle cx="400" cy="150" r="22" fill="#F8F9FA" stroke="#BDBDBD" stroke-width="2"/>
+        <text x="400" y="156" text-anchor="middle" fill="#616161" font-size="14" font-weight="bold">VS</text>
+        <text x="64" y="160" fill="#9E9E9E" font-size="11">料金</text>
+        <text x="64" y="179" fill="#212121" font-size="13" font-weight="bold">有料（Microsoft 365）</text>
+        <text x="466" y="160" fill="#9E9E9E" font-size="11">料金</text>
+        <text x="466" y="179" fill="#34A853" font-size="13" font-weight="bold">無料で使える</text>
+        <line x1="40" y1="193" x2="358" y2="193" stroke="#F0F0F0" stroke-width="1"/>
+        <line x1="442" y1="193" x2="760" y2="193" stroke="#E8F0FE" stroke-width="1"/>
+        <text x="64" y="213" fill="#9E9E9E" font-size="11">保存方法</text>
+        <text x="64" y="232" fill="#212121" font-size="13">手動で「上書き保存」が必要</text>
+        <text x="466" y="213" fill="#9E9E9E" font-size="11">保存方法</text>
+        <text x="466" y="232" fill="#34A853" font-size="13" font-weight="bold">自動保存（操作不要）</text>
+        <line x1="40" y1="246" x2="358" y2="246" stroke="#F0F0F0" stroke-width="1"/>
+        <line x1="442" y1="246" x2="760" y2="246" stroke="#E8F0FE" stroke-width="1"/>
+        <text x="64" y="266" fill="#9E9E9E" font-size="11">複数人での同時編集</text>
+        <text x="64" y="285" fill="#F44336" font-size="13">難しい・制限がある</text>
+        <text x="466" y="266" fill="#9E9E9E" font-size="11">複数人での同時編集</text>
+        <text x="466" y="285" fill="#34A853" font-size="13" font-weight="bold">リアルタイムで同時編集可能</text>
+        <line x1="40" y1="299" x2="358" y2="299" stroke="#F0F0F0" stroke-width="1"/>
+        <line x1="442" y1="299" x2="760" y2="299" stroke="#E8F0FE" stroke-width="1"/>
+        <text x="64" y="319" fill="#9E9E9E" font-size="11">変更履歴の管理</text>
+        <text x="64" y="338" fill="#F44336" font-size="13">手動でファイルを複製</text>
+        <text x="466" y="319" fill="#9E9E9E" font-size="11">変更履歴の管理</text>
+        <text x="466" y="338" fill="#34A853" font-size="13" font-weight="bold">自動でバージョン履歴を保存</text>
+        <line x1="40" y1="352" x2="358" y2="352" stroke="#F0F0F0" stroke-width="1"/>
+        <line x1="442" y1="352" x2="760" y2="352" stroke="#E8F0FE" stroke-width="1"/>
+        <text x="64" y="372" fill="#9E9E9E" font-size="11">別の端末からのアクセス</text>
+        <text x="64" y="389" fill="#F44336" font-size="13">設定・準備が必要</text>
+        <text x="466" y="372" fill="#9E9E9E" font-size="11">別の端末からのアクセス</text>
+        <text x="466" y="389" fill="#34A853" font-size="13" font-weight="bold">どこからでも即アクセス</text>
+      </svg>
+      <p class="img-caption">GoogleドキュメントとWordの主な違い</p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>比較項目</th>
+            <th>Microsoft Word</th>
+            <th>Googleドキュメント</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>料金</td><td>有料（Microsoft 365が必要）</td><td>無料（Googleアカウントがあれば使える）</td></tr>
+          <tr><td>保存方法</td><td>手動で「上書き保存」が必要</td><td><strong>自動保存（保存操作不要）</strong></td></tr>
+          <tr><td>保存場所</td><td>パソコン本体・OneDrive</td><td>Google Drive（クラウド上）</td></tr>
+          <tr><td>別の端末からのアクセス</td><td>設定が必要</td><td><strong>どこからでも即開ける</strong></td></tr>
+          <tr><td>複数人での同時編集</td><td>難しい・制限がある</td><td><strong>リアルタイムで同時編集可能</strong></td></tr>
+          <tr><td>バージョン管理</td><td>手動でファイルを複製</td><td><strong>自動で変更履歴を保存</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout-info">
+      <span class="callout-icon">💡</span>
+      <div><strong>よくある誤解：</strong>「Wordで作ったファイルはGoogleドキュメントで開けないのでは？」——開けます。Word形式（.docx）のファイルをGoogleドライブにアップロードすると、Googleドキュメントとして編集できます。</div>
+    </div>
+
+    <hr>
+
+    <div class="step-badge"><span class="step-badge-num">1</span>Googleドキュメントを作成する</div>
+    <h2 id="step1">STEP 1：Googleドキュメントを作成する</h2>
+
+    <h3>新しい文書を作る方法</h3>
+
+    <h4>方法①：Googleドライブから作成</h4>
+    <ol>
+      <li>ブラウザで <strong>drive.google.com</strong> にアクセスしてログイン</li>
+      <li>「＋新規」ボタンをクリック</li>
+      <li>「Googleドキュメント」を選択</li>
+      <li>新しい文書が開く</li>
+    </ol>
+
+    <h4>方法②：直接アクセスして作成</h4>
+    <p>ブラウザのアドレスバーに <strong>docs.new</strong> と入力してEnterを押すだけで、新しいGoogleドキュメントが即座に開きます。</p>
+
+    <h3>文書のタイトルをつける</h3>
+    <p>新しい文書を開くと、上部に「無題のドキュメント」と表示されます。ここをクリックしてタイトルを入力しましょう。</p>
+
+    <div class="callout callout-info">
+      <span class="callout-icon">💡</span>
+      <div><strong>ポイント：</strong>タイトルは後から探しやすい名前にしましょう。「議事録_20260319_定例会議」のように日付や内容を入れると管理しやすくなります。</div>
+    </div>
+
+    <hr>
+
+    <div class="step-badge"><span class="step-badge-num">2</span>基本操作</div>
+    <h2 id="step2">STEP 2：基本操作——テキストの入力と書式設定</h2>
+
+    <h3>テキストの入力</h3>
+    <p>文書エリアをクリックしてカーソルを置いたら、そのままキーボードで文字を入力できます。<strong>自動保存されるので、入力した内容はリアルタイムでGoogleドライブに保存されます。</strong></p>
+
+    <h3>主な書式設定</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>操作</th><th>ショートカット</th><th>効果</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>太字</td><td>Ctrl+B（Mac: ⌘+B）</td><td>太字にする</td></tr>
+          <tr><td>斜体</td><td>Ctrl+I（Mac: ⌘+I）</td><td>斜体にする</td></tr>
+          <tr><td>下線</td><td>Ctrl+U（Mac: ⌘+U）</td><td>下線を引く</td></tr>
+          <tr><td>コピー</td><td>Ctrl+C（Mac: ⌘+C）</td><td>選択箇所をコピー</td></tr>
+          <tr><td>貼り付け</td><td>Ctrl+V（Mac: ⌘+V）</td><td>貼り付け</td></tr>
+          <tr><td>元に戻す</td><td>Ctrl+Z（Mac: ⌘+Z）</td><td>直前の操作を取り消す</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>見出しを使う</h3>
+    <p>ツールバーの「標準テキスト」というドロップダウンを「見出し1」「見出し2」に変更すると、文書に階層構造を持たせられます。<strong>見出しをつけることで、自動的に目次が生成でき、長い文書でも読みやすくなります。</strong></p>
+
+    <hr>
+
+    <div class="step-badge"><span class="step-badge-num">3</span>共同編集</div>
+    <h2 id="step3">STEP 3：共同編集——複数人で同時に作業する</h2>
+
+    <p>Googleドキュメントの最大の特徴が<strong>共同編集</strong>です。複数の人が同じ文書を同時に開いて編集でき、お互いの変更がリアルタイムで画面に反映されます。</p>
+
+    <h3>共有する手順</h3>
+    <ol>
+      <li>文書を開いた状態で、右上の「<strong>共有</strong>」ボタンをクリック</li>
+      <li>共有相手のメールアドレスを入力</li>
+      <li>権限を選択する</li>
+    </ol>
+
+    <h3>3つの権限モードを理解しよう</h3>
+
+    <!-- SVG 2 インライン -->
+    <div class="img-block">
+      <svg width="800" height="380" viewBox="0 0 800 380" xmlns="http://www.w3.org/2000/svg" font-family="'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif">
+        <rect width="800" height="380" fill="#F8F9FA" rx="12"/>
+        <rect x="0" y="0" width="800" height="56" fill="#4285F4" rx="12"/>
+        <rect x="0" y="44" width="800" height="12" fill="#4285F4"/>
+        <text x="400" y="36" text-anchor="middle" fill="white" font-size="18" font-weight="bold">編集・提案・閲覧モードの違い</text>
+        <rect x="24" y="76" width="228" height="284" fill="white" rx="10" stroke="#34A853" stroke-width="2"/>
+        <rect x="24" y="76" width="228" height="48" fill="#34A853" rx="10"/>
+        <rect x="24" y="112" width="228" height="12" fill="#34A853"/>
+        <text x="138" y="105" text-anchor="middle" fill="white" font-size="15" font-weight="bold">✏️ 編集モード</text>
+        <rect x="44" y="138" width="188" height="80" fill="#E8F5E9" rx="8"/>
+        <text x="138" y="168" text-anchor="middle" fill="#2E7D32" font-size="28">📝</text>
+        <text x="138" y="195" text-anchor="middle" fill="#2E7D32" font-size="12">自由に編集できる</text>
+        <rect x="60" y="230" width="156" height="26" fill="#34A853" rx="13"/>
+        <text x="138" y="248" text-anchor="middle" fill="white" font-size="12" font-weight="bold">権限：編集者</text>
+        <text x="44" y="278" fill="#424242" font-size="12">・文字の追加・削除</text>
+        <text x="44" y="298" fill="#424242" font-size="12">・書式の変更</text>
+        <text x="44" y="318" fill="#424242" font-size="12">・画像の挿入</text>
+        <rect x="44" y="334" width="188" height="18" fill="#F1F8E9" rx="4"/>
+        <text x="138" y="347" text-anchor="middle" fill="#388E3C" font-size="11">チームメンバー向け</text>
+        <rect x="286" y="76" width="228" height="284" fill="white" rx="10" stroke="#FBBC05" stroke-width="2"/>
+        <rect x="286" y="76" width="228" height="48" fill="#FBBC05" rx="10"/>
+        <rect x="286" y="112" width="228" height="12" fill="#FBBC05"/>
+        <text x="400" y="105" text-anchor="middle" fill="white" font-size="15" font-weight="bold">💡 提案モード</text>
+        <rect x="306" y="138" width="188" height="80" fill="#FFF8E1" rx="8"/>
+        <text x="400" y="168" text-anchor="middle" fill="#F57F17" font-size="28">🔍</text>
+        <text x="400" y="195" text-anchor="middle" fill="#F57F17" font-size="12">変更を提案できる</text>
+        <rect x="322" y="230" width="156" height="26" fill="#FBBC05" rx="13"/>
+        <text x="400" y="248" text-anchor="middle" fill="white" font-size="12" font-weight="bold">権限：編集者</text>
+        <text x="306" y="278" fill="#424242" font-size="12">・変更箇所が緑色で表示</text>
+        <text x="306" y="298" fill="#424242" font-size="12">・承認・却下が可能</text>
+        <text x="306" y="318" fill="#424242" font-size="12">・誰の変更かわかる</text>
+        <rect x="306" y="334" width="188" height="18" fill="#FFF8E1" rx="4"/>
+        <text x="400" y="347" text-anchor="middle" fill="#F57F17" font-size="11">レビュー・校正向け</text>
+        <rect x="548" y="76" width="228" height="284" fill="white" rx="10" stroke="#EA4335" stroke-width="2"/>
+        <rect x="548" y="76" width="228" height="48" fill="#EA4335" rx="10"/>
+        <rect x="548" y="112" width="228" height="12" fill="#EA4335"/>
+        <text x="662" y="105" text-anchor="middle" fill="white" font-size="15" font-weight="bold">👁️ 閲覧モード</text>
+        <rect x="568" y="138" width="188" height="80" fill="#FEEBEE" rx="8"/>
+        <text x="662" y="168" text-anchor="middle" fill="#B71C1C" font-size="28">🔒</text>
+        <text x="662" y="195" text-anchor="middle" fill="#B71C1C" font-size="12">見るだけ</text>
+        <rect x="584" y="230" width="156" height="26" fill="#EA4335" rx="13"/>
+        <text x="662" y="248" text-anchor="middle" fill="white" font-size="12" font-weight="bold">権限：閲覧者</text>
+        <text x="568" y="278" fill="#424242" font-size="12">・内容を読むのみ</text>
+        <text x="568" y="298" fill="#424242" font-size="12">・変更・コメント不可</text>
+        <text x="568" y="318" fill="#424242" font-size="12">・印刷・ダウンロード可</text>
+        <rect x="568" y="334" width="188" height="18" fill="#FEEBEE" rx="4"/>
+        <text x="662" y="347" text-anchor="middle" fill="#C62828" font-size="11">完成文書の配布向け</text>
+      </svg>
+      <p class="img-caption">3つのモードの違いと使い分け</p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>権限</th><th>何ができる？</th><th>いつ使う？</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>編集者</strong></td><td>自由に編集・削除できる</td><td>一緒に作業するチームメンバー</td></tr>
+          <tr><td><strong>コメント可</strong></td><td>コメントを追加できる（本文は変えられない）</td><td>レビューや確認をお願いするとき</td></tr>
+          <tr><td><strong>閲覧者</strong></td><td>見るだけ（変更不可）</td><td>完成した文書を共有するとき</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout-info">
+      <span class="callout-icon">💡</span>
+      <div><strong>初心者へのアドバイス：</strong>「誤って内容を書き換えられたくない」場合は「コメント可」が最適です。相手は意見やフィードバックをコメントで残せますが、本文は変更できません。</div>
+    </div>
+
+    <h3>編集モードと「提案モード」</h3>
+    <p>文書を開いたとき、画面右上に「<strong>編集</strong>」と表示されている場合は自由に編集できます。これを「<strong>提案</strong>」に切り替えると、変更箇所が色付きで表示され、文書のオーナーが承認・却下できる形になります。</p>
+    <ol>
+      <li>画面右上の「編集」ドロップダウンをクリック</li>
+      <li>「提案」を選択</li>
+      <li>文字を編集すると、変更箇所が緑色で表示される</li>
+      <li>文書のオーナーが「✓（承認）」か「✗（却下）」を選択</li>
+    </ol>
+
+    <hr>
+
+    <div class="step-badge"><span class="step-badge-num">4</span>コメント機能</div>
+    <h2 id="step4">STEP 4：コメント機能——フィードバックをわかりやすく残す</h2>
+
+    <p>コメント機能を使うと、文書内の特定の箇所にメモや質問を残せます。メールで「〇ページの〇行目の部分ですが…」と長々説明する必要がなくなります。</p>
+
+    <h3>コメントの追加方法</h3>
+    <ol>
+      <li>コメントをつけたいテキストを選択（ドラッグで範囲指定）</li>
+      <li>画面右側に表示される「コメントを追加」アイコン（吹き出しマーク）をクリック</li>
+      <li>コメントを入力して「コメント」ボタンをクリック</li>
+    </ol>
+    <p>または：テキストを選択後に <strong>Ctrl+Alt+M</strong>（Mac: <strong>⌘+Option+M</strong>）でもコメントを追加できます。</p>
+
+    <h3>コメントで特定の人にメンションする</h3>
+    <p>コメント入力欄で <strong>@メールアドレス</strong> または <strong>@名前</strong> と入力すると、その人に通知が届きます。「この部分、〇〇さんに確認してほしい」というときに便利です。</p>
+
+    <div class="callout callout-success">
+      <span class="callout-icon">✅</span>
+      <div><strong>活用例：</strong>上司が「ここの表現を変えてください」とコメント → 担当者が修正 → 「解決」をクリックして完了報告。メールのやり取りなしで、フィードバックから修正確認まで完結します。</div>
+    </div>
+
+    <hr>
+
+    <div class="step-badge"><span class="step-badge-num">5</span>バージョン履歴</div>
+    <h2 id="step5">STEP 5：バージョン履歴——過去の状態に戻す</h2>
+
+    <p>「誰かが文書を書き換えてしまった」「昨日の時点の内容に戻したい」——そんなときに役立つのがバージョン履歴です。Googleドキュメントは<strong>変更のたびに自動でバージョンを保存</strong>しています。</p>
+
+    <!-- SVG 3 インライン -->
+    <div class="img-block">
+      <svg width="800" height="380" viewBox="0 0 800 380" xmlns="http://www.w3.org/2000/svg" font-family="'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif">
+        <rect width="800" height="380" fill="#F8F9FA" rx="12"/>
+        <rect x="0" y="0" width="800" height="56" fill="#4285F4" rx="12"/>
+        <rect x="0" y="44" width="800" height="12" fill="#4285F4"/>
+        <text x="400" y="36" text-anchor="middle" fill="white" font-size="18" font-weight="bold">バージョン履歴の使い方フロー</text>
+        <rect x="30" y="80" width="148" height="90" fill="white" rx="10" stroke="#4285F4" stroke-width="2"/>
+        <rect x="30" y="80" width="148" height="32" fill="#4285F4" rx="10"/>
+        <rect x="30" y="100" width="148" height="12" fill="#4285F4"/>
+        <text x="104" y="100" text-anchor="middle" fill="white" font-size="12" font-weight="bold">STEP 1</text>
+        <text x="104" y="130" text-anchor="middle" fill="#212121" font-size="13" font-weight="bold">ファイルを開く</text>
+        <text x="104" y="150" text-anchor="middle" fill="#616161" font-size="11">編集中の文書</text>
+        <text x="104" y="163" text-anchor="middle" fill="#616161" font-size="11">を開く</text>
+        <line x1="178" y1="125" x2="210" y2="125" stroke="#4285F4" stroke-width="2"/>
+        <polygon points="210,119 222,125 210,131" fill="#4285F4"/>
+        <rect x="222" y="80" width="148" height="90" fill="white" rx="10" stroke="#4285F4" stroke-width="2"/>
+        <rect x="222" y="80" width="148" height="32" fill="#4285F4" rx="10"/>
+        <rect x="222" y="100" width="148" height="12" fill="#4285F4"/>
+        <text x="296" y="100" text-anchor="middle" fill="white" font-size="12" font-weight="bold">STEP 2</text>
+        <text x="296" y="128" text-anchor="middle" fill="#212121" font-size="12" font-weight="bold">メニューを開く</text>
+        <text x="296" y="146" text-anchor="middle" fill="#616161" font-size="11">「ファイル」→</text>
+        <text x="296" y="160" text-anchor="middle" fill="#616161" font-size="11">「バージョン履歴」</text>
+        <line x1="370" y1="125" x2="402" y2="125" stroke="#4285F4" stroke-width="2"/>
+        <polygon points="402,119 414,125 402,131" fill="#4285F4"/>
+        <rect x="414" y="80" width="148" height="90" fill="white" rx="10" stroke="#4285F4" stroke-width="2"/>
+        <rect x="414" y="80" width="148" height="32" fill="#4285F4" rx="10"/>
+        <rect x="414" y="100" width="148" height="12" fill="#4285F4"/>
+        <text x="488" y="100" text-anchor="middle" fill="white" font-size="12" font-weight="bold">STEP 3</text>
+        <text x="488" y="128" text-anchor="middle" fill="#212121" font-size="12" font-weight="bold">履歴を確認する</text>
+        <text x="488" y="146" text-anchor="middle" fill="#616161" font-size="11">日時別の変更一覧が</text>
+        <text x="488" y="160" text-anchor="middle" fill="#616161" font-size="11">右側に表示される</text>
+        <line x1="562" y1="125" x2="594" y2="125" stroke="#4285F4" stroke-width="2"/>
+        <polygon points="594,119 606,125 594,131" fill="#4285F4"/>
+        <rect x="606" y="80" width="164" height="90" fill="white" rx="10" stroke="#34A853" stroke-width="2"/>
+        <rect x="606" y="80" width="164" height="32" fill="#34A853" rx="10"/>
+        <rect x="606" y="100" width="164" height="12" fill="#34A853"/>
+        <text x="688" y="100" text-anchor="middle" fill="white" font-size="12" font-weight="bold">STEP 4</text>
+        <text x="688" y="128" text-anchor="middle" fill="#212121" font-size="12" font-weight="bold">バージョンを選ぶ</text>
+        <text x="688" y="146" text-anchor="middle" fill="#616161" font-size="11">戻したい時点を</text>
+        <text x="688" y="160" text-anchor="middle" fill="#616161" font-size="11">クリックして選択</text>
+        <text x="400" y="205" text-anchor="middle" fill="#757575" font-size="13">選択後の操作を選びましょう</text>
+        <line x1="200" y1="212" x2="600" y2="212" stroke="#E0E0E0" stroke-width="1" stroke-dasharray="4,4"/>
+        <rect x="60" y="224" width="284" height="100" fill="white" rx="10" stroke="#FBBC05" stroke-width="2"/>
+        <rect x="60" y="224" width="284" height="36" fill="#FBBC05" rx="10"/>
+        <rect x="60" y="248" width="284" height="12" fill="#FBBC05"/>
+        <text x="202" y="248" text-anchor="middle" fill="white" font-size="14" font-weight="bold">👁️ その時点の内容を確認する</text>
+        <text x="202" y="276" text-anchor="middle" fill="#424242" font-size="13">バージョンをクリックするだけで</text>
+        <text x="202" y="296" text-anchor="middle" fill="#424242" font-size="13">その時点の内容が表示される</text>
+        <text x="202" y="316" text-anchor="middle" fill="#9E9E9E" font-size="11">現在の文書は変更されない</text>
+        <rect x="456" y="224" width="284" height="100" fill="white" rx="10" stroke="#34A853" stroke-width="2"/>
+        <rect x="456" y="224" width="284" height="36" fill="#34A853" rx="10"/>
+        <rect x="456" y="248" width="284" height="12" fill="#34A853"/>
+        <text x="598" y="248" text-anchor="middle" fill="white" font-size="14" font-weight="bold">⏪ そのバージョンに戻す</text>
+        <text x="598" y="276" text-anchor="middle" fill="#424242" font-size="13">「このバージョンを復元」</text>
+        <text x="598" y="296" text-anchor="middle" fill="#424242" font-size="13">ボタンをクリック</text>
+        <text x="598" y="316" text-anchor="middle" fill="#34A853" font-size="11">復元後も以前の履歴はすべて残る</text>
+        <rect x="60" y="338" width="680" height="34" fill="#E8F0FE" rx="8"/>
+        <text x="400" y="360" text-anchor="middle" fill="#1A73E8" font-size="13" font-weight="bold">💡 ポイント：誤って復元しても再度バージョン履歴から元に戻せるので安心！</text>
+      </svg>
+      <p class="img-caption">バージョン履歴の確認から復元までのフロー</p>
+    </div>
+
+    <h3>バージョン履歴の確認方法</h3>
+    <ol>
+      <li>メニューバーの「<strong>ファイル</strong>」をクリック</li>
+      <li>「<strong>バージョン履歴</strong>」→「<strong>バージョン履歴を表示</strong>」をクリック</li>
+      <li>画面右側に日時ごとの変更履歴が表示される</li>
+      <li>確認したいバージョンをクリックすると、その時点の文書を見られる</li>
+    </ol>
+
+    <h3>以前のバージョンに戻す方法</h3>
+    <ol>
+      <li>バージョン履歴を開く</li>
+      <li>戻したいバージョンを選択</li>
+      <li>「<strong>このバージョンを復元</strong>」ボタンをクリック</li>
+    </ol>
+
+    <div class="callout callout-success">
+      <span class="callout-icon">✅</span>
+      <div><strong>安心ポイント：</strong>復元しても、それ以降の変更履歴はすべて残ります。「間違って復元してしまった」場合も、再度バージョン履歴から元に戻せます。</div>
+    </div>
+
+    <h3>バージョンに名前をつける</h3>
+    <ol>
+      <li>バージョン履歴を開く</li>
+      <li>名前をつけたいバージョンの右にある「︙」をクリック</li>
+      <li>「このバージョンに名前をつける」を選択</li>
+    </ol>
+
+    <hr>
+
+    <h2 id="faq">よくある質問（FAQ）</h2>
+
+    <div class="faq-item">
+      <div class="faq-q">Googleドキュメントは無料ですか？</div>
+      <div class="faq-a">Googleアカウントがあれば無料で使えます。会社でGoogle Workspaceを契約している場合は、より高度な機能（大容量ストレージ・管理者機能など）が利用できます。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Wordファイルに変換してダウンロードできますか？</div>
+      <div class="faq-a">できます。「ファイル」→「ダウンロード」→「Microsoft Word (.docx)」を選択するとWordファイルとしてダウンロードできます。PDF形式でもダウンロード可能です。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">インターネットがない環境でも使えますか？</div>
+      <div class="faq-a">ChromeブラウザでGoogleドキュメントのオフラインアクセスを設定しておくと、インターネットなしでも編集できます。ただし、その間は他の人との同期はできません。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">文書が突然消えてしまった場合は？</div>
+      <div class="faq-a">バージョン履歴から復元できます。また、誰かが削除した場合はGoogleドライブのゴミ箱（30日間保持）から復元できます。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">コメントの通知メールがたくさん届いて困る</div>
+      <div class="faq-a">Googleドキュメントの通知設定から、「コメントの通知」を変更できます。「メンションされたときのみ」に設定すると、関係するコメントのみ通知が届くようになります。</div>
+    </div>
+
+    <hr>
+
+    <h2 id="summary">まとめ：Googleドキュメントを使いこなす5つのポイント</h2>
+
+    <ul class="summary-list">
+      <li data-num="1">保存は自動——Ctrl+Sを押す必要はない。変更は即座に保存される</li>
+      <li data-num="2">共有権限は用途に応じて使い分ける——閲覧・コメント可・編集の3種類を意識する</li>
+      <li data-num="3">フィードバックはコメント機能で——メールよりも速く、正確に伝えられる</li>
+      <li data-num="4">変更は提案モードで——誰が何を変えたか明確になり、レビューがスムーズ</li>
+      <li data-num="5">バージョン履歴は万能の保険——失敗を恐れず使える安心感の源</li>
+    </ul>
+
+    <p>Googleドキュメントは使えば使うほど、チームの文書作成が効率化します。まずは自分ひとりで文書を作ることから始めて、慣れてきたら共同編集・コメント機能を活用してみてください。</p>
+
+    <div class="callout callout-info" style="margin-top:32px;">
+      <span class="callout-icon">📩</span>
+      <div>この記事に関するご質問は、<strong>DX支援部門</strong>までお気軽にご相談ください。</div>
+    </div>
+
+  </main>
+
+  <!-- サイドバー -->
+  <aside class="sidebar">
+
+    <!-- 目次 -->
+    <div class="toc">
+      <div class="toc-title">目次</div>
+      <ul class="toc-list">
+        <li><a href="#diff">Wordとの違いを理解しよう</a></li>
+        <li><a href="#step1"><span class="toc-step">STEP1</span>文書を作成する</a></li>
+        <li><a href="#step2"><span class="toc-step">STEP2</span>基本操作・書式設定</a></li>
+        <li><a href="#step3"><span class="toc-step">STEP3</span>共同編集</a></li>
+        <li><a href="#step4"><span class="toc-step">STEP4</span>コメント機能</a></li>
+        <li><a href="#step5"><span class="toc-step">STEP5</span>バージョン履歴</a></li>
+        <li><a href="#faq">よくある質問</a></li>
+        <li><a href="#summary">まとめ</a></li>
+      </ul>
+    </div>
+
+    <!-- CTAカード -->
+    <div class="cta-card">
+      <h3>Googleワークスペースの導入をお考えですか？</h3>
+      <p>株式会社ふじサンバのDX支援部門が、導入から社員研修まで一貫サポートします。</p>
+      <a href="#" class="cta-btn">無料相談はこちら</a>
+    </div>
+
+    <!-- 関連記事 -->
+    <div class="related-card">
+      <h4>関連記事</h4>
+      <a href="#" class="related-item">
+        <span class="related-icon">📁</span>
+        <span>Googleドライブの使い方【完全ガイド】</span>
+      </a>
+      <a href="#" class="related-item">
+        <span class="related-icon">📅</span>
+        <span>Googleカレンダーの使い方【完全ガイド】</span>
+      </a>
+      <a href="#" class="related-item">
+        <span class="related-icon">📧</span>
+        <span>Gmailの使い方【完全ガイド】</span>
+      </a>
+      <a href="#" class="related-item">
+        <span class="related-icon">🎥</span>
+        <span>Google Meetの使い方【完全ガイド】</span>
+      </a>
+    </div>
+
+  </aside>
+
+</div>
+
+<!-- フッター -->
+<footer>
+  <p><strong>株式会社ふじサンバ</strong> — DX支援部門</p>
+  <p style="margin-top:8px;">© 2026 株式会社ふじサンバ All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>

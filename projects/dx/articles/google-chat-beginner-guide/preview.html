@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Chatの使い方【IT未経験者向け完全ガイド2026年版】 | 株式会社ふじサンバ</title>
+  <meta name="description" content="IT未経験でも大丈夫。Google Chatのダイレクトメッセージ・スペース・ファイル共有・MeetとChatの使い分けをわかりやすく解説。">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic', sans-serif;
+      background: #F8F9FA;
+      color: #202124;
+      line-height: 1.8;
+    }
+
+    /* ===== ナビバー ===== */
+    .navbar {
+      background: #ffffff;
+      border-bottom: 1px solid #E8EAED;
+      padding: 0 32px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+    .navbar-brand {
+      font-size: 18px;
+      font-weight: 700;
+      color: #1A73E8;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+    .navbar-brand span {
+      color: #202124;
+      font-weight: 400;
+      font-size: 13px;
+      margin-left: 12px;
+    }
+    .navbar-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .nav-link {
+      font-size: 14px;
+      color: #5F6368;
+      text-decoration: none;
+    }
+    .nav-cta {
+      background: #1A73E8;
+      color: #ffffff !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    /* ===== ヒーローヘッダー ===== */
+    .article-hero {
+      background: linear-gradient(135deg, #1A73E8 0%, #0D47A1 100%);
+      color: #ffffff;
+      padding: 56px 32px 48px;
+      text-align: center;
+    }
+    .article-hero .category-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.4);
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 18px;
+      letter-spacing: 0.05em;
+    }
+    .article-hero h1 {
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 1.4;
+      max-width: 760px;
+      margin: 0 auto 20px;
+    }
+    .article-meta {
+      font-size: 13px;
+      color: rgba(255,255,255,0.75);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+    .article-meta .tag {
+      background: rgba(255,255,255,0.15);
+      padding: 3px 10px;
+      border-radius: 4px;
+    }
+
+    /* ===== レイアウト ===== */
+    .layout {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 40px 24px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 40px;
+      align-items: start;
+    }
+
+    /* ===== 記事本文 ===== */
+    .article-body {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 48px 52px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+
+    .article-body .lead {
+      font-size: 16px;
+      color: #3C4043;
+      line-height: 1.9;
+      padding: 0 0 28px;
+      border-bottom: 2px solid #E8F0FE;
+      margin-bottom: 36px;
+    }
+
+    .article-body h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #202124;
+      margin: 48px 0 18px;
+      padding-left: 16px;
+      border-left: 4px solid #1A73E8;
+      line-height: 1.4;
+    }
+    .article-body h2:first-of-type { margin-top: 0; }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #202124;
+      margin: 30px 0 12px;
+    }
+
+    .article-body p {
+      font-size: 15px;
+      color: #3C4043;
+      line-height: 1.85;
+      margin-bottom: 16px;
+    }
+
+    .article-body ul, .article-body ol {
+      padding-left: 24px;
+      margin-bottom: 20px;
+    }
+    .article-body li {
+      font-size: 15px;
+      color: #3C4043;
+      line-height: 1.85;
+      margin-bottom: 8px;
+    }
+
+    .article-body strong {
+      font-weight: 700;
+      color: #202124;
+    }
+
+    hr { border: none; border-top: 1px solid #E8EAED; margin: 36px 0; }
+
+    /* テーブル */
+    .article-body table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0 28px;
+      font-size: 14px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .article-body th {
+      background: #1A73E8;
+      color: #ffffff;
+      font-weight: 600;
+      padding: 12px 16px;
+      text-align: left;
+    }
+    .article-body td {
+      padding: 12px 16px;
+      border-bottom: 1px solid #E8EAED;
+      color: #3C4043;
+      vertical-align: top;
+    }
+    .article-body tr:last-child td { border-bottom: none; }
+    .article-body tr:nth-child(even) td { background: #F8F9FA; }
+
+    /* コールアウト */
+    .callout {
+      background: #E8F0FE;
+      border-left: 4px solid #1A73E8;
+      border-radius: 0 8px 8px 0;
+      padding: 16px 20px;
+      margin: 20px 0;
+      font-size: 14px;
+      color: #3C4043;
+      line-height: 1.75;
+    }
+    .callout.green {
+      background: #E6F4EA;
+      border-left-color: #34A853;
+    }
+    .callout.red {
+      background: #FCE8E6;
+      border-left-color: #EA4335;
+    }
+    .callout strong { color: #1A73E8; }
+    .callout.green strong { color: #34A853; }
+
+    /* ステップバッジ */
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 44px 0 16px;
+    }
+    .step-badge {
+      background: #1A73E8;
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      white-space: nowrap;
+      letter-spacing: 0.04em;
+    }
+    .step-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #202124;
+      line-height: 1.4;
+    }
+
+    /* 番号付き手順ボックス */
+    .steps-box {
+      background: #F8F9FA;
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin: 16px 0 24px;
+      counter-reset: step-counter;
+    }
+    .steps-box .step-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 10px 0;
+      border-bottom: 1px solid #E8EAED;
+      counter-increment: step-counter;
+    }
+    .steps-box .step-item:last-child { border-bottom: none; }
+    .steps-box .step-num {
+      background: #1A73E8;
+      color: #ffffff;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .steps-box .step-text { font-size: 14px; color: #3C4043; line-height: 1.7; }
+
+    /* 失敗ボックス */
+    .failure-box {
+      border: 1px solid #E8EAED;
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin: 20px 0;
+    }
+    .failure-box .failure-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #EA4335;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .failure-box p { margin-bottom: 8px; font-size: 14px; }
+
+    /* FAQ */
+    .faq-item {
+      border: 1px solid #E8EAED;
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-bottom: 14px;
+    }
+    .faq-q {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1A73E8;
+      margin-bottom: 10px;
+      display: flex;
+      gap: 10px;
+    }
+    .faq-q::before {
+      content: 'Q';
+      background: #1A73E8;
+      color: #ffffff;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .faq-a {
+      font-size: 14px;
+      color: #3C4043;
+      line-height: 1.8;
+      padding-left: 32px;
+    }
+
+    /* まとめボックス */
+    .summary-box {
+      background: linear-gradient(135deg, #E8F0FE 0%, #E6F4EA 100%);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin: 36px 0;
+    }
+    .summary-box h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #1A73E8;
+      margin-bottom: 16px;
+    }
+    .summary-box ul {
+      list-style: none;
+      padding: 0;
+    }
+    .summary-box li {
+      display: flex;
+      gap: 10px;
+      font-size: 14px;
+      color: #202124;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(26,115,232,0.1);
+    }
+    .summary-box li:last-child { border-bottom: none; }
+    .summary-box li::before {
+      content: '';
+      width: 20px;
+      height: 20px;
+      background: #34A853;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 2px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='10' viewBox='0 0 12 10'%3E%3Cpath d='M1 5l3 3 7-7' stroke='%23fff' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    /* CTA記事末尾 */
+    .article-cta-footer {
+      background: #1A73E8;
+      border-radius: 12px;
+      padding: 28px 32px;
+      color: #ffffff;
+      text-align: center;
+      margin-top: 40px;
+    }
+    .article-cta-footer p { color: rgba(255,255,255,0.9); font-size: 15px; margin-bottom: 0; }
+
+    /* SVGインライン */
+    .svg-figure {
+      margin: 28px 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      border: 1px solid #E8EAED;
+    }
+    .svg-figure svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .svg-caption {
+      background: #F8F9FA;
+      text-align: center;
+      font-size: 12px;
+      color: #5F6368;
+      padding: 8px 16px;
+      border-top: 1px solid #E8EAED;
+    }
+
+    /* ===== サイドバー ===== */
+    .sidebar {
+      position: sticky;
+      top: 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* 目次 */
+    .toc-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+    .toc-card h4 {
+      font-size: 13px;
+      font-weight: 700;
+      color: #5F6368;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .toc-card h4::before {
+      content: '';
+      width: 3px;
+      height: 14px;
+      background: #1A73E8;
+      border-radius: 2px;
+    }
+    .toc-list { list-style: none; padding: 0; }
+    .toc-list li { margin-bottom: 2px; }
+    .toc-list a {
+      display: block;
+      font-size: 13px;
+      color: #5F6368;
+      text-decoration: none;
+      padding: 6px 10px;
+      border-radius: 6px;
+      line-height: 1.5;
+      transition: background 0.15s, color 0.15s;
+    }
+    .toc-list a:hover {
+      background: #E8F0FE;
+      color: #1A73E8;
+    }
+    .toc-list .toc-sub { padding-left: 20px; font-size: 12px; }
+
+    /* CTAカード */
+    .cta-card {
+      background: linear-gradient(135deg, #1A73E8 0%, #0D47A1 100%);
+      border-radius: 12px;
+      padding: 24px;
+      color: #ffffff;
+      text-align: center;
+    }
+    .cta-card .cta-icon {
+      font-size: 36px;
+      margin-bottom: 12px;
+    }
+    .cta-card h4 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+    .cta-card p {
+      font-size: 12px;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+    .cta-card .cta-btn {
+      display: block;
+      background: #ffffff;
+      color: #1A73E8;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 10px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+    .cta-card .cta-btn:hover { opacity: 0.9; }
+
+    /* 関連記事カード */
+    .related-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+    .related-card h4 {
+      font-size: 13px;
+      font-weight: 700;
+      color: #5F6368;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+    .related-item {
+      display: flex;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid #F1F3F4;
+      text-decoration: none;
+      color: #3C4043;
+    }
+    .related-item:last-child { border-bottom: none; }
+    .related-item:hover .related-title { color: #1A73E8; }
+    .related-icon {
+      width: 32px;
+      height: 32px;
+      background: #E8F0FE;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .related-title {
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.4;
+      transition: color 0.15s;
+    }
+
+    /* ===== フッター ===== */
+    footer {
+      background: #202124;
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      padding: 36px 24px;
+      margin-top: 60px;
+      font-size: 13px;
+    }
+    footer .footer-brand {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+    footer .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 12px 0;
+    }
+    footer .footer-links a {
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 12px;
+    }
+    footer .copyright {
+      margin-top: 16px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+    }
+
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      .article-body { padding: 28px 24px; }
+      .article-hero h1 { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== ナビバー ===== -->
+<nav class="navbar">
+  <a href="#" class="navbar-brand">
+    株式会社ふじサンバ
+    <span>DX支援部門</span>
+  </a>
+  <div class="navbar-right">
+    <a href="#" class="nav-link">記事一覧</a>
+    <a href="#" class="nav-link">サービス</a>
+    <a href="#" class="nav-cta">無料相談する</a>
+  </div>
+</nav>
+
+<!-- ===== ヒーロー ===== -->
+<header class="article-hero">
+  <div class="category-badge">Google Workspace / DX支援</div>
+  <h1>Google Chatの使い方<br>【IT未経験者向け完全ガイド2026年版】</h1>
+  <div class="article-meta">
+    <span>2026年3月19日</span>
+    <span class="tag">DX支援部門</span>
+    <span>約2,800字</span>
+  </div>
+</header>
+
+<!-- ===== メインレイアウト ===== -->
+<div class="layout">
+
+  <!-- 記事本文 -->
+  <main class="article-body">
+
+    <p class="lead">
+      「メールと何が違うの？」「スペースってどこで作るの？」——Google Chatを導入したばかりの方から、よく聞く疑問です。<br>
+      Google Chatは、Google Workspaceに含まれるビジネスチャットツールです。メールより気軽に連絡でき、チームでの情報共有がぐっとスムーズになります。しかし<strong>メールとも電話とも違う独自のルール</strong>があるため、最初に基本をおさえることが大切です。<br>
+      この記事では、中小企業で働くIT未経験の方に向けて、Google Chatの基本操作からGoogle Meetとの使い分け、よくある失敗の防ぎ方まで、ステップごとにわかりやすく解説します。
+    </p>
+
+    <h2 id="what-is-chat">Google Chatとは？まず「チャット」の考え方を理解しよう</h2>
+    <p><strong>Google Chatとは、Googleが提供するビジネス向けリアルタイムメッセージングツールです。</strong> Google Workspaceのアカウントがあれば、追加費用なしで利用できます。</p>
+    <p>従来のメールとの違いをおさえておきましょう。</p>
+
+    <table>
+      <thead>
+        <tr><th>比較項目</th><th>メール（Gmail）</th><th>Google Chat</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>送受信のスピード</td><td>比較的ゆっくり</td><td>リアルタイム</td></tr>
+        <tr><td>件名</td><td>必要</td><td>不要</td></tr>
+        <tr><td>向いている用途</td><td>正式な連絡・外部とのやり取り</td><td>社内の気軽なやり取り・相談</td></tr>
+        <tr><td>ファイル共有</td><td>添付ファイル</td><td>ファイルを直接貼り付け</td></tr>
+        <tr><td>会話の追いやすさ</td><td>スレッドが混在しやすい</td><td>話題ごとに整理できる</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <strong>ポイント：</strong> Google Chatは「社内の会話」に向いています。外部のお客様とのやり取りは引き続きGmailを使いましょう。
+    </div>
+
+    <h2 id="chat-vs-meet">Google ChatとGoogle Meetの使い分け</h2>
+    <p>Google Chatと並んでよく使われるのが<strong>Google Meet（ビデオ会議）</strong>です。この2つは目的が異なります。</p>
+
+    <!-- SVG図解1：ChatとMeetの使い分け -->
+    <figure class="svg-figure">
+      <svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400">
+        <defs>
+          <style>text { font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif; }</style>
+        </defs>
+        <rect width="800" height="400" fill="#F8F9FA" rx="12"/>
+        <text x="400" y="44" text-anchor="middle" font-size="20" font-weight="bold" fill="#202124">Google Chat と Google Meet の使い分け</text>
+        <rect x="30" y="68" width="340" height="306" rx="12" fill="#ffffff" stroke="#1A73E8" stroke-width="2"/>
+        <rect x="30" y="68" width="340" height="56" rx="12" fill="#1A73E8"/>
+        <rect x="30" y="100" width="340" height="24" fill="#1A73E8"/>
+        <rect x="56" y="80" width="32" height="26" rx="6" fill="#ffffff" opacity="0.3"/>
+        <rect x="56" y="80" width="32" height="26" rx="6" fill="none" stroke="#ffffff" stroke-width="1.5"/>
+        <circle cx="66" cy="93" r="2.5" fill="#ffffff"/>
+        <circle cx="72" cy="93" r="2.5" fill="#ffffff"/>
+        <circle cx="78" cy="93" r="2.5" fill="#ffffff"/>
+        <text x="102" y="99" font-size="18" font-weight="bold" fill="#ffffff">Google Chat</text>
+        <text x="58" y="148" font-size="13" font-weight="bold" fill="#1A73E8">向いている場面</text>
+        <circle cx="58" cy="174" r="8" fill="#1A73E8"/>
+        <text x="58" y="178" text-anchor="middle" font-size="10" fill="#ffffff">1</text>
+        <text x="76" y="179" font-size="13" fill="#333333">短い確認・連絡</text>
+        <text x="76" y="196" font-size="11" fill="#666666">「〇〇の件、よろしくお願いします」</text>
+        <circle cx="58" cy="218" r="8" fill="#1A73E8"/>
+        <text x="58" y="222" text-anchor="middle" font-size="10" fill="#ffffff">2</text>
+        <text x="76" y="223" font-size="13" fill="#333333">ファイル・リンクの共有</text>
+        <text x="76" y="240" font-size="11" fill="#666666">ドキュメントをさっと送りたいとき</text>
+        <circle cx="58" cy="262" r="8" fill="#1A73E8"/>
+        <text x="58" y="266" text-anchor="middle" font-size="10" fill="#ffffff">3</text>
+        <text x="76" y="267" font-size="13" fill="#333333">複数人への情報共有</text>
+        <text x="76" y="284" font-size="11" fill="#666666">チーム全体へのお知らせ・周知</text>
+        <circle cx="58" cy="306" r="8" fill="#1A73E8"/>
+        <text x="58" y="310" text-anchor="middle" font-size="10" fill="#ffffff">4</text>
+        <text x="76" y="311" font-size="13" fill="#333333">急ぎでないが今日中に返信がほしい</text>
+        <text x="76" y="328" font-size="11" fill="#666666">メールより返信が早く来やすい</text>
+        <rect x="56" y="342" width="72" height="22" rx="11" fill="#E8F0FE"/>
+        <text x="92" y="357" text-anchor="middle" font-size="11" fill="#1A73E8">テキスト</text>
+        <rect x="138" y="342" width="72" height="22" rx="11" fill="#E8F0FE"/>
+        <text x="174" y="357" text-anchor="middle" font-size="11" fill="#1A73E8">非同期OK</text>
+        <rect x="220" y="342" width="72" height="22" rx="11" fill="#E8F0FE"/>
+        <text x="256" y="357" text-anchor="middle" font-size="11" fill="#1A73E8">記録が残る</text>
+        <circle cx="400" cy="222" r="32" fill="#ffffff" stroke="#DADCE0" stroke-width="2"/>
+        <text x="400" y="229" text-anchor="middle" font-size="20" font-weight="bold" fill="#5F6368">VS</text>
+        <rect x="430" y="68" width="340" height="306" rx="12" fill="#ffffff" stroke="#34A853" stroke-width="2"/>
+        <rect x="430" y="68" width="340" height="56" rx="12" fill="#34A853"/>
+        <rect x="430" y="100" width="340" height="24" fill="#34A853"/>
+        <rect x="456" y="80" width="28" height="20" rx="4" fill="none" stroke="#ffffff" stroke-width="1.5"/>
+        <polygon points="484,83 494,90 484,97" fill="#ffffff"/>
+        <text x="506" y="99" font-size="18" font-weight="bold" fill="#ffffff">Google Meet</text>
+        <text x="458" y="148" font-size="13" font-weight="bold" fill="#34A853">向いている場面</text>
+        <circle cx="458" cy="174" r="8" fill="#34A853"/>
+        <text x="458" y="178" text-anchor="middle" font-size="10" fill="#ffffff">1</text>
+        <text x="476" y="179" font-size="13" fill="#333333">複雑な内容を説明したいとき</text>
+        <text x="476" y="196" font-size="11" fill="#666666">声のトーン・表情が伝わる</text>
+        <circle cx="458" cy="218" r="8" fill="#34A853"/>
+        <text x="458" y="222" text-anchor="middle" font-size="10" fill="#ffffff">2</text>
+        <text x="476" y="223" font-size="13" fill="#333333">複数人で議論・意思決定</text>
+        <text x="476" y="240" font-size="11" fill="#666666">リアルタイムで全員の反応を確認</text>
+        <circle cx="458" cy="262" r="8" fill="#34A853"/>
+        <text x="458" y="266" text-anchor="middle" font-size="10" fill="#ffffff">3</text>
+        <text x="476" y="267" font-size="13" fill="#333333">画面を共有しながら作業を見せる</text>
+        <text x="476" y="284" font-size="11" fill="#666666">操作説明・デモ・レビューに最適</text>
+        <circle cx="458" cy="306" r="8" fill="#34A853"/>
+        <text x="458" y="310" text-anchor="middle" font-size="10" fill="#ffffff">4</text>
+        <text x="476" y="311" font-size="13" fill="#333333">相手の反応を見ながら話したい</text>
+        <text x="476" y="328" font-size="11" fill="#666666">デリケートな話題・重要な報告など</text>
+        <rect x="456" y="342" width="72" height="22" rx="11" fill="#E6F4EA"/>
+        <text x="492" y="357" text-anchor="middle" font-size="11" fill="#34A853">ビデオ通話</text>
+        <rect x="538" y="342" width="72" height="22" rx="11" fill="#E6F4EA"/>
+        <text x="574" y="357" text-anchor="middle" font-size="11" fill="#34A853">リアルタイム</text>
+        <rect x="620" y="342" width="72" height="22" rx="11" fill="#E6F4EA"/>
+        <text x="656" y="357" text-anchor="middle" font-size="11" fill="#34A853">画面共有</text>
+      </svg>
+      <div class="svg-caption">図1：Google ChatとGoogle Meetの使い分け比較</div>
+    </figure>
+
+    <div class="callout green">
+      <strong>覚え方：</strong> テキストで済む話はChat、顔を見て話したい内容はMeet、と考えると迷いません。
+    </div>
+
+    <hr>
+
+    <!-- STEP 1 -->
+    <div class="step-header" id="dm">
+      <span class="step-badge">STEP 1</span>
+      <span class="step-title">ダイレクトメッセージ（DM）の使い方</span>
+    </div>
+    <p><strong>ダイレクトメッセージ（DM）</strong>は、特定の1人または少人数に直接メッセージを送る機能です。メールの代わりに使える、最も基本的な機能です。</p>
+
+    <h3>DMを送る手順</h3>
+    <div class="steps-box">
+      <div class="step-item"><div class="step-num">1</div><div class="step-text"><strong>Google Chatを開く</strong> — Gmail画面の左側、または chat.google.com にアクセス</div></div>
+      <div class="step-item"><div class="step-num">2</div><div class="step-text"><strong>「新しいチャット」ボタンをクリック</strong> — 画面左上の鉛筆アイコン</div></div>
+      <div class="step-item"><div class="step-num">3</div><div class="step-text"><strong>相手の名前またはメールアドレスを入力</strong> — 社内のメンバーなら名前で検索できる</div></div>
+      <div class="step-item"><div class="step-num">4</div><div class="step-text"><strong>メッセージを入力して送信</strong> — Enterキーで送信（Shift+Enterで改行）</div></div>
+    </div>
+
+    <h3>DMの便利な使い方</h3>
+    <p><strong>絵文字リアクション：</strong> メッセージにマウスを合わせると絵文字ボタンが表示されます。「確認しました」「了解です」といった返事をリアクションだけで伝えられます。</p>
+    <p><strong>スレッド返信：</strong> メッセージの「返信」をクリックすると、そのメッセージへの返信スレッドが作成されます。会話の流れが混ざらずに整理できます。</p>
+    <p><strong>メンション（@）：</strong> グループチャットで特定の人に呼びかけるときは「@名前」と入力します。相手に通知が届きます。</p>
+
+    <div class="callout">
+      <strong>注意：</strong> DMは基本的に1対1または少人数向けです。5人以上での継続的な情報共有には「スペース」を使いましょう。
+    </div>
+
+    <hr>
+
+    <!-- STEP 2 -->
+    <div class="step-header" id="space">
+      <span class="step-badge">STEP 2</span>
+      <span class="step-title">スペースの使い方——チームの情報共有の中心地</span>
+    </div>
+    <p><strong>スペース</strong>は、チームやプロジェクト単位で会話をまとめる機能です。LINEでいう「グループ」に近いイメージですが、<strong>話題ごとにスレッドを分けられる</strong>点が大きな特徴です。</p>
+
+    <!-- SVG図解2：スペースの構造 -->
+    <figure class="svg-figure">
+      <svg xmlns="http://www.w3.org/2000/svg" width="800" height="380" viewBox="0 0 800 380">
+        <defs>
+          <style>text { font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif; }</style>
+        </defs>
+        <rect width="800" height="380" fill="#F8F9FA" rx="12"/>
+        <text x="400" y="40" text-anchor="middle" font-size="20" font-weight="bold" fill="#202124">Google Chat スペースの構造と使い方</text>
+        <rect x="30" y="62" width="740" height="290" rx="12" fill="#ffffff" stroke="#1A73E8" stroke-width="2"/>
+        <rect x="30" y="62" width="740" height="48" rx="12" fill="#1A73E8"/>
+        <rect x="30" y="90" width="740" height="20" fill="#1A73E8"/>
+        <text x="60" y="93" font-size="22" font-weight="bold" fill="#ffffff">#</text>
+        <text x="84" y="93" font-size="17" font-weight="bold" fill="#ffffff">営業チーム全体スペース</text>
+        <circle cx="650" cy="86" r="14" fill="#E8F0FE" stroke="#ffffff" stroke-width="2"/>
+        <text x="650" y="91" text-anchor="middle" font-size="12" fill="#1A73E8">田</text>
+        <circle cx="672" cy="86" r="14" fill="#FCE8E6" stroke="#ffffff" stroke-width="2"/>
+        <text x="672" y="91" text-anchor="middle" font-size="12" fill="#EA4335">山</text>
+        <circle cx="694" cy="86" r="14" fill="#E6F4EA" stroke="#ffffff" stroke-width="2"/>
+        <text x="694" y="91" text-anchor="middle" font-size="12" fill="#34A853">佐</text>
+        <circle cx="716" cy="86" r="14" fill="#FEF3E2" stroke="#ffffff" stroke-width="2"/>
+        <text x="716" y="91" text-anchor="middle" font-size="12" fill="#F29900">中</text>
+        <text x="748" y="91" font-size="12" fill="#ffffff">+8</text>
+        <rect x="50" y="126" width="700" height="70" rx="8" fill="#F8F9FA" stroke="#E8EAED" stroke-width="1"/>
+        <rect x="66" y="138" width="36" height="28" rx="6" fill="#1A73E8" opacity="0.15"/>
+        <text x="84" y="157" text-anchor="middle" font-size="17" fill="#1A73E8">💬</text>
+        <text x="114" y="148" font-size="13" font-weight="bold" fill="#202124">4月の勉強会について</text>
+        <text x="114" y="165" font-size="12" fill="#5F6368">田中さん：来週の勉強会の日程ですが、4月15日（火）14時〜はいかがでしょうか？</text>
+        <text x="114" y="182" font-size="11" fill="#9AA0A6">返信 3件　　昨日 14:32</text>
+        <rect x="676" y="138" width="58" height="22" rx="11" fill="#E8F0FE"/>
+        <text x="705" y="153" text-anchor="middle" font-size="11" fill="#1A73E8">返信 3件</text>
+        <rect x="50" y="208" width="700" height="70" rx="8" fill="#F8F9FA" stroke="#E8EAED" stroke-width="1"/>
+        <rect x="66" y="220" width="36" height="28" rx="6" fill="#34A853" opacity="0.15"/>
+        <text x="84" y="239" text-anchor="middle" font-size="17" fill="#34A853">📋</text>
+        <text x="114" y="230" font-size="13" font-weight="bold" fill="#202124">備品の発注依頼</text>
+        <text x="114" y="247" font-size="12" fill="#5F6368">山田さん：コピー用紙がなくなりそうです。A4用紙×5箱を発注お願いします。</text>
+        <text x="114" y="264" font-size="11" fill="#9AA0A6">返信 1件　　今日 09:15</text>
+        <rect x="676" y="220" width="58" height="22" rx="11" fill="#E6F4EA"/>
+        <text x="705" y="235" text-anchor="middle" font-size="11" fill="#34A853">返信 1件</text>
+        <rect x="50" y="290" width="700" height="50" rx="8" fill="#ffffff" stroke="#1A73E8" stroke-width="1.5" stroke-dasharray="6,3"/>
+        <text x="84" y="313" text-anchor="middle" font-size="17" fill="#9AA0A6">+</text>
+        <text x="110" y="313" font-size="13" fill="#9AA0A6">新しいスレッドを開始する...</text>
+      </svg>
+      <div class="svg-caption">図2：スペースの構造 — 話題ごとにスレッドを分けて管理できます</div>
+    </figure>
+
+    <h3>スペースを作成する手順</h3>
+    <div class="steps-box">
+      <div class="step-item"><div class="step-num">1</div><div class="step-text">左メニューの「スペース」をクリック</div></div>
+      <div class="step-item"><div class="step-num">2</div><div class="step-text">「＋新しいスペース」を選択</div></div>
+      <div class="step-item"><div class="step-num">3</div><div class="step-text">スペース名を入力（例：「営業チーム」「〇〇プロジェクト」）</div></div>
+      <div class="step-item"><div class="step-num">4</div><div class="step-text">メンバーを招待（名前またはメールアドレスで検索）</div></div>
+      <div class="step-item"><div class="step-num">5</div><div class="step-text">「作成」をクリック</div></div>
+    </div>
+
+    <h3>スペースの名前付けのコツ</h3>
+    <table>
+      <thead>
+        <tr><th>スペース名の例</th><th>使う場面</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>営業チーム全体</td><td>営業部門の連絡・情報共有</td></tr>
+        <tr><td>〇〇プロジェクト</td><td>特定案件のチームで使う</td></tr>
+        <tr><td>総務・庶務連絡</td><td>社内ルールや備品の連絡</td></tr>
+        <tr><td>雑談・フリートーク</td><td>業務外のカジュアルな会話</td></tr>
+      </tbody>
+    </table>
+
+    <hr>
+
+    <!-- STEP 3 -->
+    <div class="step-header" id="dm-vs-space">
+      <span class="step-badge">STEP 3</span>
+      <span class="step-title">ダイレクトメッセージとスペースの使い分け</span>
+    </div>
+    <p>初心者がよく迷うのが「DMを使うべきか、スペースを使うべきか」という判断です。</p>
+
+    <!-- SVG図解3：DMvsスペース -->
+    <figure class="svg-figure">
+      <svg xmlns="http://www.w3.org/2000/svg" width="800" height="380" viewBox="0 0 800 380">
+        <defs>
+          <style>text { font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif; }</style>
+          <marker id="arrowBlue2" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#1A73E8"/>
+          </marker>
+          <marker id="arrowGreen2" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#34A853"/>
+          </marker>
+        </defs>
+        <rect width="800" height="380" fill="#F8F9FA" rx="12"/>
+        <text x="400" y="40" text-anchor="middle" font-size="20" font-weight="bold" fill="#202124">ダイレクトメッセージ vs スペース　どちらを使う？</text>
+        <rect x="30" y="62" width="350" height="290" rx="12" fill="#ffffff" stroke="#1A73E8" stroke-width="2"/>
+        <rect x="30" y="62" width="350" height="52" rx="12" fill="#1A73E8"/>
+        <rect x="30" y="90" width="350" height="24" fill="#1A73E8"/>
+        <ellipse cx="62" cy="88" rx="14" ry="11" fill="none" stroke="#ffffff" stroke-width="1.5"/>
+        <ellipse cx="74" cy="95" rx="14" ry="11" fill="none" stroke="#ffffff" stroke-width="1.5"/>
+        <text x="114" y="95" font-size="16" font-weight="bold" fill="#ffffff">ダイレクトメッセージ</text>
+        <rect x="50" y="128" width="310" height="36" rx="8" fill="#E8F0FE"/>
+        <text x="205" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#1A73E8">人数の目安：1〜4人</text>
+        <text x="205" y="158" text-anchor="middle" font-size="11" fill="#1A73E8">短期・一時的なやり取り向け</text>
+        <text x="64" y="190" font-size="13" font-weight="bold" fill="#202124">こんなときに使う</text>
+        <rect x="50" y="202" width="16" height="16" rx="4" fill="#1A73E8"/>
+        <text x="58" y="214" text-anchor="middle" font-size="10" fill="#ffffff">✓</text>
+        <text x="76" y="215" font-size="13" fill="#333333">1対1の個別連絡・相談</text>
+        <rect x="50" y="228" width="16" height="16" rx="4" fill="#1A73E8"/>
+        <text x="58" y="240" text-anchor="middle" font-size="10" fill="#ffffff">✓</text>
+        <text x="76" y="241" font-size="13" fill="#333333">他の人に見せたくない内容</text>
+        <rect x="50" y="254" width="16" height="16" rx="4" fill="#1A73E8"/>
+        <text x="58" y="266" text-anchor="middle" font-size="10" fill="#ffffff">✓</text>
+        <text x="76" y="267" font-size="13" fill="#333333">一時的な少人数のやり取り</text>
+        <rect x="50" y="280" width="16" height="16" rx="4" fill="#1A73E8"/>
+        <text x="58" y="292" text-anchor="middle" font-size="10" fill="#ffffff">✓</text>
+        <text x="76" y="293" font-size="13" fill="#333333">返事をすぐにほしいとき</text>
+        <rect x="50" y="314" width="310" height="26" rx="6" fill="#FCE8E6"/>
+        <text x="205" y="331" text-anchor="middle" font-size="12" fill="#EA4335">注意：情報が後から追いにくい</text>
+        <polygon points="400,80 440,115 400,150 360,115" fill="#ffffff" stroke="#5F6368" stroke-width="1.5"/>
+        <text x="400" y="108" text-anchor="middle" font-size="11" fill="#5F6368">何人で</text>
+        <text x="400" y="122" text-anchor="middle" font-size="11" fill="#5F6368">使う？</text>
+        <line x1="360" y1="115" x2="300" y2="115" stroke="#1A73E8" stroke-width="2" marker-end="url(#arrowBlue2)"/>
+        <text x="330" y="108" text-anchor="middle" font-size="11" fill="#1A73E8">1〜4人</text>
+        <line x1="440" y1="115" x2="500" y2="115" stroke="#34A853" stroke-width="2" marker-end="url(#arrowGreen2)"/>
+        <text x="470" y="108" text-anchor="middle" font-size="11" fill="#34A853">5人以上</text>
+        <rect x="420" y="62" width="350" height="290" rx="12" fill="#ffffff" stroke="#34A853" stroke-width="2"/>
+        <rect x="420" y="62" width="350" height="52" rx="12" fill="#34A853"/>
+        <rect x="420" y="90" width="350" height="24" fill="#34A853"/>
+        <text x="452" y="97" font-size="22" font-weight="bold" fill="#ffffff">#</text>
+        <text x="476" y="95" font-size="16" font-weight="bold" fill="#ffffff">スペース</text>
+        <rect x="440" y="128" width="310" height="36" rx="8" fill="#E6F4EA"/>
+        <text x="595" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#34A853">人数の目安：5人〜</text>
+        <text x="595" y="158" text-anchor="middle" font-size="11" fill="#34A853">継続的なチーム情報共有向け</text>
+        <text x="454" y="190" font-size="13" font-weight="bold" fill="#202124">こんなときに使う</text>
+        <rect x="440" y="202" width="16" height="16" rx="4" fill="#34A853"/>
+        <text x="448" y="214" text-anchor="middle" font-size="10" fill="#ffffff">✓</text>
+        <text x="466" y="215" font-size="13" fill="#333333">チーム全体への情報共有</text>
+        <rect x="440" y="228" width="16" height="16" rx="4" fill="#34A853"/>
+        <text x="448" y="240" text-anchor="middle" font-size="10" fill="#ffffff">✓</text>
+        <text x="466" y="241" font-size="13" fill="#333333">継続するプロジェクト管理</text>
+        <rect x="440" y="254" width="16" height="16" rx="4" fill="#34A853"/>
+        <text x="448" y="266" text-anchor="middle" font-size="10" fill="#ffffff">✓</text>
+        <text x="466" y="267" font-size="13" fill="#333333">後から情報を検索したい</text>
+        <rect x="440" y="280" width="16" height="16" rx="4" fill="#34A853"/>
+        <text x="448" y="292" text-anchor="middle" font-size="10" fill="#ffffff">✓</text>
+        <text x="466" y="293" font-size="13" fill="#333333">新メンバーへの引き継ぎ</text>
+        <rect x="440" y="314" width="310" height="26" rx="6" fill="#E6F4EA"/>
+        <text x="595" y="331" text-anchor="middle" font-size="12" fill="#34A853">過去の会話をいつでも遡れる</text>
+      </svg>
+      <div class="svg-caption">図3：DMとスペースの使い分けフロー</div>
+    </figure>
+
+    <table>
+      <thead>
+        <tr><th>項目</th><th>DM</th><th>スペース</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>人数の目安</td><td>1〜4人</td><td>5人〜</td></tr>
+        <tr><td>継続期間</td><td>一時的・短期</td><td>中長期</td></tr>
+        <tr><td>情報の整理</td><td>しにくい</td><td>スレッドで整理できる</td></tr>
+        <tr><td>新メンバーへの引き継ぎ</td><td>難しい</td><td>過去の会話を遡れる</td></tr>
+      </tbody>
+    </table>
+
+    <hr>
+
+    <!-- STEP 4 -->
+    <div class="step-header" id="file">
+      <span class="step-badge">STEP 4</span>
+      <span class="step-title">ファイルの共有方法</span>
+    </div>
+    <p>Google Chatでは、ファイルを直接やり取りできます。メールの添付ファイルより手軽に共有できるのが特徴です。</p>
+
+    <h3>ファイルを添付する方法</h3>
+    <div class="steps-box">
+      <div class="step-item"><div class="step-num">1</div><div class="step-text">メッセージ入力欄の下にある<strong>クリップアイコン</strong>をクリック</div></div>
+      <div class="step-item"><div class="step-num">2</div><div class="step-text">「Googleドライブからアップロード」または「パソコンからアップロード」を選択</div></div>
+      <div class="step-item"><div class="step-num">3</div><div class="step-text">ファイルを選んで「送信」</div></div>
+    </div>
+
+    <div class="callout">
+      <strong>ポイント：</strong> Googleドライブのファイルを共有するとき、相手がアクセスできない場合は「アクセスを許可」のダイアログが表示されます。共有設定を忘れずに確認しましょう。
+    </div>
+
+    <ul>
+      <li><strong>社外秘のファイルをスペースに貼るときは慎重に。</strong> スペースのメンバー全員がファイルを見られる状態になります。</li>
+      <li><strong>共有ドライブのファイルを使う</strong>ことで、アクセス管理がしやすくなります。個人のマイドライブからの共有は避けましょう。</li>
+    </ul>
+
+    <hr>
+
+    <!-- STEP 5 -->
+    <div class="step-header" id="notification">
+      <span class="step-badge">STEP 5</span>
+      <span class="step-title">通知の設定——見逃さず、でも仕事の邪魔にならないように</span>
+    </div>
+    <p>Google Chatの通知は適切に設定しないと、メッセージが大量に届いて仕事が中断されます。</p>
+
+    <table>
+      <thead>
+        <tr><th>設定</th><th>内容</th><th>おすすめの使い方</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>すべてのメッセージ</td><td>新着メッセージのたびに通知</td><td>緊急対応が必要な重要スペース</td></tr>
+        <tr><td>@メンションのみ</td><td>自分の名前が呼ばれたときだけ通知</td><td>一般的なチームスペース（推奨）</td></tr>
+        <tr><td>オフ</td><td>通知なし</td><td>雑談スペースなど緊急性が低い場所</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout green">
+      <strong>おやすみモード：</strong> 業務時間外に通知を受け取りたくない場合は、プロフィールアイコン →「おやすみモードを設定」から時間を指定できます。
+    </div>
+
+    <hr>
+
+    <h2 id="mistakes">よくある失敗と防ぎ方</h2>
+
+    <div class="failure-box">
+      <div class="failure-title">送るチャンネルを間違えた</div>
+      <p><strong>原因：</strong> スペースが増えてきて、どこに投稿するか迷ううちに間違いが起きる。</p>
+      <p><strong>防ぎ方：</strong> スペース名を明確にする。投稿前に「スペース名」が正しいか確認する習慣をつける。誤送信した場合はメッセージを「削除」または「編集」できます（送信後60分以内）。</p>
+    </div>
+
+    <div class="failure-box">
+      <div class="failure-title">スペースに関係ない人が入っていた</div>
+      <p><strong>原因：</strong> スペース作成時にメンバーを確認しないまま追加してしまった。</p>
+      <p><strong>防ぎ方：</strong> スペース作成時にメンバーリストを必ず確認する。スペースのメンバー管理は「設定」→「メンバーを管理」から行えます。</p>
+    </div>
+
+    <div class="failure-box">
+      <div class="failure-title">重要なメッセージが流れてしまった</div>
+      <p><strong>原因：</strong> スレッドを使わずに1つのスペースに全員が投稿するため、情報が混在する。</p>
+      <p><strong>防ぎ方：</strong> 話題ごとに必ずスレッドを作成する習慣をつける。重要なメッセージは「ブックマーク（後で見る）」機能で保存する。</p>
+    </div>
+
+    <hr>
+
+    <h2 id="faq">よくある質問（FAQ）</h2>
+
+    <div class="faq-item">
+      <div class="faq-q">Google ChatはスマートフォンでもPCでも使えますか？</div>
+      <div class="faq-a">使えます。スマートフォン向けのアプリ（iOS・Android対応）があります。PCではブラウザからアクセスするか、Gmailの左側メニューからChatタブを開いて使えます。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">社外の人とGoogle Chatでやり取りできますか？</div>
+      <div class="faq-a">管理者の設定によりますが、Google Workspaceのアカウントを持つ社外の方と「外部スペース」を作成してやり取りすることができます。社外との連絡は引き続きGmailを使うことを基本としましょう。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">送ったメッセージを削除・編集できますか？</div>
+      <div class="faq-a">できます。送信したメッセージにマウスを合わせると「・・・」が表示され、「編集」または「削除」を選択できます。ただし削除したメッセージは相手のトーク画面でも消えます。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Google Chatでビデオ通話はできますか？</div>
+      <div class="faq-a">DMやスペース画面の上部にあるビデオカメラアイコンをクリックすると、Google Meetが起動してビデオ通話ができます。わざわざMeetを別に立ち上げる必要がなく、会話の流れでそのまま通話に移行できます。</div>
+    </div>
+
+    <hr>
+
+    <h2 id="summary">まとめ：Google Chatを使いこなすための5つのルール</h2>
+
+    <div class="summary-box">
+      <h3>5つのルール</h3>
+      <ul>
+        <li>社内の気軽な連絡はChatで、正式な外部連絡はGmailで</li>
+        <li>1対1の連絡はDM、チーム全体への連絡はスペースを使う</li>
+        <li>スペースでは話題ごとにスレッドを立てて整理する</li>
+        <li>通知設定を適切にして、重要な連絡を見逃さないようにする</li>
+        <li>ファイル共有はGoogleドライブと連携して行う</li>
+      </ul>
+    </div>
+
+    <p>Google Chatは慣れてくると、メールより格段にスピーディーに仕事が進みます。まずはチームメンバーにメッセージを1通送ることから始めてみてください。</p>
+
+    <div class="article-cta-footer">
+      <p>この記事に関するご質問は、<strong>DX支援部門</strong>までお気軽にご相談ください。</p>
+    </div>
+
+  </main>
+
+  <!-- サイドバー -->
+  <aside class="sidebar">
+
+    <!-- 目次 -->
+    <div class="toc-card">
+      <h4>目次</h4>
+      <ul class="toc-list">
+        <li><a href="#what-is-chat">Google Chatとは？</a></li>
+        <li><a href="#chat-vs-meet">ChatとMeetの使い分け</a></li>
+        <li><a href="#dm">STEP 1：ダイレクトメッセージ</a></li>
+        <li><a href="#space">STEP 2：スペースの使い方</a></li>
+        <li><a href="#dm-vs-space">STEP 3：DMとスペースの使い分け</a></li>
+        <li><a href="#file">STEP 4：ファイルの共有</a></li>
+        <li><a href="#notification">STEP 5：通知の設定</a></li>
+        <li><a href="#mistakes">よくある失敗と防ぎ方</a></li>
+        <li><a href="#faq">よくある質問（FAQ）</a></li>
+        <li><a href="#summary">まとめ</a></li>
+      </ul>
+    </div>
+
+    <!-- CTAカード -->
+    <div class="cta-card">
+      <div class="cta-icon">💬</div>
+      <h4>Google Workspace導入のご相談</h4>
+      <p>「使い方がわからない」「社内展開を進めたい」など、お気軽にご相談ください。</p>
+      <a href="#" class="cta-btn">無料相談する</a>
+    </div>
+
+    <!-- 関連記事 -->
+    <div class="related-card">
+      <h4>関連記事</h4>
+      <a href="#" class="related-item">
+        <div class="related-icon">📧</div>
+        <div class="related-title">Gmailの使い方【IT未経験者向け完全ガイド2026年版】</div>
+      </a>
+      <a href="#" class="related-item">
+        <div class="related-icon">📁</div>
+        <div class="related-title">Googleドライブの使い方【IT未経験者向け完全ガイド2026年版】</div>
+      </a>
+      <a href="#" class="related-item">
+        <div class="related-icon">📅</div>
+        <div class="related-title">Googleカレンダーの使い方【IT未経験者向け完全ガイド2026年版】</div>
+      </a>
+      <a href="#" class="related-item">
+        <div class="related-icon">🎥</div>
+        <div class="related-title">Google Meetの使い方【IT未経験者向け完全ガイド2026年版】</div>
+      </a>
+    </div>
+
+  </aside>
+</div>
+
+<!-- フッター -->
+<footer>
+  <div class="footer-brand">株式会社ふじサンバ</div>
+  <div class="footer-links">
+    <a href="#">サービス</a>
+    <a href="#">会社概要</a>
+    <a href="#">お問い合わせ</a>
+    <a href="#">プライバシーポリシー</a>
+  </div>
+  <div class="copyright">© 2026 株式会社ふじサンバ All Rights Reserved.</div>
+</footer>
+
+</body>
+</html>

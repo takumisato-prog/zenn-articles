@@ -1,0 +1,83 @@
+<svg width="800" height="380" viewBox="0 0 800 380" xmlns="http://www.w3.org/2000/svg" font-family="'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif">
+  <!-- 背景 -->
+  <rect width="800" height="380" fill="#F8F9FA" rx="12"/>
+
+  <!-- タイトルバー -->
+  <rect x="0" y="0" width="800" height="56" fill="#4285F4" rx="12"/>
+  <rect x="0" y="44" width="800" height="12" fill="#4285F4"/>
+  <text x="400" y="36" text-anchor="middle" fill="white" font-size="18" font-weight="bold">バージョン履歴の使い方フロー</text>
+
+  <!-- ステップ1 -->
+  <rect x="30" y="80" width="148" height="90" fill="white" rx="10" stroke="#4285F4" stroke-width="2"/>
+  <rect x="30" y="80" width="148" height="32" fill="#4285F4" rx="10"/>
+  <rect x="30" y="100" width="148" height="12" fill="#4285F4"/>
+  <text x="104" y="100" text-anchor="middle" fill="white" font-size="12" font-weight="bold">STEP 1</text>
+  <text x="104" y="130" text-anchor="middle" fill="#212121" font-size="13" font-weight="bold">ファイルを開く</text>
+  <text x="104" y="150" text-anchor="middle" fill="#616161" font-size="11">編集中の文書</text>
+  <text x="104" y="163" text-anchor="middle" fill="#616161" font-size="11">を開く</text>
+
+  <!-- 矢印1 -->
+  <line x1="178" y1="125" x2="210" y2="125" stroke="#4285F4" stroke-width="2"/>
+  <polygon points="210,119 222,125 210,131" fill="#4285F4"/>
+
+  <!-- ステップ2 -->
+  <rect x="222" y="80" width="148" height="90" fill="white" rx="10" stroke="#4285F4" stroke-width="2"/>
+  <rect x="222" y="80" width="148" height="32" fill="#4285F4" rx="10"/>
+  <rect x="222" y="100" width="148" height="12" fill="#4285F4"/>
+  <text x="296" y="100" text-anchor="middle" fill="white" font-size="12" font-weight="bold">STEP 2</text>
+  <text x="296" y="128" text-anchor="middle" fill="#212121" font-size="12" font-weight="bold">メニューを開く</text>
+  <text x="296" y="146" text-anchor="middle" fill="#616161" font-size="11">「ファイル」→</text>
+  <text x="296" y="160" text-anchor="middle" fill="#616161" font-size="11">「バージョン履歴」</text>
+
+  <!-- 矢印2 -->
+  <line x1="370" y1="125" x2="402" y2="125" stroke="#4285F4" stroke-width="2"/>
+  <polygon points="402,119 414,125 402,131" fill="#4285F4"/>
+
+  <!-- ステップ3 -->
+  <rect x="414" y="80" width="148" height="90" fill="white" rx="10" stroke="#4285F4" stroke-width="2"/>
+  <rect x="414" y="80" width="148" height="32" fill="#4285F4" rx="10"/>
+  <rect x="414" y="100" width="148" height="12" fill="#4285F4"/>
+  <text x="488" y="100" text-anchor="middle" fill="white" font-size="12" font-weight="bold">STEP 3</text>
+  <text x="488" y="128" text-anchor="middle" fill="#212121" font-size="12" font-weight="bold">履歴を確認する</text>
+  <text x="488" y="146" text-anchor="middle" fill="#616161" font-size="11">日時別の変更一覧が</text>
+  <text x="488" y="160" text-anchor="middle" fill="#616161" font-size="11">右側に表示される</text>
+
+  <!-- 矢印3 -->
+  <line x1="562" y1="125" x2="594" y2="125" stroke="#4285F4" stroke-width="2"/>
+  <polygon points="594,119 606,125 594,131" fill="#4285F4"/>
+
+  <!-- ステップ4 -->
+  <rect x="606" y="80" width="164" height="90" fill="white" rx="10" stroke="#34A853" stroke-width="2"/>
+  <rect x="606" y="80" width="164" height="32" fill="#34A853" rx="10"/>
+  <rect x="606" y="100" width="164" height="12" fill="#34A853"/>
+  <text x="688" y="100" text-anchor="middle" fill="white" font-size="12" font-weight="bold">STEP 4</text>
+  <text x="688" y="128" text-anchor="middle" fill="#212121" font-size="12" font-weight="bold">バージョンを選ぶ</text>
+  <text x="688" y="146" text-anchor="middle" fill="#616161" font-size="11">戻したい時点を</text>
+  <text x="688" y="160" text-anchor="middle" fill="#616161" font-size="11">クリックして選択</text>
+
+  <!-- 分岐の説明 -->
+  <text x="400" y="205" text-anchor="middle" fill="#757575" font-size="13">選択後の操作を選びましょう</text>
+  <line x1="200" y1="212" x2="600" y2="212" stroke="#E0E0E0" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- 選択肢1: 見るだけ -->
+  <rect x="60" y="224" width="284" height="100" fill="white" rx="10" stroke="#FBBC05" stroke-width="2"/>
+  <rect x="60" y="224" width="284" height="36" fill="#FBBC05" rx="10"/>
+  <rect x="60" y="248" width="284" height="12" fill="#FBBC05"/>
+  <text x="202" y="248" text-anchor="middle" fill="white" font-size="14" font-weight="bold">👁️ その時点の内容を確認する</text>
+  <text x="202" y="276" text-anchor="middle" fill="#424242" font-size="13">バージョンをクリックするだけで</text>
+  <text x="202" y="296" text-anchor="middle" fill="#424242" font-size="13">その時点の内容が表示される</text>
+  <text x="202" y="316" text-anchor="middle" fill="#9E9E9E" font-size="11">現在の文書は変更されない</text>
+
+  <!-- 選択肢2: 復元 -->
+  <rect x="456" y="224" width="284" height="100" fill="white" rx="10" stroke="#34A853" stroke-width="2"/>
+  <rect x="456" y="224" width="284" height="36" fill="#34A853" rx="10"/>
+  <rect x="456" y="248" width="284" height="12" fill="#34A853"/>
+  <text x="598" y="248" text-anchor="middle" fill="white" font-size="14" font-weight="bold">⏪ そのバージョンに戻す</text>
+  <text x="598" y="276" text-anchor="middle" fill="#424242" font-size="13">「このバージョンを復元」</text>
+  <text x="598" y="296" text-anchor="middle" fill="#424242" font-size="13">ボタンをクリック</text>
+  <text x="598" y="316" text-anchor="middle" fill="#34A853" font-size="11">復元後も以前の履歴はすべて残る</text>
+
+  <!-- ポイントボックス -->
+  <rect x="60" y="338" width="680" height="34" fill="#E8F0FE" rx="8"/>
+  <text x="400" y="360" text-anchor="middle" fill="#1A73E8" font-size="13" font-weight="bold">💡 ポイント：誤って復元しても再度バージョン履歴から元に戻せるので安心！</text>
+</svg>

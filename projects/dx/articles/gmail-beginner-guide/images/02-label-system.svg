@@ -1,0 +1,54 @@
+<svg width="800" height="380" viewBox="0 0 800 380" xmlns="http://www.w3.org/2000/svg" font-family="'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif">
+  <!-- 背景 -->
+  <rect width="800" height="380" fill="#F8F9FA" rx="12"/>
+
+  <!-- タイトル -->
+  <text x="400" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#202124">ラベルの仕組み：1通のメールに複数タグが付けられる</text>
+
+  <!-- 中央メールアイコン（受信メール） -->
+  <rect x="290" y="60" width="220" height="80" rx="10" fill="white" stroke="#EA4335" stroke-width="2"/>
+  <text x="400" y="88" text-anchor="middle" font-size="13" font-weight="bold" fill="#202124">📧 受信メール</text>
+  <text x="400" y="108" text-anchor="middle" font-size="11" fill="#5F6368">件名：〇〇プロジェクトの請求書</text>
+  <text x="400" y="124" text-anchor="middle" font-size="11" fill="#5F6368">送信者：会計事務所</text>
+
+  <!-- 矢印（下向き） -->
+  <line x1="400" y1="140" x2="400" y2="168" stroke="#DADCE0" stroke-width="2"/>
+  <polygon points="393,168 407,168 400,178" fill="#DADCE0"/>
+
+  <!-- ラベル分岐の中心点 -->
+  <circle cx="400" cy="192" r="18" fill="#EA4335"/>
+  <text x="400" y="197" text-anchor="middle" font-size="12" font-weight="bold" fill="white">振分</text>
+
+  <!-- ラベル1: プロジェクトA -->
+  <line x1="316" y1="210" x2="180" y2="256" stroke="#EA4335" stroke-width="2"/>
+  <rect x="80" y="256" width="200" height="48" rx="8" fill="#EA4335"/>
+  <text x="180" y="276" text-anchor="middle" font-size="13" font-weight="bold" fill="white">🏷 プロジェクトA</text>
+  <text x="180" y="294" text-anchor="middle" font-size="11" fill="#FFCDD2">受信トレイ → 自動振り分け</text>
+
+  <!-- ラベル2: 経理 -->
+  <line x1="385" y1="210" x2="340" y2="256" stroke="#FBBC04" stroke-width="2"/>
+  <rect x="255" y="256" width="170" height="48" rx="8" fill="#FBBC04"/>
+  <text x="340" y="276" text-anchor="middle" font-size="13" font-weight="bold" fill="white">🏷 経理</text>
+  <text x="340" y="294" text-anchor="middle" font-size="11" fill="#FFF8E1">同時に複数ラベルOK</text>
+
+  <!-- ラベル3: 要返信 -->
+  <line x1="415" y1="210" x2="460" y2="256" stroke="#34A853" stroke-width="2"/>
+  <rect x="375" y="256" width="170" height="48" rx="8" fill="#34A853"/>
+  <text x="460" y="276" text-anchor="middle" font-size="13" font-weight="bold" fill="white">🏷 要返信</text>
+  <text x="460" y="294" text-anchor="middle" font-size="11" fill="#C8E6C9">スターも同時付与可</text>
+
+  <!-- ラベル4: 取引先B -->
+  <line x1="484" y1="210" x2="620" y2="256" stroke="#4285F4" stroke-width="2"/>
+  <rect x="520" y="256" width="200" height="48" rx="8" fill="#4285F4"/>
+  <text x="620" y="276" text-anchor="middle" font-size="13" font-weight="bold" fill="white">🏷 取引先B</text>
+  <text x="620" y="294" text-anchor="middle" font-size="11" fill="#BBDEFB">カラーで視認性UP</text>
+
+  <!-- フォルダーとの比較 -->
+  <rect x="40" y="326" width="340" height="42" rx="8" fill="#FFEBEE" stroke="#EA4335" stroke-width="1"/>
+  <text x="210" y="342" text-anchor="middle" font-size="12" fill="#C62828">❌ フォルダー：1通は1か所にしか入れられない</text>
+  <text x="210" y="358" text-anchor="middle" font-size="11" fill="#E57373">どのフォルダーに入れるか毎回悩む</text>
+
+  <rect x="420" y="326" width="340" height="42" rx="8" fill="#E8F5E9" stroke="#34A853" stroke-width="1"/>
+  <text x="590" y="342" text-anchor="middle" font-size="12" fill="#1B5E20">✅ ラベル：1通に何個でも付けられる</text>
+  <text x="590" y="358" text-anchor="middle" font-size="11" fill="#388E3C">複数の観点で検索・絞り込みが可能</text>
+</svg>

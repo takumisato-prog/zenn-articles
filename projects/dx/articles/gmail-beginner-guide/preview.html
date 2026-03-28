@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gmailの使い方【IT未経験者向け完全ガイド2026年版】 | 株式会社ふじサンバ</title>
+  <meta name="description" content="GmailのラベルやフィルターをIT未経験者向けにわかりやすく解説。スレッド表示・署名の設定手順も画像付きで紹介。中小企業の業務効率化に役立つ2026年最新版ガイドです。">
+  <style>
+    /* ===== リセット & ベース ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic', sans-serif;
+      font-size: 16px;
+      line-height: 1.8;
+      color: #202124;
+      background: #F8F9FA;
+    }
+
+    /* ===== ナビゲーションバー ===== */
+    .navbar {
+      background: #EA4335;
+      color: white;
+      padding: 0 24px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .navbar-brand {
+      font-size: 18px;
+      font-weight: bold;
+      text-decoration: none;
+      color: white;
+      letter-spacing: 0.02em;
+    }
+    .navbar-tagline {
+      font-size: 13px;
+      color: rgba(255,255,255,0.8);
+    }
+    .navbar-badge {
+      background: rgba(255,255,255,0.2);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 12px;
+      color: white;
+    }
+
+    /* ===== レイアウト ===== */
+    .page-wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 20px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 32px;
+      align-items: start;
+    }
+
+    /* ===== 記事エリア ===== */
+    .article-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+
+    /* ヘッダー */
+    .article-header {
+      background: linear-gradient(135deg, #EA4335 0%, #C62828 100%);
+      padding: 48px 40px 40px;
+      color: white;
+    }
+    .article-category {
+      display: inline-block;
+      background: rgba(255,255,255,0.25);
+      border-radius: 20px;
+      padding: 4px 16px;
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 0.05em;
+      margin-bottom: 16px;
+    }
+    .article-title {
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: bold;
+      line-height: 1.4;
+      margin-bottom: 20px;
+    }
+    .article-meta {
+      display: flex;
+      gap: 20px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.85);
+      flex-wrap: wrap;
+    }
+    .article-meta span { display: flex; align-items: center; gap: 4px; }
+
+    /* 本文 */
+    .article-body {
+      padding: 40px;
+    }
+    .article-body p {
+      margin-bottom: 1.4em;
+      color: #3C4043;
+    }
+    .article-body strong { color: #202124; }
+    .article-body a { color: #EA4335; text-decoration: none; }
+    .article-body a:hover { text-decoration: underline; }
+
+    /* 見出し */
+    .article-body h2 {
+      font-size: 22px;
+      font-weight: bold;
+      color: #202124;
+      margin: 48px 0 20px;
+      padding: 14px 20px;
+      border-left: 5px solid #EA4335;
+      background: #FFF5F5;
+      border-radius: 0 8px 8px 0;
+    }
+    .article-body h3 {
+      font-size: 18px;
+      font-weight: bold;
+      color: #202124;
+      margin: 32px 0 14px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #DADCE0;
+    }
+
+    /* リード文 */
+    .lead-text {
+      font-size: 17px;
+      color: #3C4043;
+      background: #F8F9FA;
+      border-radius: 10px;
+      padding: 24px 28px;
+      margin-bottom: 32px;
+      line-height: 1.9;
+      border-left: 4px solid #EA4335;
+    }
+
+    /* テーブル */
+    .article-body table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0 28px;
+      font-size: 14px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .article-body th {
+      background: #EA4335;
+      color: white;
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: bold;
+    }
+    .article-body td {
+      padding: 11px 16px;
+      border-bottom: 1px solid #F1F3F4;
+      color: #3C4043;
+    }
+    .article-body tr:nth-child(even) td { background: #FFF8F8; }
+    .article-body tr:last-child td { border-bottom: none; }
+    .article-body tr:hover td { background: #FFEBEE; transition: background 0.15s; }
+
+    /* コードブロック */
+    .article-body pre {
+      background: #F8F9FA;
+      border: 1px solid #DADCE0;
+      border-radius: 8px;
+      padding: 20px 24px;
+      font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      color: #3C4043;
+      overflow-x: auto;
+      margin: 16px 0 24px;
+    }
+    .article-body code {
+      background: #F1F3F4;
+      border-radius: 4px;
+      padding: 2px 7px;
+      font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+      font-size: 13px;
+      color: #EA4335;
+    }
+    .article-body pre code {
+      background: none;
+      padding: 0;
+      color: inherit;
+    }
+
+    /* リスト */
+    .article-body ul, .article-body ol {
+      padding-left: 24px;
+      margin-bottom: 1.4em;
+      color: #3C4043;
+    }
+    .article-body li { margin-bottom: 0.5em; }
+    .article-body ul li::marker { color: #EA4335; }
+
+    /* 吹き出し */
+    .callout {
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin: 20px 0 28px;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+    .callout-info {
+      background: #E8F5E9;
+      border-left: 4px solid #34A853;
+      color: #1B5E20;
+    }
+    .callout-tip {
+      background: #FFF8E1;
+      border-left: 4px solid #FBBC04;
+      color: #5D4037;
+    }
+    .callout-example {
+      background: #E3F2FD;
+      border-left: 4px solid #4285F4;
+      color: #1565C0;
+    }
+
+    /* 画像エリア */
+    .figure-block {
+      margin: 28px 0 36px;
+      text-align: center;
+    }
+    .figure-block svg {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      display: block;
+      margin: 0 auto;
+    }
+    .figure-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #5F6368;
+      text-align: center;
+    }
+
+    /* まとめテーブル */
+    .summary-table th { background: #34A853; }
+    .summary-table tr:nth-child(even) td { background: #F1F8E9; }
+    .summary-table tr:hover td { background: #E8F5E9; }
+
+    /* 関連記事 */
+    .related-articles {
+      border-top: 2px solid #F1F3F4;
+      margin-top: 48px;
+      padding-top: 32px;
+    }
+    .related-articles h3 { border-bottom: none; color: #5F6368; font-size: 15px; }
+    .related-articles ul { list-style: none; padding: 0; }
+    .related-articles li {
+      padding: 10px 0;
+      border-bottom: 1px solid #F1F3F4;
+      font-size: 14px;
+    }
+    .related-articles li::before { content: '→ '; color: #EA4335; }
+
+    /* ===== サイドバー ===== */
+    .sidebar { position: sticky; top: 80px; }
+
+    /* 目次 */
+    .toc-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .toc-card h4 {
+      font-size: 14px;
+      font-weight: bold;
+      color: #EA4335;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #EA4335;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .toc-list { list-style: none; padding: 0; }
+    .toc-list li { margin-bottom: 4px; }
+    .toc-list a {
+      display: block;
+      padding: 7px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      color: #3C4043;
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s;
+      line-height: 1.4;
+    }
+    .toc-list a:hover {
+      background: #FFEBEE;
+      color: #EA4335;
+    }
+    .toc-list .toc-h3 { padding-left: 20px; font-size: 12px; color: #5F6368; }
+    .toc-list .toc-h3:hover { background: #F8F9FA; color: #EA4335; }
+
+    /* CTAカード */
+    .cta-card {
+      background: linear-gradient(135deg, #EA4335 0%, #C62828 100%);
+      border-radius: 12px;
+      padding: 24px;
+      color: white;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .cta-card .cta-icon { font-size: 36px; margin-bottom: 12px; }
+    .cta-card h4 { font-size: 15px; font-weight: bold; margin-bottom: 8px; line-height: 1.4; }
+    .cta-card p { font-size: 12px; color: rgba(255,255,255,0.85); margin-bottom: 16px; line-height: 1.6; }
+    .cta-btn {
+      display: block;
+      background: white;
+      color: #EA4335;
+      font-weight: bold;
+      font-size: 13px;
+      padding: 10px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .cta-btn:hover { opacity: 0.9; }
+
+    /* サービスカード */
+    .service-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      padding: 20px 24px;
+    }
+    .service-card h4 {
+      font-size: 13px;
+      font-weight: bold;
+      color: #5F6368;
+      margin-bottom: 14px;
+      letter-spacing: 0.04em;
+    }
+    .service-tag {
+      display: inline-block;
+      background: #F1F3F4;
+      color: #3C4043;
+      border-radius: 16px;
+      padding: 4px 12px;
+      font-size: 12px;
+      margin: 3px 2px;
+    }
+
+    /* ===== フッター ===== */
+    footer {
+      background: #202124;
+      color: rgba(255,255,255,0.7);
+      padding: 40px 24px;
+      margin-top: 60px;
+      text-align: center;
+    }
+    footer .footer-company {
+      font-size: 18px;
+      font-weight: bold;
+      color: white;
+      margin-bottom: 8px;
+    }
+    footer .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin: 16px 0;
+      flex-wrap: wrap;
+    }
+    footer .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 13px; }
+    footer .footer-links a:hover { color: white; }
+    footer .footer-copy { font-size: 13px; margin-top: 20px; }
+
+    /* ===== レスポンシブ ===== */
+    @media (max-width: 900px) {
+      .page-wrapper { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      .article-header { padding: 32px 24px 28px; }
+      .article-body { padding: 28px 24px; }
+      .article-body h2 { font-size: 19px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ナビゲーションバー -->
+<nav class="navbar">
+  <a href="#" class="navbar-brand">株式会社ふじサンバ</a>
+  <span class="navbar-tagline">DX支援 / Google Workspace 導入サポート</span>
+  <span class="navbar-badge">お問い合わせ</span>
+</nav>
+
+<!-- メインコンテンツ -->
+<div class="page-wrapper">
+
+  <!-- 記事本文カード -->
+  <main class="article-card">
+
+    <!-- 記事ヘッダー -->
+    <header class="article-header">
+      <div class="article-category">DX支援 / Google Workspace</div>
+      <h1 class="article-title">Gmailの使い方<br>【IT未経験者向け完全ガイド2026年版】</h1>
+      <div class="article-meta">
+        <span>📅 2026年3月19日</span>
+        <span>✍️ 株式会社ふじサンバ DX支援部門</span>
+        <span>⏱ 読了時間：約8分</span>
+      </div>
+    </header>
+
+    <!-- 記事本文 -->
+    <article class="article-body">
+
+      <div class="lead-text">
+        「メールの返信を見落としてしまった」「重要なメールがどこにあるか分からない」——そんな経験はありませんか？<br><br>
+        Gmailは世界で最も多く使われているメールサービスです。ただのメール送受信ツールと思っていたら大間違い。<strong>ラベル・フィルター・署名・スレッド表示</strong>という4つの機能を使いこなすだけで、メール管理が劇的に楽になります。<br><br>
+        この記事では、IT未経験の方でも迷わず設定・活用できるよう、画面操作を一つひとつ丁寧に解説します。
+      </div>
+
+      <!-- セクション1 -->
+      <h2 id="sec-compare">Gmailとは？他のメールとの違い</h2>
+      <p>Gmailは、Google社が提供する無料のWebメールサービスです。OutlookやThunderbirdなど他のメールソフトと比べて、使える場所・ストレージ・検索機能・自動振り分けの点で大きく優れています。</p>
+
+      <table>
+        <thead>
+          <tr><th>比較項目</th><th>Gmail</th><th>従来のメールソフト</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>使える場所</td><td><strong style="color:#34A853">ブラウザ・スマホ・タブレット（どこでもOK）✓</strong></td><td>主にPC</td></tr>
+          <tr><td>インストール</td><td><strong style="color:#34A853">不要（ブラウザで即使える）✓</strong></td><td>必要</td></tr>
+          <tr><td>ストレージ</td><td><strong style="color:#34A853">15GB（無料）✓</strong></td><td>端末の容量に依存</td></tr>
+          <tr><td>検索機能</td><td><strong style="color:#34A853">強力（Google検索と同レベル）✓</strong></td><td>限定的</td></tr>
+          <tr><td>自動振り分け</td><td><strong style="color:#34A853">フィルター機能で完全自動化 ✓</strong></td><td>設定が複雑</td></tr>
+          <tr><td>スレッド表示</td><td><strong style="color:#34A853">同じ件名のメールを1束にまとめる ✓</strong></td><td>バラバラに表示</td></tr>
+        </tbody>
+      </table>
+
+      <!-- 図解01 インライン埋め込み -->
+      <div class="figure-block">
+        <svg width="800" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" font-family="'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif">
+          <rect width="800" height="400" fill="#F8F9FA" rx="12"/>
+          <text x="400" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#202124">Gmailとほかのメールソフトはどこが違う？</text>
+          <rect x="40" y="60" width="340" height="52" rx="8" fill="#EA4335"/>
+          <text x="57" y="80" font-size="13" fill="white">📧</text>
+          <text x="75" y="80" font-size="15" font-weight="bold" fill="white">Gmail</text>
+          <text x="75" y="100" font-size="12" fill="#FFCDD2">（Google）</text>
+          <rect x="420" y="60" width="340" height="52" rx="8" fill="#5F6368"/>
+          <text x="437" y="80" font-size="13" fill="white">📬</text>
+          <text x="455" y="80" font-size="15" font-weight="bold" fill="white">従来のメールソフト</text>
+          <text x="455" y="100" font-size="12" fill="#E0E0E0">（Outlook など）</text>
+          <rect x="40" y="124" width="340" height="44" rx="6" fill="white"/>
+          <rect x="420" y="124" width="340" height="44" rx="6" fill="white"/>
+          <text x="57" y="141" font-size="11" fill="#5F6368" font-weight="bold">📍 使える場所</text>
+          <text x="57" y="158" font-size="12" fill="#34A853" font-weight="bold">ブラウザ・スマホ・タブレット ✓</text>
+          <text x="437" y="141" font-size="11" fill="#5F6368" font-weight="bold">📍 使える場所</text>
+          <text x="437" y="158" font-size="12" fill="#9E9E9E">主にPC（インストール必要）</text>
+          <rect x="40" y="178" width="340" height="44" rx="6" fill="#F8F9FA"/>
+          <rect x="420" y="178" width="340" height="44" rx="6" fill="#F8F9FA"/>
+          <text x="57" y="195" font-size="11" fill="#5F6368" font-weight="bold">💾 ストレージ</text>
+          <text x="57" y="212" font-size="12" fill="#34A853" font-weight="bold">15GB（無料）✓</text>
+          <text x="437" y="195" font-size="11" fill="#5F6368" font-weight="bold">💾 ストレージ</text>
+          <text x="437" y="212" font-size="12" fill="#9E9E9E">端末の容量に依存</text>
+          <rect x="40" y="232" width="340" height="44" rx="6" fill="white"/>
+          <rect x="420" y="232" width="340" height="44" rx="6" fill="white"/>
+          <text x="57" y="249" font-size="11" fill="#5F6368" font-weight="bold">🔍 検索機能</text>
+          <text x="57" y="266" font-size="12" fill="#34A853" font-weight="bold">Google検索と同レベルの高精度 ✓</text>
+          <text x="437" y="249" font-size="11" fill="#5F6368" font-weight="bold">🔍 検索機能</text>
+          <text x="437" y="266" font-size="12" fill="#9E9E9E">限定的・遅い場合あり</text>
+          <rect x="40" y="286" width="340" height="44" rx="6" fill="#F8F9FA"/>
+          <rect x="420" y="286" width="340" height="44" rx="6" fill="#F8F9FA"/>
+          <text x="57" y="303" font-size="11" fill="#5F6368" font-weight="bold">💬 スレッド表示</text>
+          <text x="57" y="320" font-size="12" fill="#34A853" font-weight="bold">会話を1束にまとめて表示 ✓</text>
+          <text x="437" y="303" font-size="11" fill="#5F6368" font-weight="bold">💬 スレッド表示</text>
+          <text x="437" y="320" font-size="12" fill="#9E9E9E">バラバラに表示される</text>
+          <rect x="40" y="340" width="340" height="44" rx="6" fill="white"/>
+          <rect x="420" y="340" width="340" height="44" rx="6" fill="white"/>
+          <text x="57" y="357" font-size="11" fill="#5F6368" font-weight="bold">⚙️ 自動振り分け</text>
+          <text x="57" y="374" font-size="12" fill="#34A853" font-weight="bold">フィルターで完全自動化 ✓</text>
+          <text x="437" y="357" font-size="11" fill="#5F6368" font-weight="bold">⚙️ 自動振り分け</text>
+          <text x="437" y="374" font-size="12" fill="#9E9E9E">設定が複雑・限定的</text>
+          <line x1="395" y1="60" x2="395" y2="390" stroke="#DADCE0" stroke-width="2" stroke-dasharray="4,4"/>
+        </svg>
+        <p class="figure-caption">▲ Gmailはどこからでもアクセスでき、強力な検索・自動振り分け機能を備えています</p>
+      </div>
+
+      <!-- セクション2 -->
+      <h2 id="sec-thread">1. スレッド表示：会話の流れを一目で把握する</h2>
+      <h3>スレッド表示とは？</h3>
+      <p>Gmailの大きな特徴のひとつが「スレッド表示」です。同じ件名でやり取りしたメールを、会話のように1か所にまとめて表示します。</p>
+      <p>「〇〇の件について」という件名で10通やり取りしても、受信トレイには<strong>1行</strong>だけ表示されます。クリックすると、すべての会話が時系列で確認できます。</p>
+
+      <h3>スレッド表示のオン/オフ設定</h3>
+      <ol>
+        <li>右上の歯車アイコン（設定）をクリック</li>
+        <li>「すべての設定を表示」をクリック</li>
+        <li>「全般」タブを開く</li>
+        <li>「スレッド表示」の項目を見つける</li>
+        <li>「スレッド表示ON」または「スレッド表示OFF」を選択</li>
+        <li>画面下の「変更を保存」をクリック</li>
+      </ol>
+      <div class="callout callout-info">
+        💡 <strong>ポイント：</strong> 最初はスレッド表示ONがおすすめです。過去のやり取りを遡りやすく、返信漏れを防げます。
+      </div>
+
+      <!-- セクション3 -->
+      <h2 id="sec-label">2. ラベル：メールを色分けして整理する</h2>
+      <h3>ラベルとは？</h3>
+      <p>Gmailの「ラベル」は、メールに貼る<strong>カラータグ</strong>のようなものです。フォルダーに似ていますが、1通のメールに<strong>複数のラベルを付けられる</strong>点が違います。</p>
+      <p><strong>例：</strong>「〇〇プロジェクトの請求書」というメールに「プロジェクトA」「経理」の2つのラベルを同時に付けることができます。</p>
+
+      <!-- 図解02 インライン埋め込み -->
+      <div class="figure-block">
+        <svg width="800" height="380" viewBox="0 0 800 380" xmlns="http://www.w3.org/2000/svg" font-family="'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif">
+          <rect width="800" height="380" fill="#F8F9FA" rx="12"/>
+          <text x="400" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#202124">ラベルの仕組み：1通のメールに複数タグが付けられる</text>
+          <rect x="290" y="60" width="220" height="80" rx="10" fill="white" stroke="#EA4335" stroke-width="2"/>
+          <text x="400" y="88" text-anchor="middle" font-size="13" font-weight="bold" fill="#202124">📧 受信メール</text>
+          <text x="400" y="108" text-anchor="middle" font-size="11" fill="#5F6368">件名：〇〇プロジェクトの請求書</text>
+          <text x="400" y="124" text-anchor="middle" font-size="11" fill="#5F6368">送信者：会計事務所</text>
+          <line x1="400" y1="140" x2="400" y2="168" stroke="#DADCE0" stroke-width="2"/>
+          <polygon points="393,168 407,168 400,178" fill="#DADCE0"/>
+          <circle cx="400" cy="192" r="18" fill="#EA4335"/>
+          <text x="400" y="197" text-anchor="middle" font-size="12" font-weight="bold" fill="white">振分</text>
+          <line x1="316" y1="210" x2="180" y2="256" stroke="#EA4335" stroke-width="2"/>
+          <rect x="80" y="256" width="200" height="48" rx="8" fill="#EA4335"/>
+          <text x="180" y="276" text-anchor="middle" font-size="13" font-weight="bold" fill="white">🏷 プロジェクトA</text>
+          <text x="180" y="294" text-anchor="middle" font-size="11" fill="#FFCDD2">受信トレイ → 自動振り分け</text>
+          <line x1="385" y1="210" x2="340" y2="256" stroke="#FBBC04" stroke-width="2"/>
+          <rect x="255" y="256" width="170" height="48" rx="8" fill="#FBBC04"/>
+          <text x="340" y="276" text-anchor="middle" font-size="13" font-weight="bold" fill="white">🏷 経理</text>
+          <text x="340" y="294" text-anchor="middle" font-size="11" fill="#FFF8E1">同時に複数ラベルOK</text>
+          <line x1="415" y1="210" x2="460" y2="256" stroke="#34A853" stroke-width="2"/>
+          <rect x="375" y="256" width="170" height="48" rx="8" fill="#34A853"/>
+          <text x="460" y="276" text-anchor="middle" font-size="13" font-weight="bold" fill="white">🏷 要返信</text>
+          <text x="460" y="294" text-anchor="middle" font-size="11" fill="#C8E6C9">スターも同時付与可</text>
+          <line x1="484" y1="210" x2="620" y2="256" stroke="#4285F4" stroke-width="2"/>
+          <rect x="520" y="256" width="200" height="48" rx="8" fill="#4285F4"/>
+          <text x="620" y="276" text-anchor="middle" font-size="13" font-weight="bold" fill="white">🏷 取引先B</text>
+          <text x="620" y="294" text-anchor="middle" font-size="11" fill="#BBDEFB">カラーで視認性UP</text>
+          <rect x="40" y="326" width="340" height="42" rx="8" fill="#FFEBEE" stroke="#EA4335" stroke-width="1"/>
+          <text x="210" y="342" text-anchor="middle" font-size="12" fill="#C62828">❌ フォルダー：1通は1か所にしか入れられない</text>
+          <text x="210" y="358" text-anchor="middle" font-size="11" fill="#E57373">どのフォルダーに入れるか毎回悩む</text>
+          <rect x="420" y="326" width="340" height="42" rx="8" fill="#E8F5E9" stroke="#34A853" stroke-width="1"/>
+          <text x="590" y="342" text-anchor="middle" font-size="12" fill="#1B5E20">✅ ラベル：1通に何個でも付けられる</text>
+          <text x="590" y="358" text-anchor="middle" font-size="11" fill="#388E3C">複数の観点で検索・絞り込みが可能</text>
+        </svg>
+        <p class="figure-caption">▲ ラベルはフォルダーと違い、1通のメールに何個でも付けられます</p>
+      </div>
+
+      <h3>ラベルの作成手順</h3>
+      <ol>
+        <li>画面左のサイドバーを下にスクロール</li>
+        <li>「新しいラベルを作成」をクリック</li>
+        <li>ラベル名を入力（例：「案件A」「取引先B」「要返信」）</li>
+        <li>「作成」をクリック</li>
+      </ol>
+
+      <h3>ラベルに色を付ける</h3>
+      <ol>
+        <li>作成したラベルにマウスを合わせる</li>
+        <li>右に現れる「3点メニュー（…）」をクリック</li>
+        <li>「ラベルの色」から好きな色を選ぶ</li>
+      </ol>
+      <div class="callout callout-tip">
+        🎨 <strong>活用例（色の使い方）：</strong><br>
+        赤：「要返信」（緊急） / 青：「取引先A」 / 緑：「社内連絡」 / 黄：「後で確認」
+      </div>
+
+      <!-- セクション4 -->
+      <h2 id="sec-filter">3. フィルター：メールを自動で振り分ける</h2>
+      <h3>フィルターとは？</h3>
+      <p>「毎回同じ送り主のメールをラベルに入れるのが面倒」と感じたら、<strong>フィルター機能</strong>が解決します。特定の条件に合うメールが届いたとき、<strong>自動でラベル付け・既読化・アーカイブ</strong>などの処理を行います。</p>
+
+      <!-- 図解03 インライン埋め込み -->
+      <div class="figure-block">
+        <svg width="800" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" font-family="'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif">
+          <rect width="800" height="400" fill="#F8F9FA" rx="12"/>
+          <text x="400" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#202124">フィルター設定フロー：条件に合うメールを自動処理</text>
+          <rect x="30" y="60" width="140" height="64" rx="10" fill="#EA4335"/>
+          <text x="100" y="84" text-anchor="middle" font-size="13" font-weight="bold" fill="white">STEP 1</text>
+          <text x="100" y="102" text-anchor="middle" font-size="12" fill="white">メール受信</text>
+          <text x="100" y="116" text-anchor="middle" font-size="10" fill="#FFCDD2">📧 新着メール到着</text>
+          <line x1="170" y1="92" x2="205" y2="92" stroke="#DADCE0" stroke-width="2"/>
+          <polygon points="203,86 215,92 203,98" fill="#DADCE0"/>
+          <rect x="215" y="60" width="160" height="64" rx="10" fill="#FBBC04"/>
+          <text x="295" y="84" text-anchor="middle" font-size="13" font-weight="bold" fill="white">STEP 2</text>
+          <text x="295" y="102" text-anchor="middle" font-size="12" fill="white">条件チェック</text>
+          <text x="295" y="116" text-anchor="middle" font-size="10" fill="#FFF8E1">⚙️ フィルター照合</text>
+          <line x1="375" y1="92" x2="410" y2="92" stroke="#DADCE0" stroke-width="2"/>
+          <polygon points="408,86 420,92 408,98" fill="#DADCE0"/>
+          <polygon points="505,60 595,92 505,124 415,92" fill="#4285F4"/>
+          <text x="505" y="88" text-anchor="middle" font-size="11" font-weight="bold" fill="white">条件に</text>
+          <text x="505" y="104" text-anchor="middle" font-size="11" font-weight="bold" fill="white">一致？</text>
+          <line x1="595" y1="92" x2="635" y2="92" stroke="#34A853" stroke-width="2"/>
+          <polygon points="633,86 645,92 633,98" fill="#34A853"/>
+          <text x="614" y="82" text-anchor="middle" font-size="11" fill="#34A853" font-weight="bold">YES</text>
+          <line x1="505" y1="124" x2="505" y2="160" stroke="#EA4335" stroke-width="2"/>
+          <polygon points="499,158 511,158 505,170" fill="#EA4335"/>
+          <text x="520" y="148" font-size="11" fill="#EA4335" font-weight="bold">NO</text>
+          <rect x="645" y="60" width="135" height="64" rx="10" fill="#34A853"/>
+          <text x="712" y="84" text-anchor="middle" font-size="13" font-weight="bold" fill="white">STEP 3</text>
+          <text x="712" y="102" text-anchor="middle" font-size="12" fill="white">自動アクション</text>
+          <text x="712" y="116" text-anchor="middle" font-size="10" fill="#C8E6C9">✅ 処理を実行</text>
+          <rect x="420" y="170" width="170" height="40" rx="8" fill="#E8EAF6" stroke="#5C6BC0" stroke-width="1.5"/>
+          <text x="505" y="195" text-anchor="middle" font-size="12" fill="#3949AB">通常の受信トレイへ</text>
+          <rect x="645" y="148" width="135" height="36" rx="8" fill="#E8F5E9" stroke="#34A853" stroke-width="1.5"/>
+          <text x="712" y="163" text-anchor="middle" font-size="11" fill="#2E7D32">🏷 ラベルを付ける</text>
+          <text x="712" y="178" text-anchor="middle" font-size="10" fill="#388E3C">（例：取引先A）</text>
+          <rect x="645" y="196" width="135" height="36" rx="8" fill="#FFF3E0" stroke="#FB8C00" stroke-width="1.5"/>
+          <text x="712" y="211" text-anchor="middle" font-size="11" fill="#E65100">📂 受信トレイを</text>
+          <text x="712" y="226" text-anchor="middle" font-size="10" fill="#BF360C">スキップ（アーカイブ）</text>
+          <rect x="645" y="244" width="135" height="36" rx="8" fill="#E3F2FD" stroke="#1E88E5" stroke-width="1.5"/>
+          <text x="712" y="259" text-anchor="middle" font-size="11" fill="#1565C0">✔️ 既読にする</text>
+          <text x="712" y="274" text-anchor="middle" font-size="10" fill="#1976D2">（未読バッジを消す）</text>
+          <rect x="645" y="292" width="135" height="36" rx="8" fill="#FCE4EC" stroke="#E91E63" stroke-width="1.5"/>
+          <text x="712" y="307" text-anchor="middle" font-size="11" fill="#880E4F">⭐ スターを付ける</text>
+          <text x="712" y="322" text-anchor="middle" font-size="10" fill="#C2185B">（重要メールに）</text>
+          <rect x="30" y="160" width="360" height="220" rx="10" fill="white" stroke="#DADCE0" stroke-width="1.5"/>
+          <text x="210" y="183" text-anchor="middle" font-size="13" font-weight="bold" fill="#202124">設定できる条件の例</text>
+          <line x1="50" y1="190" x2="370" y2="190" stroke="#DADCE0" stroke-width="1"/>
+          <rect x="50" y="200" width="320" height="32" rx="6" fill="#F8F9FA"/>
+          <text x="65" y="218" font-size="11" fill="#5F6368" font-weight="bold">送信者（From）：</text>
+          <text x="175" y="218" font-size="11" fill="#EA4335">newsletter@example.com</text>
+          <rect x="50" y="238" width="320" height="32" rx="6" fill="white"/>
+          <text x="65" y="256" font-size="11" fill="#5F6368" font-weight="bold">件名に含む：</text>
+          <text x="175" y="256" font-size="11" fill="#EA4335">【重要】/ 請求書 / 〇〇の件</text>
+          <rect x="50" y="276" width="320" height="32" rx="6" fill="#F8F9FA"/>
+          <text x="65" y="294" font-size="11" fill="#5F6368" font-weight="bold">受信者（To）：</text>
+          <text x="175" y="294" font-size="11" fill="#EA4335">info@fujisamba.co.jp</text>
+          <rect x="50" y="314" width="320" height="32" rx="6" fill="white"/>
+          <text x="65" y="332" font-size="11" fill="#5F6368" font-weight="bold">添付ファイルあり：</text>
+          <text x="185" y="332" font-size="11" fill="#EA4335">has:attachment を使う</text>
+          <rect x="50" y="352" width="320" height="20" rx="4" fill="#FFF8E1"/>
+          <text x="210" y="365" text-anchor="middle" font-size="10" fill="#F57C00">複数条件を AND / OR で組み合わせられます</text>
+        </svg>
+        <p class="figure-caption">▲ フィルターを設定しておけば、仕分け作業はすべて自動です</p>
+      </div>
+
+      <h3>フィルターの設定手順</h3>
+      <p><strong>STEP 1：フィルター作成画面を開く</strong></p>
+      <ol>
+        <li>右上の歯車アイコン →「すべての設定を表示」</li>
+        <li>「フィルターとブロック中のアドレス」タブをクリック</li>
+        <li>「新しいフィルターを作成」をクリック</li>
+      </ol>
+
+      <p><strong>STEP 2：条件を設定する</strong></p>
+      <table>
+        <thead><tr><th>条件</th><th>設定例</th></tr></thead>
+        <tbody>
+          <tr><td>送信者（From）</td><td><code>newsletter@example.com</code></td></tr>
+          <tr><td>受信者（To）</td><td><code>info@fujisamba.co.jp</code></td></tr>
+          <tr><td>件名に含む</td><td><code>【重要】</code></td></tr>
+          <tr><td>本文に含む</td><td><code>請求書</code></td></tr>
+        </tbody>
+      </table>
+
+      <p><strong>STEP 3：アクションを設定する</strong></p>
+      <ul>
+        <li>ラベルを付ける</li>
+        <li>受信トレイをスキップ（自動アーカイブ）</li>
+        <li>既読にする</li>
+        <li>削除する</li>
+        <li>スターを付ける</li>
+      </ul>
+      <p><strong>STEP 4：「フィルターを作成」をクリックして完了</strong></p>
+
+      <div class="callout callout-example">
+        ⚙️ <strong>活用例：</strong><br>
+        ・取引先からのメール → 自動でラベル「取引先A」を付ける<br>
+        ・メールマガジン → 自動で受信トレイをスキップ＋ラベル「マガジン」<br>
+        ・「【請求書】」が件名に含まれる → 自動でスターを付ける
+      </div>
+
+      <!-- セクション5 -->
+      <h2 id="sec-signature">4. 署名：毎回の入力を省略する</h2>
+      <h3>署名とは？</h3>
+      <p>メールの末尾に自動で付く<strong>差出人情報</strong>のことです。名前・会社名・部署・電話番号・メールアドレスなどを事前登録しておけば、送信のたびに入力する手間が省けます。</p>
+
+      <h3>署名の設定手順</h3>
+      <ol>
+        <li>右上の歯車アイコン →「すべての設定を表示」</li>
+        <li>「全般」タブをスクロールして「署名」セクションへ</li>
+        <li>「新規作成」をクリックして署名名を入力（例：「通常署名」）</li>
+        <li>テキストエリアに署名内容を入力する</li>
+        <li>「変更を保存」をクリック</li>
+      </ol>
+
+      <h3>署名の記載例</h3>
+      <pre>━━━━━━━━━━━━━━━━━━━━━━━━
+株式会社ふじサンバ　DX支援部
+山田 太郎（やまだ たろう）
+
+〒XXX-XXXX 東京都〇〇区〇〇町1-2-3
+TEL: 03-XXXX-XXXX　FAX: 03-XXXX-XXXX
+Email: yamada@fujisamba.co.jp
+Web: https://fujisamba.co.jp
+━━━━━━━━━━━━━━━━━━━━━━━━</pre>
+
+      <div class="callout callout-info">
+        💡 <strong>ポイント：</strong> 署名は複数登録できます。社外向け・社内向けで使い分けるとプロらしい印象になります。
+      </div>
+
+      <!-- セクション6 -->
+      <h2 id="sec-search">5. 検索機能：目的のメールを瞬時に見つける</h2>
+      <p>GmailはGoogleと同じ検索エンジンを使っており、非常に強力です。以下の検索コマンドを覚えておくと、どんなメールもすぐに見つかります。</p>
+
+      <table>
+        <thead><tr><th>検索コマンド</th><th>意味</th><th>例</th></tr></thead>
+        <tbody>
+          <tr><td><code>from:</code></td><td>送信者で検索</td><td><code>from:yamada@example.com</code></td></tr>
+          <tr><td><code>to:</code></td><td>受信者で検索</td><td><code>to:info@fujisamba.co.jp</code></td></tr>
+          <tr><td><code>subject:</code></td><td>件名で検索</td><td><code>subject:請求書</code></td></tr>
+          <tr><td><code>has:attachment</code></td><td>添付ファイルあり</td><td><code>has:attachment</code></td></tr>
+          <tr><td><code>label:</code></td><td>ラベルで絞り込み</td><td><code>label:取引先A</code></td></tr>
+          <tr><td><code>after:</code></td><td>日付以降</td><td><code>after:2026/01/01</code></td></tr>
+          <tr><td><code>before:</code></td><td>日付以前</td><td><code>before:2026/03/01</code></td></tr>
+          <tr><td><code>is:unread</code></td><td>未読のみ</td><td><code>is:unread</code></td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-example">
+        🔍 <strong>組み合わせ例：</strong><br>
+        <code>from:yamada@example.com has:attachment after:2026/01/01</code><br>
+        → 2026年1月以降に山田さんから届いた添付ファイル付きメール
+      </div>
+
+      <!-- まとめ -->
+      <h2 id="sec-summary">まとめ：今日から始める4つのアクション</h2>
+      <table class="summary-table">
+        <thead><tr><th>機能</th><th>今日やること</th></tr></thead>
+        <tbody>
+          <tr><td>スレッド表示</td><td>オンになっているか確認する</td></tr>
+          <tr><td>ラベル</td><td>「要返信」「取引先」「社内」の3つを作成する</td></tr>
+          <tr><td>フィルター</td><td>最もよく来るメルマガ1件を自動アーカイブ設定する</td></tr>
+          <tr><td>署名</td><td>会社名・名前・連絡先を登録する</td></tr>
+        </tbody>
+      </table>
+
+      <p>Gmailの4機能をマスターするだけで、1日のメール処理時間を大幅に短縮できます。まずは「署名の登録」から始めてみてください。設定は5分もあれば完了します。</p>
+      <p>ご不明な点があれば、株式会社ふじサンバのDX支援チームまでお気軽にお問い合わせください。</p>
+
+      <!-- 関連記事 -->
+      <div class="related-articles">
+        <h3>関連記事</h3>
+        <ul>
+          <li>Googleドライブの使い方【IT未経験者向け完全ガイド2026年版】</li>
+          <li>Googleカレンダーで予定管理を効率化する方法</li>
+          <li>Google Meetでオンライン会議を始める手順</li>
+        </ul>
+      </div>
+
+    </article>
+  </main>
+
+  <!-- サイドバー -->
+  <aside class="sidebar">
+
+    <!-- 目次 -->
+    <div class="toc-card">
+      <h4>📋 目次</h4>
+      <ul class="toc-list">
+        <li><a href="#sec-compare">Gmailとは？他のメールとの違い</a></li>
+        <li><a href="#sec-thread">1. スレッド表示</a></li>
+        <li><a class="toc-h3" href="#sec-thread">スレッド表示とは？</a></li>
+        <li><a class="toc-h3" href="#sec-thread">オン/オフ設定</a></li>
+        <li><a href="#sec-label">2. ラベル</a></li>
+        <li><a class="toc-h3" href="#sec-label">ラベルとは？</a></li>
+        <li><a class="toc-h3" href="#sec-label">ラベルの作成手順</a></li>
+        <li><a href="#sec-filter">3. フィルター</a></li>
+        <li><a class="toc-h3" href="#sec-filter">フィルターとは？</a></li>
+        <li><a class="toc-h3" href="#sec-filter">フィルターの設定手順</a></li>
+        <li><a href="#sec-signature">4. 署名</a></li>
+        <li><a class="toc-h3" href="#sec-signature">署名の設定手順</a></li>
+        <li><a href="#sec-search">5. 検索機能</a></li>
+        <li><a href="#sec-summary">まとめ</a></li>
+      </ul>
+    </div>
+
+    <!-- CTAカード -->
+    <div class="cta-card">
+      <div class="cta-icon">📧</div>
+      <h4>Gmail導入・研修のご相談</h4>
+      <p>株式会社ふじサンバでは、Google Workspaceの導入から社員研修まで一括サポートしています。</p>
+      <a href="#" class="cta-btn">無料相談はこちら</a>
+    </div>
+
+    <!-- サービスタグ -->
+    <div class="service-card">
+      <h4>対応サービス</h4>
+      <span class="service-tag">Gmail</span>
+      <span class="service-tag">Googleドライブ</span>
+      <span class="service-tag">Googleカレンダー</span>
+      <span class="service-tag">Google Meet</span>
+      <span class="service-tag">Google Chat</span>
+      <span class="service-tag">業務自動化（GAS）</span>
+      <span class="service-tag">DX推進支援</span>
+    </div>
+
+  </aside>
+</div>
+
+<!-- フッター -->
+<footer>
+  <div class="footer-company">株式会社ふじサンバ</div>
+  <p style="font-size:13px">Google Workspace 導入・DX支援・業務効率化のプロフェッショナル</p>
+  <div class="footer-links">
+    <a href="#">サービス一覧</a>
+    <a href="#">DX支援ブログ</a>
+    <a href="#">お問い合わせ</a>
+    <a href="#">プライバシーポリシー</a>
+  </div>
+  <div class="footer-copy">© 2026 株式会社ふじサンバ All Rights Reserved.</div>
+</footer>
+
+</body>
+</html>

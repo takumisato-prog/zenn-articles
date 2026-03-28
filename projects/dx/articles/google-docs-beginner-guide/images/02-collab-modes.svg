@@ -1,0 +1,78 @@
+<svg width="800" height="380" viewBox="0 0 800 380" xmlns="http://www.w3.org/2000/svg" font-family="'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif">
+  <!-- 背景 -->
+  <rect width="800" height="380" fill="#F8F9FA" rx="12"/>
+
+  <!-- タイトルバー -->
+  <rect x="0" y="0" width="800" height="56" fill="#4285F4" rx="12"/>
+  <rect x="0" y="44" width="800" height="12" fill="#4285F4"/>
+  <text x="400" y="36" text-anchor="middle" fill="white" font-size="18" font-weight="bold">編集・提案・閲覧モードの違い</text>
+
+  <!-- モード1: 編集モード -->
+  <rect x="24" y="76" width="228" height="284" fill="white" rx="10" stroke="#34A853" stroke-width="2"/>
+  <!-- ヘッダー -->
+  <rect x="24" y="76" width="228" height="48" fill="#34A853" rx="10"/>
+  <rect x="24" y="112" width="228" height="12" fill="#34A853"/>
+  <text x="138" y="105" text-anchor="middle" fill="white" font-size="15" font-weight="bold">✏️ 編集モード</text>
+
+  <!-- 編集モードアイコンエリア -->
+  <rect x="44" y="138" width="188" height="80" fill="#E8F5E9" rx="8"/>
+  <text x="138" y="168" text-anchor="middle" fill="#2E7D32" font-size="28">📝</text>
+  <text x="138" y="195" text-anchor="middle" fill="#2E7D32" font-size="12">自由に編集できる</text>
+
+  <!-- 権限バッジ -->
+  <rect x="60" y="230" width="156" height="26" fill="#34A853" rx="13"/>
+  <text x="138" y="248" text-anchor="middle" fill="white" font-size="12" font-weight="bold">権限：編集者</text>
+
+  <text x="44" y="278" fill="#424242" font-size="12">・文字の追加・削除</text>
+  <text x="44" y="298" fill="#424242" font-size="12">・書式の変更</text>
+  <text x="44" y="318" fill="#424242" font-size="12">・画像の挿入</text>
+
+  <rect x="44" y="334" width="188" height="18" fill="#F1F8E9" rx="4"/>
+  <text x="138" y="347" text-anchor="middle" fill="#388E3C" font-size="11">チームメンバー向け</text>
+
+  <!-- モード2: 提案モード -->
+  <rect x="286" y="76" width="228" height="284" fill="white" rx="10" stroke="#FBBC05" stroke-width="2"/>
+  <!-- ヘッダー -->
+  <rect x="286" y="76" width="228" height="48" fill="#FBBC05" rx="10"/>
+  <rect x="286" y="112" width="228" height="12" fill="#FBBC05"/>
+  <text x="400" y="105" text-anchor="middle" fill="white" font-size="15" font-weight="bold">💡 提案モード</text>
+
+  <!-- 提案モードアイコンエリア -->
+  <rect x="306" y="138" width="188" height="80" fill="#FFF8E1" rx="8"/>
+  <text x="400" y="168" text-anchor="middle" fill="#F57F17" font-size="28">🔍</text>
+  <text x="400" y="195" text-anchor="middle" fill="#F57F17" font-size="12">変更を提案できる</text>
+
+  <!-- 権限バッジ -->
+  <rect x="322" y="230" width="156" height="26" fill="#FBBC05" rx="13"/>
+  <text x="400" y="248" text-anchor="middle" fill="white" font-size="12" font-weight="bold">権限：編集者</text>
+
+  <text x="306" y="278" fill="#424242" font-size="12">・変更箇所が緑色で表示</text>
+  <text x="306" y="298" fill="#424242" font-size="12">・承認・却下が可能</text>
+  <text x="306" y="318" fill="#424242" font-size="12">・誰の変更かわかる</text>
+
+  <rect x="306" y="334" width="188" height="18" fill="#FFF8E1" rx="4"/>
+  <text x="400" y="347" text-anchor="middle" fill="#F57F17" font-size="11">レビュー・校正向け</text>
+
+  <!-- モード3: 閲覧モード -->
+  <rect x="548" y="76" width="228" height="284" fill="white" rx="10" stroke="#EA4335" stroke-width="2"/>
+  <!-- ヘッダー -->
+  <rect x="548" y="76" width="228" height="48" fill="#EA4335" rx="10"/>
+  <rect x="548" y="112" width="228" height="12" fill="#EA4335"/>
+  <text x="662" y="105" text-anchor="middle" fill="white" font-size="15" font-weight="bold">👁️ 閲覧モード</text>
+
+  <!-- 閲覧モードアイコンエリア -->
+  <rect x="568" y="138" width="188" height="80" fill="#FEEBEE" rx="8"/>
+  <text x="662" y="168" text-anchor="middle" fill="#B71C1C" font-size="28">🔒</text>
+  <text x="662" y="195" text-anchor="middle" fill="#B71C1C" font-size="12">見るだけ</text>
+
+  <!-- 権限バッジ -->
+  <rect x="584" y="230" width="156" height="26" fill="#EA4335" rx="13"/>
+  <text x="662" y="248" text-anchor="middle" fill="white" font-size="12" font-weight="bold">権限：閲覧者</text>
+
+  <text x="568" y="278" fill="#424242" font-size="12">・内容を読むのみ</text>
+  <text x="568" y="298" fill="#424242" font-size="12">・変更・コメント不可</text>
+  <text x="568" y="318" fill="#424242" font-size="12">・印刷・ダウンロード可</text>
+
+  <rect x="568" y="334" width="188" height="18" fill="#FEEBEE" rx="4"/>
+  <text x="662" y="347" text-anchor="middle" fill="#C62828" font-size="11">完成文書の配布向け</text>
+</svg>

@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="380" viewBox="0 0 800 380" font-family="'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif">
+  <!-- 背景 -->
+  <rect width="800" height="380" fill="#F8F9FA" rx="12"/>
+
+  <!-- タイトル -->
+  <text x="400" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#202124">画面共有の種類と選び方</text>
+  <text x="400" y="56" text-anchor="middle" font-size="13" fill="#5F6368">用途に合わせて3種類から選択できます</text>
+
+  <!-- ===== カード1: 画面全体 ===== -->
+  <rect x="40" y="74" width="216" height="250" fill="white" rx="10" stroke="#E8EAED" stroke-width="2"/>
+  <!-- ヘッダー -->
+  <rect x="40" y="74" width="216" height="46" fill="#5F6368" rx="10"/>
+  <rect x="40" y="100" width="216" height="20" fill="#5F6368"/>
+  <text x="148" y="103" text-anchor="middle" font-size="14" font-weight="bold" fill="white">画面全体</text>
+
+  <!-- モニターアイコン -->
+  <rect x="80" y="135" width="136" height="90" fill="#E8EAED" rx="4" stroke="#DADCE0" stroke-width="1.5"/>
+  <rect x="88" y="143" width="120" height="74" fill="#F1F3F4" rx="2"/>
+  <!-- 画面内：複数ウィンドウのイメージ -->
+  <rect x="92" y="147" width="52" height="32" fill="#DADCE0" rx="2"/>
+  <rect x="148" y="147" width="52" height="32" fill="#DADCE0" rx="2"/>
+  <rect x="92" y="183" width="108" height="28" fill="#DADCE0" rx="2"/>
+  <rect x="136" y="230" width="24" height="10" fill="#DADCE0" rx="2"/>
+
+  <!-- バッジ：初心者注意 -->
+  <rect x="70" y="238" width="116" height="24" fill="#FFF3E0" rx="12" stroke="#FF8F00" stroke-width="1"/>
+  <text x="128" y="254" text-anchor="middle" font-size="11" fill="#E65100">⚠ プライバシー注意</text>
+
+  <!-- 説明 -->
+  <text x="148" y="282" text-anchor="middle" font-size="12" fill="#3C4043">デスクトップ全体を</text>
+  <text x="148" y="298" text-anchor="middle" font-size="12" fill="#3C4043">相手に見せる</text>
+  <text x="148" y="316" text-anchor="middle" font-size="11" fill="#80868B">通知なども見えるため</text>
+  <text x="148" y="330" text-anchor="middle" font-size="11" fill="#80868B">注意が必要</text>
+
+  <!-- ===== カード2: ウィンドウ（推奨） ===== -->
+  <rect x="292" y="74" width="216" height="250" fill="white" rx="10" stroke="#00897B" stroke-width="2.5"/>
+  <!-- ヘッダー（推奨は緑） -->
+  <rect x="292" y="74" width="216" height="46" fill="#00897B" rx="10"/>
+  <rect x="292" y="100" width="216" height="20" fill="#00897B"/>
+  <text x="400" y="103" text-anchor="middle" font-size="14" font-weight="bold" fill="white">ウィンドウ</text>
+
+  <!-- 推奨バッジ -->
+  <rect x="332" y="62" width="136" height="22" fill="#00897B" rx="11"/>
+  <text x="400" y="77" text-anchor="middle" font-size="11" font-weight="bold" fill="white">★ 初心者におすすめ</text>
+
+  <!-- モニターアイコン -->
+  <rect x="332" y="135" width="136" height="90" fill="#E8F5E9" rx="4" stroke="#00897B" stroke-width="1.5"/>
+  <rect x="340" y="143" width="120" height="74" fill="#F1F8F1" rx="2"/>
+  <!-- 画面内：1つのウィンドウだけハイライト -->
+  <rect x="344" y="147" width="108" height="64" fill="#C8E6C9" rx="2" stroke="#00897B" stroke-width="1.5"/>
+  <text x="398" y="183" text-anchor="middle" font-size="10" fill="#2E7D32">Excel / Word など</text>
+  <text x="398" y="197" text-anchor="middle" font-size="10" fill="#2E7D32">特定ウィンドウのみ</text>
+  <rect x="388" y="230" width="24" height="10" fill="#DADCE0" rx="2"/>
+
+  <!-- バッジ：安全 -->
+  <rect x="322" y="238" width="116" height="24" fill="#E8F5E9" rx="12" stroke="#00897B" stroke-width="1"/>
+  <text x="380" y="254" text-anchor="middle" font-size="11" fill="#2E7D32">✓ 他の画面は非表示</text>
+
+  <!-- 説明 -->
+  <text x="400" y="282" text-anchor="middle" font-size="12" fill="#3C4043">特定アプリの画面だけ</text>
+  <text x="400" y="298" text-anchor="middle" font-size="12" fill="#3C4043">を共有する</text>
+  <text x="400" y="316" text-anchor="middle" font-size="11" fill="#00897B">プライバシーを守りながら</text>
+  <text x="400" y="330" text-anchor="middle" font-size="11" fill="#00897B">安全に共有できる</text>
+
+  <!-- ===== カード3: タブ ===== -->
+  <rect x="544" y="74" width="216" height="250" fill="white" rx="10" stroke="#E8EAED" stroke-width="2"/>
+  <!-- ヘッダー -->
+  <rect x="544" y="74" width="216" height="46" fill="#1A73E8" rx="10"/>
+  <rect x="544" y="100" width="216" height="20" fill="#1A73E8"/>
+  <text x="652" y="103" text-anchor="middle" font-size="14" font-weight="bold" fill="white">タブ（Chrome）</text>
+
+  <!-- ブラウザアイコン -->
+  <rect x="584" y="135" width="136" height="90" fill="#E3F2FD" rx="4" stroke="#1A73E8" stroke-width="1.5"/>
+  <!-- タブバー -->
+  <rect x="584" y="135" width="136" height="20" fill="#BBDEFB" rx="4"/>
+  <rect x="588" y="138" width="50" height="13" fill="#1A73E8" rx="3"/>
+  <rect x="642" y="138" width="40" height="13" fill="#90CAF9" rx="3"/>
+  <!-- 画面本体 -->
+  <rect x="592" y="160" width="120" height="56" fill="#white" rx="2"/>
+  <rect x="596" y="164" width="112" height="8" fill="#BBDEFB" rx="2"/>
+  <rect x="596" y="176" width="80" height="8" fill="#BBDEFB" rx="2"/>
+  <rect x="596" y="188" width="96" height="8" fill="#BBDEFB" rx="2"/>
+  <rect x="636" y="230" width="24" height="10" fill="#DADCE0" rx="2"/>
+
+  <!-- バッジ -->
+  <rect x="574" y="238" width="116" height="24" fill="#E3F2FD" rx="12" stroke="#1A73E8" stroke-width="1"/>
+  <text x="632" y="254" text-anchor="middle" font-size="11" fill="#1565C0">Webページ共有向け</text>
+
+  <!-- 説明 -->
+  <text x="652" y="282" text-anchor="middle" font-size="12" fill="#3C4043">ブラウザの特定タブ</text>
+  <text x="652" y="298" text-anchor="middle" font-size="12" fill="#3C4043">だけを共有する</text>
+  <text x="652" y="316" text-anchor="middle" font-size="11" fill="#80868B">スライドやWebサイトを</text>
+  <text x="652" y="330" text-anchor="middle" font-size="11" fill="#80868B">見せるときに便利</text>
+
+  <!-- フッター -->
+  <text x="400" y="366" text-anchor="middle" font-size="11" fill="#80868B">© 2026 株式会社ふじサンバ　DX支援部門</text>
+</svg>

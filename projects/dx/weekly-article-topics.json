@@ -1,0 +1,34 @@
+{
+  "week_schedule": [
+    {
+      "week": 2,
+      "articles": [
+        { "slug": "google-sheets-beginner-guide", "title": "Googleスプレッドシートの使い方【IT未経験者向け完全ガイド2026年版】", "theme": "基本操作・Excelとの違い・共同編集・よく使う関数10選", "color": "#0F9D58" },
+        { "slug": "google-drive-shared-drive-guide", "title": "Googleドライブ共有ドライブの作り方と運用ガイド【2026年版】", "theme": "共有ドライブの作成・権限設定・運用ルール策定", "color": "#1971C2" },
+        { "slug": "gmail-label-filter-guide", "title": "Gmailラベルとフィルターの使い方【完全ガイド2026年版】", "theme": "ラベルの作り方・フィルター自動振り分け・整理術", "color": "#EA4335" },
+        { "slug": "google-meet-recording-guide", "title": "Google Meetの録画機能の使い方【完全ガイド2026年版】", "theme": "録画の開始・保存先・共有方法・注意点", "color": "#00897B" },
+        { "slug": "google-calendar-share-guide", "title": "Googleカレンダーの共有設定ガイド【2026年版】", "theme": "カレンダー共有・権限設定・チームでの活用法", "color": "#1A73E8" }
+      ]
+    },
+    {
+      "week": 3,
+      "articles": [
+        { "slug": "google-forms-beginner-guide", "title": "Googleフォームの使い方【IT未経験者向け完全ガイド2026年版】", "theme": "アンケート作成・回答集計・スプレッドシート連携", "color": "#7B1FA2" },
+        { "slug": "google-slides-beginner-guide", "title": "Googleスライドの使い方【IT未経験者向け完全ガイド2026年版】", "theme": "基本操作・PowerPointとの違い・共同編集・発表モード", "color": "#F4B400" },
+        { "slug": "google-drive-search-guide", "title": "Googleドライブの検索テクニック10選【2026年版】", "theme": "ファイルタイプ絞り込み・オーナー検索・更新日検索", "color": "#1971C2" },
+        { "slug": "gmail-signature-guide", "title": "Gmailの署名の作り方と使い分け【完全ガイド2026年版】", "theme": "署名の設定・HTMLリッチ署名・複数署名の使い分け", "color": "#EA4335" },
+        { "slug": "google-chat-space-guide", "title": "Google Chatスペースの作り方と活用法【2026年版】", "theme": "スペース作成・メンバー管理・ファイル共有・通知設定", "color": "#1A73E8" }
+      ]
+    },
+    {
+      "week": 4,
+      "articles": [
+        { "slug": "google-drive-mobile-guide", "title": "スマホからGoogleドライブを使う方法【完全ガイド2026年版】", "theme": "iOSとAndroidのアプリ操作・オフライン設定・写真保存", "color": "#1971C2" },
+        { "slug": "google-docs-comment-guide", "title": "Googleドキュメントのコメント機能と提案モードの使い方【2026年版】", "theme": "コメント追加・返信・解決・提案モードの活用", "color": "#4285F4" },
+        { "slug": "google-meet-background-guide", "title": "Google Meetのバーチャル背景と設定ガイド【2026年版】", "theme": "バーチャル背景・ぼかし・ライティング設定", "color": "#00897B" },
+        { "slug": "gmail-search-guide", "title": "Gmailの検索コマンド活用術【完全ガイド2026年版】", "theme": "差出人・件名・添付ファイル・日付での絞り込み検索", "color": "#EA4335" },
+        { "slug": "google-workspace-security-guide", "title": "Googleワークスペースのセキュリティ設定【初心者ガイド2026年版】", "theme": "2段階認証・パスワード設定・ログイン履歴確認", "color": "#6741D9" }
+      ]
+    }
+  ]
+}

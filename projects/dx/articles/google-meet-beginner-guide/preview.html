@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Meetの使い方【IT未経験者向け完全ガイド2026年版】 | 株式会社ふじサンバ</title>
+  <meta name="description" content="Google Meetの使い方をIT未経験者向けにわかりやすく解説。ビデオ会議への参加方法・画面共有・録画・バーチャル背景の設定まで、株式会社ふじサンバのDX支援部門が2026年最新版でお届けします。">
+  <style>
+    /* リセット・ベース */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic', sans-serif;
+      background: #F8F9FA;
+      color: #202124;
+      line-height: 1.8;
+      font-size: 16px;
+    }
+
+    /* ナビバー */
+    .navbar {
+      background: #ffffff;
+      border-bottom: 1px solid #E8EAED;
+      padding: 0 32px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .navbar-logo {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #00897B, #1A73E8);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    .navbar-name {
+      font-weight: 700;
+      font-size: 15px;
+      color: #202124;
+    }
+    .navbar-tagline {
+      font-size: 12px;
+      color: #5F6368;
+    }
+    .navbar-nav {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+    .navbar-nav a {
+      text-decoration: none;
+      color: #5F6368;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    .navbar-nav a:hover { color: #00897B; }
+
+    /* ヒーローバナー */
+    .hero {
+      background: linear-gradient(135deg, #00897B 0%, #1A73E8 100%);
+      color: white;
+      padding: 60px 32px 48px;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 20px;
+      padding: 4px 16px;
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1.4;
+      margin-bottom: 16px;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    .hero-meta {
+      font-size: 13px;
+      opacity: 0.85;
+      margin-bottom: 20px;
+    }
+    .hero-tags {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .hero-tag {
+      background: rgba(255,255,255,0.2);
+      border-radius: 12px;
+      padding: 3px 12px;
+      font-size: 12px;
+    }
+
+    /* レイアウト */
+    .layout {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 24px;
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 40px;
+      align-items: start;
+    }
+
+    /* メインコンテンツ */
+    .article-body {
+      background: white;
+      border-radius: 12px;
+      padding: 48px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+    }
+
+    /* 見出し */
+    .article-body h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #202124;
+      margin: 48px 0 16px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #00897B;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .article-body h2:first-of-type { margin-top: 0; }
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #00897B;
+      margin: 32px 0 12px;
+    }
+
+    /* 本文 */
+    .article-body p {
+      margin-bottom: 16px;
+      color: #3C4043;
+    }
+
+    /* リード文 */
+    .lead-text {
+      background: #E8F5E9;
+      border-left: 4px solid #00897B;
+      border-radius: 0 8px 8px 0;
+      padding: 20px 24px;
+      margin-bottom: 32px;
+      font-size: 15px;
+      line-height: 1.9;
+      color: #2E7D32;
+    }
+
+    /* テーブル */
+    .article-body table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .article-body th {
+      background: #00897B;
+      color: white;
+      padding: 12px 16px;
+      font-size: 14px;
+      text-align: left;
+    }
+    .article-body td {
+      padding: 12px 16px;
+      border-bottom: 1px solid #E8EAED;
+      font-size: 14px;
+      color: #3C4043;
+    }
+    .article-body tr:last-child td { border-bottom: none; }
+    .article-body tr:nth-child(even) td { background: #F8F9FA; }
+    .badge-rec {
+      background: #00897B;
+      color: white;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin-left: 4px;
+      font-weight: bold;
+    }
+
+    /* リスト */
+    .article-body ul, .article-body ol {
+      padding-left: 24px;
+      margin: 16px 0;
+    }
+    .article-body li {
+      margin-bottom: 8px;
+      color: #3C4043;
+    }
+
+    /* ステップリスト */
+    .step-list {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0;
+    }
+    .step-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 12px;
+      padding: 14px 16px;
+      background: #F8F9FA;
+      border-radius: 8px;
+    }
+    .step-num {
+      background: #00897B;
+      color: white;
+      font-weight: 700;
+      font-size: 13px;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* インフォボックス */
+    .info-box {
+      background: #E3F2FD;
+      border: 1px solid #90CAF9;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 20px 0;
+      font-size: 14px;
+      color: #1565C0;
+    }
+    .info-box strong { color: #0D47A1; }
+
+    /* 警告ボックス */
+    .warn-box {
+      background: #FFF3E0;
+      border: 1px solid #FFCC02;
+      border-left: 4px solid #FF8F00;
+      border-radius: 0 8px 8px 0;
+      padding: 16px 20px;
+      margin: 20px 0;
+      font-size: 14px;
+      color: #E65100;
+    }
+    .warn-box strong { display: block; margin-bottom: 8px; font-size: 15px; }
+    .warn-box ul { margin: 0; padding-left: 20px; }
+    .warn-box li { margin-bottom: 6px; }
+
+    /* まとめボックス */
+    .summary-box {
+      background: linear-gradient(135deg, #E8F5E9, #F1F8F1);
+      border: 2px solid #00897B;
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin: 32px 0;
+    }
+    .summary-box h3 {
+      color: #00897B;
+      font-size: 18px;
+      margin: 0 0 16px;
+    }
+    .summary-box ol {
+      padding-left: 24px;
+    }
+    .summary-box li {
+      margin-bottom: 10px;
+      font-size: 15px;
+      color: #2E7D32;
+    }
+
+    /* 画像ブロック */
+    .figure-block {
+      margin: 32px -8px;
+      text-align: center;
+    }
+    .figure-block svg {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+    .figure-caption {
+      display: block;
+      margin-top: 10px;
+      font-size: 13px;
+      color: #80868B;
+      font-style: italic;
+    }
+
+    /* 2カラム比較 */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 24px 0;
+    }
+    .two-col-card {
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .two-col-card.meet {
+      background: #E8F5E9;
+      border: 1px solid #A5D6A7;
+    }
+    .two-col-card.chat {
+      background: #E3F2FD;
+      border: 1px solid #90CAF9;
+    }
+    .two-col-card h4 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .two-col-card.meet h4 { color: #00897B; }
+    .two-col-card.chat h4 { color: #1A73E8; }
+    .two-col-card ul {
+      padding-left: 18px;
+      font-size: 14px;
+    }
+    .two-col-card li { margin-bottom: 6px; color: #3C4043; }
+
+    /* サイドバー */
+    .sidebar { position: sticky; top: 80px; }
+
+    /* 目次カード */
+    .toc-card {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+      margin-bottom: 20px;
+    }
+    .toc-card h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #5F6368;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #E8EAED;
+    }
+    .toc-list {
+      list-style: none;
+      padding: 0;
+    }
+    .toc-list li { margin-bottom: 4px; }
+    .toc-list a {
+      text-decoration: none;
+      color: #5F6368;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 8px;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+    .toc-list a:hover {
+      background: #E8F5E9;
+      color: #00897B;
+    }
+    .toc-num {
+      background: #E8F5E9;
+      color: #00897B;
+      font-weight: 700;
+      font-size: 11px;
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* CTAカード */
+    .cta-card {
+      background: linear-gradient(135deg, #00897B, #1A73E8);
+      border-radius: 12px;
+      padding: 24px;
+      color: white;
+      text-align: center;
+    }
+    .cta-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .cta-card p {
+      font-size: 13px;
+      opacity: 0.9;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .cta-btn {
+      display: block;
+      background: white;
+      color: #00897B;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 10px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: transform 0.2s;
+    }
+    .cta-btn:hover { transform: translateY(-1px); }
+
+    /* フッター */
+    footer {
+      background: #202124;
+      color: #BDC1C6;
+      text-align: center;
+      padding: 32px;
+      font-size: 13px;
+      margin-top: 60px;
+    }
+    footer a { color: #80868B; text-decoration: none; }
+    footer .footer-brand {
+      font-weight: 700;
+      color: white;
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+
+    /* レスポンシブ */
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      .two-col { grid-template-columns: 1fr; }
+      .article-body { padding: 28px; }
+      .hero h1 { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ナビバー -->
+<nav class="navbar">
+  <a class="navbar-brand" href="#">
+    <div class="navbar-logo">ふじ</div>
+    <div>
+      <div class="navbar-name">株式会社ふじサンバ</div>
+      <div class="navbar-tagline">DX支援 / Google Workspace導入</div>
+    </div>
+  </a>
+  <ul class="navbar-nav">
+    <li><a href="#">サービス</a></li>
+    <li><a href="#">記事一覧</a></li>
+    <li><a href="#">お問い合わせ</a></li>
+  </ul>
+</nav>
+
+<!-- ヒーロー -->
+<div class="hero">
+  <div class="hero-badge">DX入門 / Google Workspace</div>
+  <h1>Google Meetの使い方<br>【IT未経験者向け完全ガイド2026年版】</h1>
+  <div class="hero-meta">公開日：2026年3月19日　｜　執筆：株式会社ふじサンバ DX支援部門</div>
+  <div class="hero-tags">
+    <span class="hero-tag">ビデオ会議</span>
+    <span class="hero-tag">画面共有</span>
+    <span class="hero-tag">録画</span>
+    <span class="hero-tag">バーチャル背景</span>
+    <span class="hero-tag">Google Workspace</span>
+  </div>
+</div>
+
+<!-- メインレイアウト -->
+<div class="layout">
+
+  <!-- 記事本文 -->
+  <main class="article-body">
+
+    <!-- はじめに -->
+    <h2>📹 はじめに：Google Meetとは？</h2>
+    <div class="lead-text">
+      Google Meetは、Googleが提供するビデオ会議ツールです。パソコンやスマートフォンのブラウザから、<strong>アプリをインストールせずにすぐ使える</strong>手軽さが特徴です。ZoomやTeamsと同様にビデオ通話・チャット・画面共有ができ、Google WorkspaceのGoogleカレンダーやGmailとも連携しています。<br><br>
+      「ビデオ会議ツールって難しそう…」と感じているIT未経験の方でも、この記事を読めば<strong>今日からすぐにGoogle Meetを使いこなせます</strong>。
+    </div>
+
+    <!-- できること -->
+    <h3>Google Meetでできること</h3>
+    <table>
+      <thead>
+        <tr><th>機能</th><th>概要</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>ビデオ通話</strong></td><td>顔を見せながらオンラインで会議できる</td></tr>
+        <tr><td><strong>画面共有</strong></td><td>自分のパソコン画面を相手に見せられる</td></tr>
+        <tr><td><strong>録画</strong></td><td>会議を録画してGoogleドライブに保存できる</td></tr>
+        <tr><td><strong>バーチャル背景</strong></td><td>部屋の背景を隠してプロフェッショナルな印象に</td></tr>
+      </tbody>
+    </table>
+
+    <!-- 第1章 -->
+    <h2 id="chapter1">第1章：Google Meetの画面構成</h2>
+    <p>Google Meetを開くと、最初は少し戸惑うかもしれません。でも、主要なボタンは画面下部に集中しているので、慣れれば直感的に操作できます。</p>
+
+    <!-- 図1: インラインSVG -->
+    <div class="figure-block">
+      <svg xmlns="http://www.w3.org/2000/svg" width="800" height="420" viewBox="0 0 800 420" font-family="'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif">
+        <rect width="800" height="420" fill="#F8F9FA" rx="12"/>
+        <text x="400" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#202124">Google Meet 画面構成ガイド</text>
+        <rect x="60" y="55" width="680" height="300" fill="#202124" rx="10"/>
+        <rect x="80" y="70" width="310" height="190" fill="#3C4043" rx="8"/>
+        <circle cx="235" cy="148" r="36" fill="#5F6368"/>
+        <text x="235" y="200" text-anchor="middle" font-size="12" fill="#BDC1C6">参加者A</text>
+        <rect x="410" y="70" width="310" height="190" fill="#3C4043" rx="8"/>
+        <circle cx="565" cy="148" r="36" fill="#5F6368"/>
+        <text x="565" y="200" text-anchor="middle" font-size="12" fill="#BDC1C6">参加者B（自分）</text>
+        <rect x="80" y="278" width="640" height="64" fill="#3C4043" rx="8"/>
+        <circle cx="240" cy="310" r="22" fill="#5F6368"/>
+        <text x="240" y="315" text-anchor="middle" font-size="16" fill="white">🎤</text>
+        <circle cx="310" cy="310" r="22" fill="#5F6368"/>
+        <text x="310" y="315" text-anchor="middle" font-size="16" fill="white">📷</text>
+        <circle cx="380" cy="310" r="22" fill="#5F6368"/>
+        <text x="380" y="315" text-anchor="middle" font-size="16" fill="white">🖥</text>
+        <circle cx="450" cy="310" r="22" fill="#5F6368"/>
+        <text x="450" y="316" text-anchor="middle" font-size="18" font-weight="bold" fill="white">⋮</text>
+        <rect x="495" y="290" width="80" height="40" fill="#EA4335" rx="20"/>
+        <text x="535" y="315" text-anchor="middle" font-size="13" fill="white">退出</text>
+        <rect x="30" y="340" width="140" height="38" fill="#00897B" rx="6"/>
+        <polygon points="160,352 175,358 160,364" fill="#00897B"/>
+        <text x="100" y="358" text-anchor="middle" font-size="11" fill="white" font-weight="bold">マイク ON/OFF</text>
+        <text x="100" y="372" text-anchor="middle" font-size="10" fill="white">話すとき以外はミュート</text>
+        <rect x="255" y="340" width="120" height="38" fill="#1A73E8" rx="6"/>
+        <polygon points="295,340 310,328 325,340" fill="#1A73E8"/>
+        <text x="315" y="358" text-anchor="middle" font-size="11" fill="white" font-weight="bold">カメラ ON/OFF</text>
+        <text x="315" y="372" text-anchor="middle" font-size="10" fill="white">顔を映す・隠す</text>
+        <rect x="340" y="340" width="120" height="38" fill="#00897B" rx="6"/>
+        <polygon points="365,340 380,328 395,340" fill="#00897B"/>
+        <text x="400" y="358" text-anchor="middle" font-size="11" fill="white" font-weight="bold">画面共有</text>
+        <text x="400" y="372" text-anchor="middle" font-size="10" fill="white">資料を見せるとき</text>
+        <rect x="600" y="340" width="140" height="38" fill="#EA4335" rx="6"/>
+        <polygon points="620,340 535,310 650,340" fill="#EA4335"/>
+        <text x="670" y="358" text-anchor="middle" font-size="11" fill="white" font-weight="bold">退出ボタン</text>
+        <text x="670" y="372" text-anchor="middle" font-size="10" fill="white">会議を終わるとき</text>
+        <text x="400" y="408" text-anchor="middle" font-size="11" fill="#80868B">© 2026 株式会社ふじサンバ　DX支援部門</text>
+      </svg>
+      <span class="figure-caption">▲ Google Meetの画面構成。ボタンはすべて画面下部に集まっています。</span>
+    </div>
+
+    <h3>主要ボタンの説明</h3>
+    <p><strong>マイクボタン（🎤）</strong>　クリックするとマイクのオン・オフが切り替わります。赤くなっているときはミュート状態です。話さないときはミュートにしておくのがマナーです。</p>
+    <p><strong>カメラボタン（📷）</strong>　カメラのオン・オフを切り替えます。顔を映したくないときはオフにできます。</p>
+    <p><strong>画面共有ボタン（🖥）</strong>　自分のパソコン画面を参加者全員に見せられます。詳しくは第2章で説明します。</p>
+    <p><strong>その他のオプション（⋮）</strong>　録画・バーチャル背景・字幕などの追加機能にアクセスできます。</p>
+    <p><strong>退出ボタン（赤）</strong>　会議から退出します。間違えて押さないよう注意しましょう。</p>
+
+    <!-- 第2章 -->
+    <h2 id="chapter2">第2章：会議に参加する3つの方法</h2>
+
+    <h3>方法①：リンクをクリックして参加</h3>
+    <p>主催者からメールやチャットで届いた「meet.google.com/xxx-xxx-xxx」のURLをクリックするだけです。最も一般的な参加方法です。</p>
+    <ol class="step-list">
+      <li><span class="step-num">1</span>URLをクリックする</li>
+      <li><span class="step-num">2</span>ブラウザが開き「カメラとマイクへのアクセスを許可しますか？」と表示されたら「許可」をクリック</li>
+      <li><span class="step-num">3</span>「今すぐ参加」をクリックして入室</li>
+    </ol>
+
+    <h3>方法②：Googleカレンダーから参加</h3>
+    <p>Googleカレンダーに会議の予定が登録されている場合、予定をクリックすると「Google Meetに参加」ボタンが表示されます。クリックするだけで参加できます。</p>
+
+    <h3>方法③：会議コードを入力して参加</h3>
+    <p>主催者から「会議コード」（例：abc-defg-hij）を受け取った場合は、<a href="https://meet.google.com" style="color:#00897B;">meet.google.com</a> にアクセスしてコードを入力して参加できます。</p>
+
+    <!-- 第3章 -->
+    <h2 id="chapter3">第3章：画面共有のやり方</h2>
+    <p>画面共有は、資料を見せながら説明するときに便利な機能です。操作自体はとても簡単です。</p>
+
+    <!-- 図2: インラインSVG -->
+    <div class="figure-block">
+      <svg xmlns="http://www.w3.org/2000/svg" width="800" height="380" viewBox="0 0 800 380" font-family="'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif">
+        <rect width="800" height="380" fill="#F8F9FA" rx="12"/>
+        <text x="400" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#202124">画面共有の種類と選び方</text>
+        <text x="400" y="56" text-anchor="middle" font-size="13" fill="#5F6368">用途に合わせて3種類から選択できます</text>
+        <rect x="40" y="74" width="216" height="250" fill="white" rx="10" stroke="#E8EAED" stroke-width="2"/>
+        <rect x="40" y="74" width="216" height="46" fill="#5F6368" rx="10"/>
+        <rect x="40" y="100" width="216" height="20" fill="#5F6368"/>
+        <text x="148" y="103" text-anchor="middle" font-size="14" font-weight="bold" fill="white">画面全体</text>
+        <rect x="80" y="135" width="136" height="90" fill="#E8EAED" rx="4" stroke="#DADCE0" stroke-width="1.5"/>
+        <rect x="88" y="143" width="120" height="74" fill="#F1F3F4" rx="2"/>
+        <rect x="92" y="147" width="52" height="32" fill="#DADCE0" rx="2"/>
+        <rect x="148" y="147" width="52" height="32" fill="#DADCE0" rx="2"/>
+        <rect x="92" y="183" width="108" height="28" fill="#DADCE0" rx="2"/>
+        <rect x="136" y="230" width="24" height="10" fill="#DADCE0" rx="2"/>
+        <rect x="70" y="238" width="116" height="24" fill="#FFF3E0" rx="12" stroke="#FF8F00" stroke-width="1"/>
+        <text x="128" y="254" text-anchor="middle" font-size="11" fill="#E65100">⚠ プライバシー注意</text>
+        <text x="148" y="282" text-anchor="middle" font-size="12" fill="#3C4043">デスクトップ全体を</text>
+        <text x="148" y="298" text-anchor="middle" font-size="12" fill="#3C4043">相手に見せる</text>
+        <text x="148" y="316" text-anchor="middle" font-size="11" fill="#80868B">通知なども見えるため</text>
+        <text x="148" y="330" text-anchor="middle" font-size="11" fill="#80868B">注意が必要</text>
+        <rect x="292" y="74" width="216" height="250" fill="white" rx="10" stroke="#00897B" stroke-width="2.5"/>
+        <rect x="292" y="74" width="216" height="46" fill="#00897B" rx="10"/>
+        <rect x="292" y="100" width="216" height="20" fill="#00897B"/>
+        <text x="400" y="103" text-anchor="middle" font-size="14" font-weight="bold" fill="white">ウィンドウ</text>
+        <rect x="332" y="62" width="136" height="22" fill="#00897B" rx="11"/>
+        <text x="400" y="77" text-anchor="middle" font-size="11" font-weight="bold" fill="white">★ 初心者におすすめ</text>
+        <rect x="332" y="135" width="136" height="90" fill="#E8F5E9" rx="4" stroke="#00897B" stroke-width="1.5"/>
+        <rect x="340" y="143" width="120" height="74" fill="#F1F8F1" rx="2"/>
+        <rect x="344" y="147" width="108" height="64" fill="#C8E6C9" rx="2" stroke="#00897B" stroke-width="1.5"/>
+        <text x="398" y="183" text-anchor="middle" font-size="10" fill="#2E7D32">Excel / Word など</text>
+        <text x="398" y="197" text-anchor="middle" font-size="10" fill="#2E7D32">特定ウィンドウのみ</text>
+        <rect x="388" y="230" width="24" height="10" fill="#DADCE0" rx="2"/>
+        <rect x="322" y="238" width="116" height="24" fill="#E8F5E9" rx="12" stroke="#00897B" stroke-width="1"/>
+        <text x="380" y="254" text-anchor="middle" font-size="11" fill="#2E7D32">✓ 他の画面は非表示</text>
+        <text x="400" y="282" text-anchor="middle" font-size="12" fill="#3C4043">特定アプリの画面だけ</text>
+        <text x="400" y="298" text-anchor="middle" font-size="12" fill="#3C4043">を共有する</text>
+        <text x="400" y="316" text-anchor="middle" font-size="11" fill="#00897B">プライバシーを守りながら</text>
+        <text x="400" y="330" text-anchor="middle" font-size="11" fill="#00897B">安全に共有できる</text>
+        <rect x="544" y="74" width="216" height="250" fill="white" rx="10" stroke="#E8EAED" stroke-width="2"/>
+        <rect x="544" y="74" width="216" height="46" fill="#1A73E8" rx="10"/>
+        <rect x="544" y="100" width="216" height="20" fill="#1A73E8"/>
+        <text x="652" y="103" text-anchor="middle" font-size="14" font-weight="bold" fill="white">タブ（Chrome）</text>
+        <rect x="584" y="135" width="136" height="90" fill="#E3F2FD" rx="4" stroke="#1A73E8" stroke-width="1.5"/>
+        <rect x="584" y="135" width="136" height="20" fill="#BBDEFB" rx="4"/>
+        <rect x="588" y="138" width="50" height="13" fill="#1A73E8" rx="3"/>
+        <rect x="642" y="138" width="40" height="13" fill="#90CAF9" rx="3"/>
+        <rect x="592" y="160" width="120" height="56" fill="#F8F9FF" rx="2"/>
+        <rect x="596" y="164" width="112" height="8" fill="#BBDEFB" rx="2"/>
+        <rect x="596" y="176" width="80" height="8" fill="#BBDEFB" rx="2"/>
+        <rect x="596" y="188" width="96" height="8" fill="#BBDEFB" rx="2"/>
+        <rect x="636" y="230" width="24" height="10" fill="#DADCE0" rx="2"/>
+        <rect x="574" y="238" width="116" height="24" fill="#E3F2FD" rx="12" stroke="#1A73E8" stroke-width="1"/>
+        <text x="632" y="254" text-anchor="middle" font-size="11" fill="#1565C0">Webページ共有向け</text>
+        <text x="652" y="282" text-anchor="middle" font-size="12" fill="#3C4043">ブラウザの特定タブ</text>
+        <text x="652" y="298" text-anchor="middle" font-size="12" fill="#3C4043">だけを共有する</text>
+        <text x="652" y="316" text-anchor="middle" font-size="11" fill="#80868B">スライドやWebサイトを</text>
+        <text x="652" y="330" text-anchor="middle" font-size="11" fill="#80868B">見せるときに便利</text>
+        <text x="400" y="366" text-anchor="middle" font-size="11" fill="#80868B">© 2026 株式会社ふじサンバ　DX支援部門</text>
+      </svg>
+      <span class="figure-caption">▲ 初心者には「ウィンドウ」選択がおすすめです。プライバシーを守りながら共有できます。</span>
+    </div>
+
+    <h3>画面共有の手順</h3>
+    <ol class="step-list">
+      <li><span class="step-num">1</span>画面下部の<strong>画面共有ボタン</strong>をクリック</li>
+      <li><span class="step-num">2</span>共有する範囲を選ぶ（3つの選択肢があります）</li>
+      <li><span class="step-num">3</span>「共有」をクリックして開始</li>
+    </ol>
+
+    <h3>共有範囲の選び方</h3>
+    <table>
+      <thead>
+        <tr><th>種類</th><th>特徴</th><th>おすすめシーン</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>画面全体</td><td>デスクトップ全体が見える</td><td>複数アプリを切り替えながら説明するとき</td></tr>
+        <tr><td><strong>ウィンドウ</strong><span class="badge-rec">推奨</span></td><td>特定アプリだけを表示</td><td>ExcelやWordなど1つのアプリを見せるとき</td></tr>
+        <tr><td>タブ</td><td>Chromeの特定タブのみ</td><td>Webサイトやスライドを見せるとき</td></tr>
+      </tbody>
+    </table>
+
+    <div class="info-box">
+      <strong>画面共有を終了する方法：</strong>画面下部に表示される「共有を停止」ボタンをクリックするか、画面共有ボタンをもう一度クリックします。共有したままにしないよう気をつけましょう。
+    </div>
+
+    <!-- 第4章 -->
+    <h2 id="chapter4">第4章：会議を録画する方法</h2>
+    <p>会議の内容を後から確認したい場合、録画機能が便利です。録画データはGoogleドライブに自動保存されます。</p>
+
+    <h3>録画の手順</h3>
+    <ol class="step-list">
+      <li><span class="step-num">1</span>画面下部の「⋮」（その他のオプション）をクリック</li>
+      <li><span class="step-num">2</span>「録画を開始」を選択</li>
+      <li><span class="step-num">3</span>「同意する」をクリックすると録画が始まる</li>
+      <li><span class="step-num">4</span>録画中は画面の左上に赤い「REC」マークが表示される</li>
+      <li><span class="step-num">5</span>会議終了時、または「⋮」から「録画を停止」を選ぶと録画が終了</li>
+    </ol>
+
+    <div class="warn-box">
+      <strong>⚠ 注意事項</strong>
+      <ul>
+        <li>録画を開始すると、参加者全員に「録画が開始されました」と通知されます</li>
+        <li>参加者のプライバシーに配慮して、必ず事前に「録画します」と伝えましょう</li>
+        <li>Google Workspaceの管理者設定によっては録画機能が使えない場合があります</li>
+      </ul>
+    </div>
+
+    <!-- 第5章 -->
+    <h2 id="chapter5">第5章：バーチャル背景の設定</h2>
+    <p>自宅から会議に参加するとき、背景が気になることはありませんか？バーチャル背景を使えば、部屋の様子を隠してすっきりした背景で参加できます。</p>
+
+    <h3>バーチャル背景の設定手順</h3>
+    <ol class="step-list">
+      <li><span class="step-num">1</span>会議参加前の画面、または会議中に「⋮」をクリック</li>
+      <li><span class="step-num">2</span>「視覚効果を適用」を選択</li>
+      <li><span class="step-num">3</span>好みの背景画像を選ぶ、または「ぼかし」を選択</li>
+      <li><span class="step-num">4</span>「参加」または「完了」をクリック</li>
+    </ol>
+
+    <h3>背景の種類</h3>
+    <table>
+      <thead>
+        <tr><th>種類</th><th>おすすめシーン</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>背景をぼかす（弱）</td><td>自然な見た目を保ちつつ背景を隠したいとき</td></tr>
+        <tr><td>背景をぼかす（強）</td><td>背景をしっかり隠したいとき</td></tr>
+        <tr><td>プリセット画像</td><td>オフィスや自然など、用意された画像を使うとき</td></tr>
+        <tr><td>カスタム画像</td><td>自分でアップロードした画像を背景にするとき</td></tr>
+      </tbody>
+    </table>
+
+    <div class="info-box">
+      <strong>ポイント：</strong>バーチャル背景はカメラの性能によっては輪郭が不自然になることがあります。うまくいかない場合は「弱いぼかし」から試してみましょう。
+    </div>
+
+    <!-- 第6章 -->
+    <h2 id="chapter6">第6章：Google MeetとGoogle Chatの使い分け</h2>
+    <p>Google Workspaceには「Meet」と「Chat」の2つのコミュニケーションツールがあります。それぞれ目的が異なるので、上手に使い分けましょう。</p>
+
+    <!-- 図3: インラインSVG -->
+    <div class="figure-block">
+      <svg xmlns="http://www.w3.org/2000/svg" width="800" height="380" viewBox="0 0 800 380" font-family="'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif">
+        <rect width="800" height="380" fill="#F8F9FA" rx="12"/>
+        <text x="400" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#202124">Google Meet と Google Chat の使い分け</text>
+        <text x="400" y="56" text-anchor="middle" font-size="13" fill="#5F6368">コミュニケーションの目的に合わせて選ぼう</text>
+        <circle cx="400" cy="200" r="30" fill="#F8F9FA" stroke="#DADCE0" stroke-width="2"/>
+        <text x="400" y="207" text-anchor="middle" font-size="18" font-weight="bold" fill="#5F6368">VS</text>
+        <rect x="40" y="74" width="330" height="268" fill="white" rx="12" stroke="#00897B" stroke-width="2"/>
+        <rect x="40" y="74" width="330" height="56" fill="#00897B" rx="12"/>
+        <rect x="40" y="112" width="330" height="18" fill="#00897B"/>
+        <circle cx="90" cy="102" r="20" fill="white" opacity="0.2"/>
+        <text x="90" y="108" text-anchor="middle" font-size="20" fill="white">📹</text>
+        <text x="240" y="107" text-anchor="middle" font-size="16" font-weight="bold" fill="white">Google Meet</text>
+        <text x="70" y="156" font-size="12" font-weight="bold" fill="#00897B">こんなときに使う</text>
+        <rect x="58" y="166" width="294" height="34" fill="#E8F5E9" rx="6"/>
+        <text x="80" y="186" font-size="13" fill="#2E7D32">🎥  複数人で顔を見ながら話し合いたい</text>
+        <rect x="58" y="204" width="294" height="34" fill="#E8F5E9" rx="6"/>
+        <text x="80" y="224" font-size="13" fill="#2E7D32">🖥  画面共有しながら説明したい</text>
+        <rect x="58" y="242" width="294" height="34" fill="#E8F5E9" rx="6"/>
+        <text x="80" y="262" font-size="13" fill="#2E7D32">🔴  会議を録画・記録したい</text>
+        <rect x="58" y="280" width="294" height="34" fill="#E8F5E9" rx="6"/>
+        <text x="80" y="300" font-size="13" fill="#2E7D32">⏱  30分以上の長い打ち合わせ</text>
+        <rect x="58" y="320" width="294" height="10" fill="#E8EAED" rx="5"/>
+        <rect x="58" y="320" width="220" height="10" fill="#00897B" rx="5"/>
+        <text x="205" y="348" text-anchor="middle" font-size="11" fill="#5F6368">会議の充実度：リアルタイム・双方向</text>
+        <rect x="430" y="74" width="330" height="268" fill="white" rx="12" stroke="#1A73E8" stroke-width="2"/>
+        <rect x="430" y="74" width="330" height="56" fill="#1A73E8" rx="12"/>
+        <rect x="430" y="112" width="330" height="18" fill="#1A73E8"/>
+        <circle cx="480" cy="102" r="20" fill="white" opacity="0.2"/>
+        <text x="480" y="108" text-anchor="middle" font-size="20" fill="white">💬</text>
+        <text x="630" y="107" text-anchor="middle" font-size="16" font-weight="bold" fill="white">Google Chat</text>
+        <text x="460" y="156" font-size="12" font-weight="bold" fill="#1A73E8">こんなときに使う</text>
+        <rect x="448" y="166" width="294" height="34" fill="#E3F2FD" rx="6"/>
+        <text x="470" y="186" font-size="13" fill="#1565C0">✉️  簡単な質問・連絡を伝えたい</text>
+        <rect x="448" y="204" width="294" height="34" fill="#E3F2FD" rx="6"/>
+        <text x="470" y="224" font-size="13" fill="#1565C0">📎  ファイル・画像を手軽に送りたい</text>
+        <rect x="448" y="242" width="294" height="34" fill="#E3F2FD" rx="6"/>
+        <text x="470" y="262" font-size="13" fill="#1565C0">🕐  相手の返事を待てる非同期連絡</text>
+        <rect x="448" y="280" width="294" height="34" fill="#E3F2FD" rx="6"/>
+        <text x="470" y="300" font-size="13" fill="#1565C0">⚡  5分以内で解決できる短い相談</text>
+        <rect x="448" y="320" width="294" height="10" fill="#E8EAED" rx="5"/>
+        <rect x="448" y="320" width="180" height="10" fill="#1A73E8" rx="5"/>
+        <text x="595" y="348" text-anchor="middle" font-size="11" fill="#5F6368">気軽さ：テキスト中心・非同期OK</text>
+        <text x="400" y="368" text-anchor="middle" font-size="11" fill="#80868B">© 2026 株式会社ふじサンバ　DX支援部門</text>
+      </svg>
+      <span class="figure-caption">▲ 「会議か？連絡か？」で使い分けましょう。</span>
+    </div>
+
+    <div class="two-col">
+      <div class="two-col-card meet">
+        <h4>📹 Google Meetを使うとき</h4>
+        <ul>
+          <li>複数人で顔を見ながら話し合いたいとき</li>
+          <li>資料を画面共有しながら説明するとき</li>
+          <li>議事録に残すために録画したいとき</li>
+          <li>30分以上の長い打ち合わせ</li>
+        </ul>
+      </div>
+      <div class="two-col-card chat">
+        <h4>💬 Google Chatを使うとき</h4>
+        <ul>
+          <li>簡単な質問や連絡事項を伝えるとき</li>
+          <li>ファイルや画像を手軽に送りたいとき</li>
+          <li>非同期（相手の返事を待てる）なやり取り</li>
+          <li>5分以内で解決できる短い相談</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- まとめ -->
+    <h2 id="summary">まとめ</h2>
+    <div class="summary-box">
+      <h3>Google Meetを使いこなすポイント</h3>
+      <ol>
+        <li><strong>会議参加</strong> — URLをクリックするか、Googleカレンダーの「参加」ボタンから入室</li>
+        <li><strong>マイク・カメラ</strong> — 話すときはミュートを解除、話さないときはミュートを活用</li>
+        <li><strong>画面共有</strong> — 「ウィンドウ」選択がおすすめ。終わったら「共有を停止」を忘れずに</li>
+        <li><strong>録画</strong> — 事前に参加者へ告知してから開始する</li>
+        <li><strong>バーチャル背景</strong> — 「弱いぼかし」から試してみる</li>
+      </ol>
+    </div>
+
+  </main>
+
+  <!-- サイドバー -->
+  <aside class="sidebar">
+    <!-- 目次 -->
+    <div class="toc-card">
+      <h3>目次</h3>
+      <ul class="toc-list">
+        <li>
+          <a href="#chapter1">
+            <span class="toc-num">1</span>
+            画面構成
+          </a>
+        </li>
+        <li>
+          <a href="#chapter2">
+            <span class="toc-num">2</span>
+            会議への参加方法
+          </a>
+        </li>
+        <li>
+          <a href="#chapter3">
+            <span class="toc-num">3</span>
+            画面共有のやり方
+          </a>
+        </li>
+        <li>
+          <a href="#chapter4">
+            <span class="toc-num">4</span>
+            会議を録画する方法
+          </a>
+        </li>
+        <li>
+          <a href="#chapter5">
+            <span class="toc-num">5</span>
+            バーチャル背景の設定
+          </a>
+        </li>
+        <li>
+          <a href="#chapter6">
+            <span class="toc-num">6</span>
+            MeetとChatの使い分け
+          </a>
+        </li>
+        <li>
+          <a href="#summary">
+            <span class="toc-num">✓</span>
+            まとめ
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- CTAカード -->
+    <div class="cta-card">
+      <h3>Google Meet導入のご相談</h3>
+      <p>株式会社ふじサンバのDX支援部門が、Google Workspaceの導入から社員研修まで丁寧にサポートします。</p>
+      <a href="#" class="cta-btn">無料相談はこちら</a>
+    </div>
+  </aside>
+
+</div>
+
+<!-- フッター -->
+<footer>
+  <div class="footer-brand">株式会社ふじサンバ</div>
+  <p>DX支援 / Google Workspace導入 / 業務自動化</p>
+  <p style="margin-top: 12px;">© 2026 株式会社ふじサンバ　All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>

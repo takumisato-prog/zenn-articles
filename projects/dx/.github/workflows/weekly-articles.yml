@@ -1,0 +1,58 @@
+name: 週次Googleワークスペース記事自動生成
+
+on:
+  schedule:
+    # 毎週月曜日 03:00 JST = 日曜日 18:00 UTC
+    - cron: '0 18 * * 0'
+  workflow_dispatch:  # 手動実行も可能
+
+jobs:
+  generate-articles:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      - name: Python セットアップ
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 依存パッケージをインストール
+        run: pip install anthropic
+
+      - name: rclone をインストール
+        run: |
+          curl https://rclone.org/install.sh | sudo bash
+
+      - name: rclone 設定を復元
+        run: |
+          mkdir -p ~/.config/rclone
+          echo "${{ secrets.RCLONE_CONFIG }}" > ~/.config/rclone/rclone.conf
+
+      - name: 週次記事を生成
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python generate_articles.py
+
+      - name: Googleドライブへアップロード
+        run: |
+          for dir in articles/*/; do
+            name=$(basename "$dir")
+            if [ -f "$dir/preview.html" ]; then
+              rclone mkdir "gdrive:Google Workspace記事/${name}"
+              rclone copy "$dir" "gdrive:Google Workspace記事/${name}/"
+              echo "✅ アップロード完了: $name"
+            fi
+          done
+
+      - name: 生成結果をコミット・プッシュ
+        run: |
+          git config user.name "fujisamba-bot"
+          git config user.email "bot@fujisamba.co.jp"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git add articles/
+          git diff --cached --quiet || git commit -m "週次記事自動生成 $(date '+%Y-%m-%d')"
+          git diff HEAD~1 --quiet 2>/dev/null || git push

@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="420" viewBox="0 0 800 420" font-family="'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif">
+  <!-- 背景 -->
+  <rect width="800" height="420" fill="#F8F9FA" rx="12"/>
+
+  <!-- タイトル -->
+  <text x="400" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#202124">Google Meet 画面構成ガイド</text>
+
+  <!-- Meet画面本体 -->
+  <rect x="60" y="55" width="680" height="300" fill="#202124" rx="10"/>
+
+  <!-- 参加者ビデオエリア（左） -->
+  <rect x="80" y="70" width="310" height="190" fill="#3C4043" rx="8"/>
+  <circle cx="235" cy="148" r="36" fill="#5F6368"/>
+  <text x="235" y="200" text-anchor="middle" font-size="12" fill="#BDC1C6">参加者A</text>
+
+  <!-- 参加者ビデオエリア（右） -->
+  <rect x="410" y="70" width="310" height="190" fill="#3C4043" rx="8"/>
+  <circle cx="565" cy="148" r="36" fill="#5F6368"/>
+  <text x="565" y="200" text-anchor="middle" font-size="12" fill="#BDC1C6">参加者B（自分）</text>
+
+  <!-- コントロールバー背景 -->
+  <rect x="80" y="278" width="640" height="64" fill="#3C4043" rx="8"/>
+
+  <!-- ボタン：マイク -->
+  <circle cx="240" cy="310" r="22" fill="#5F6368"/>
+  <text x="240" y="315" text-anchor="middle" font-size="16" fill="white">🎤</text>
+
+  <!-- ボタン：カメラ -->
+  <circle cx="310" cy="310" r="22" fill="#5F6368"/>
+  <text x="310" y="315" text-anchor="middle" font-size="16" fill="white">📷</text>
+
+  <!-- ボタン：画面共有 -->
+  <circle cx="380" cy="310" r="22" fill="#5F6368"/>
+  <text x="380" y="315" text-anchor="middle" font-size="16" fill="white">🖥</text>
+
+  <!-- ボタン：その他 -->
+  <circle cx="450" cy="310" r="22" fill="#5F6368"/>
+  <text x="450" y="316" text-anchor="middle" font-size="18" font-weight="bold" fill="white">⋮</text>
+
+  <!-- ボタン：退出（赤） -->
+  <rect x="495" y="290" width="80" height="40" fill="#EA4335" rx="20"/>
+  <text x="535" y="315" text-anchor="middle" font-size="13" fill="white">退出</text>
+
+  <!-- 吹き出し：マイク -->
+  <rect x="30" y="340" width="140" height="38" fill="#00897B" rx="6"/>
+  <polygon points="160,352 175,358 160,364" fill="#00897B"/>
+  <text x="100" y="358" text-anchor="middle" font-size="11" fill="white" font-weight="bold">マイク ON/OFF</text>
+  <text x="100" y="372" text-anchor="middle" font-size="10" fill="white">話すとき以外はミュート</text>
+
+  <!-- 吹き出し：カメラ -->
+  <rect x="255" y="340" width="120" height="38" fill="#1A73E8" rx="6"/>
+  <polygon points="295,340 310,328 325,340" fill="#1A73E8"/>
+  <text x="315" y="358" text-anchor="middle" font-size="11" fill="white" font-weight="bold">カメラ ON/OFF</text>
+  <text x="315" y="372" text-anchor="middle" font-size="10" fill="white">顔を映す・隠す</text>
+
+  <!-- 吹き出し：画面共有 -->
+  <rect x="340" y="340" width="120" height="38" fill="#00897B" rx="6"/>
+  <polygon points="365,340 380,328 395,340" fill="#00897B"/>
+  <text x="400" y="358" text-anchor="middle" font-size="11" fill="white" font-weight="bold">画面共有</text>
+  <text x="400" y="372" text-anchor="middle" font-size="10" fill="white">資料を見せるとき</text>
+
+  <!-- 吹き出し：退出 -->
+  <rect x="600" y="340" width="140" height="38" fill="#EA4335" rx="6"/>
+  <polygon points="620,340 535,310 650,340" fill="#EA4335"/>
+  <text x="670" y="358" text-anchor="middle" font-size="11" fill="white" font-weight="bold">退出ボタン</text>
+  <text x="670" y="372" text-anchor="middle" font-size="10" fill="white">会議を終わるとき</text>
+
+  <!-- フッター -->
+  <text x="400" y="408" text-anchor="middle" font-size="11" fill="#80868B">© 2026 株式会社ふじサンバ　DX支援部門</text>
+</svg>

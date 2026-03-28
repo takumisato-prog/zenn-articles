@@ -1,0 +1,81 @@
+<svg width="800" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" font-family="'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif">
+  <rect width="800" height="400" fill="#F8F9FA" rx="16"/>
+
+  <!-- タイトル -->
+  <text x="400" y="44" text-anchor="middle" font-size="20" font-weight="bold" fill="#1A1A2E">マイドライブ vs 共有ドライブ</text>
+
+  <!-- マイドライブパネル -->
+  <rect x="40" y="70" width="330" height="300" fill="#FFFFFF" rx="12" stroke="#E0E0E0" stroke-width="1.5"/>
+  <rect x="40" y="70" width="330" height="56" fill="#6741D9" rx="12"/>
+  <rect x="40" y="114" width="330" height="12" fill="#6741D9"/>
+  <text x="205" y="102" text-anchor="middle" font-size="17" font-weight="bold" fill="#FFFFFF">📁 マイドライブ</text>
+
+  <!-- 人物アイコン（個人） -->
+  <circle cx="205" cy="160" r="22" fill="#E5DBFF"/>
+  <text x="205" y="168" text-anchor="middle" font-size="24">👤</text>
+
+  <text x="205" y="204" text-anchor="middle" font-size="13" font-weight="bold" fill="#6741D9">個人の保存場所</text>
+
+  <line x1="60" y1="216" x2="350" y2="216" stroke="#F3F0FF" stroke-width="1.5"/>
+
+  <g>
+    <rect x="60" y="226" width="8" height="8" fill="#6741D9" rx="2"/>
+    <text x="78" y="236" font-size="13" fill="#495057">用途：個人作業用</text>
+  </g>
+  <g>
+    <rect x="60" y="250" width="8" height="8" fill="#6741D9" rx="2"/>
+    <text x="78" y="260" font-size="13" fill="#495057">所有者：<tspan font-weight="bold">個人</tspan></text>
+  </g>
+  <g>
+    <rect x="60" y="274" width="8" height="8" fill="#FA5252" rx="2"/>
+    <text x="78" y="284" font-size="13" fill="#495057">退職後：<tspan font-weight="bold" fill="#FA5252">データが消える恐れあり</tspan></text>
+  </g>
+  <g>
+    <rect x="60" y="298" width="8" height="8" fill="#6741D9" rx="2"/>
+    <text x="78" y="308" font-size="13" fill="#495057">権限管理：<tspan font-weight="bold">自分で行う</tspan></text>
+  </g>
+
+  <rect x="60" y="330" width="290" height="24" fill="#F3F0FF" rx="6"/>
+  <text x="205" y="347" text-anchor="middle" font-size="12" fill="#6741D9">個人メモ・下書きの一時保管に</text>
+
+  <!-- VS -->
+  <circle cx="400" cy="220" r="28" fill="#1A1A2E"/>
+  <text x="400" y="228" text-anchor="middle" font-size="18" font-weight="bold" fill="#FFFFFF">VS</text>
+
+  <!-- 共有ドライブパネル -->
+  <rect x="430" y="70" width="330" height="300" fill="#FFFFFF" rx="12" stroke="#E0E0E0" stroke-width="1.5"/>
+  <rect x="430" y="70" width="330" height="56" fill="#1971C2" rx="12"/>
+  <rect x="430" y="114" width="330" height="12" fill="#1971C2"/>
+  <text x="595" y="102" text-anchor="middle" font-size="17" font-weight="bold" fill="#FFFFFF">🏢 共有ドライブ</text>
+
+  <!-- チームアイコン -->
+  <circle cx="595" cy="160" r="22" fill="#D0EBFF"/>
+  <text x="595" y="168" text-anchor="middle" font-size="24">👥</text>
+
+  <text x="595" y="204" text-anchor="middle" font-size="13" font-weight="bold" fill="#1971C2">チームの保存場所</text>
+
+  <line x1="450" y1="216" x2="740" y2="216" stroke="#E7F5FF" stroke-width="1.5"/>
+
+  <g>
+    <rect x="450" y="226" width="8" height="8" fill="#1971C2" rx="2"/>
+    <text x="468" y="236" font-size="13" fill="#495057">用途：チーム・会社共有</text>
+  </g>
+  <g>
+    <rect x="450" y="250" width="8" height="8" fill="#1971C2" rx="2"/>
+    <text x="468" y="260" font-size="13" fill="#495057">所有者：<tspan font-weight="bold">チーム</tspan></text>
+  </g>
+  <g>
+    <rect x="450" y="274" width="8" height="8" fill="#2F9E44" rx="2"/>
+    <text x="468" y="284" font-size="13" fill="#495057">退職後：<tspan font-weight="bold" fill="#2F9E44">データが残る</tspan></text>
+  </g>
+  <g>
+    <rect x="450" y="298" width="8" height="8" fill="#1971C2" rx="2"/>
+    <text x="468" y="308" font-size="13" fill="#495057">権限管理：<tspan font-weight="bold">管理者が一括管理</tspan></text>
+  </g>
+
+  <rect x="450" y="330" width="290" height="24" fill="#E7F5FF" rx="6"/>
+  <text x="595" y="347" text-anchor="middle" font-size="12" fill="#1971C2">業務ファイルはここに保存が基本</text>
+
+  <!-- 下部注意書き -->
+  <text x="400" y="388" text-anchor="middle" font-size="12" fill="#868E96">⚠️ 業務ファイルをマイドライブに保存すると、退職時にデータが失われる可能性があります</text>
+</svg>

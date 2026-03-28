@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400">
+  <defs>
+    <style>
+      text { font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif; }
+    </style>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#00000022"/>
+    </filter>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="800" height="400" fill="#F8F9FA"/>
+
+  <!-- タイトル -->
+  <text x="400" y="42" text-anchor="middle" font-size="20" font-weight="bold" fill="#202124">マイカレンダーと共有カレンダーの違い</text>
+
+  <!-- ===== マイカレンダー（左） ===== -->
+  <rect x="40" y="70" width="330" height="300" rx="14" fill="#ffffff" filter="url(#shadow)"/>
+
+  <!-- ヘッダー -->
+  <rect x="40" y="70" width="330" height="54" rx="14" fill="#1A73E8"/>
+  <rect x="40" y="100" width="330" height="24" fill="#1A73E8"/>
+  <text x="205" y="104" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">マイカレンダー</text>
+
+  <!-- アイコン：人物1人 -->
+  <circle cx="205" cy="152" r="22" fill="#E8F0FE"/>
+  <circle cx="205" cy="143" r="10" fill="#1A73E8"/>
+  <path d="M183 170 Q205 157 227 170" fill="#1A73E8"/>
+
+  <text x="205" y="196" text-anchor="middle" font-size="14" font-weight="bold" fill="#202124">自分専用のカレンダー</text>
+
+  <!-- 特徴リスト -->
+  <circle cx="75" cy="222" r="5" fill="#1A73E8"/>
+  <text x="90" y="227" font-size="13" fill="#3C4043">自分だけが予定を確認できる</text>
+
+  <circle cx="75" cy="252" r="5" fill="#1A73E8"/>
+  <text x="90" y="257" font-size="13" fill="#3C4043">個人の予定・プライベートな用件</text>
+
+  <circle cx="75" cy="282" r="5" fill="#1A73E8"/>
+  <text x="90" y="287" font-size="13" fill="#3C4043">他の人には内容が見えない</text>
+
+  <circle cx="75" cy="312" r="5" fill="#1A73E8"/>
+  <text x="90" y="317" font-size="13" fill="#3C4043">デフォルトで作成済み</text>
+
+  <!-- バッジ -->
+  <rect x="130" y="336" width="150" height="22" rx="11" fill="#E8F0FE"/>
+  <text x="205" y="351" text-anchor="middle" font-size="12" fill="#1A73E8" font-weight="bold">まず最初に使うカレンダー</text>
+
+  <!-- ===== 共有カレンダー（右） ===== -->
+  <rect x="430" y="70" width="330" height="300" rx="14" fill="#ffffff" filter="url(#shadow)"/>
+
+  <!-- ヘッダー -->
+  <rect x="430" y="70" width="330" height="54" rx="14" fill="#34A853"/>
+  <rect x="430" y="100" width="330" height="24" fill="#34A853"/>
+  <text x="595" y="104" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">共有カレンダー</text>
+
+  <!-- アイコン：人物3人 -->
+  <circle cx="575" cy="148" r="14" fill="#E6F4EA"/>
+  <circle cx="575" cy="143" r="8" fill="#34A853"/>
+  <path d="M561 162 Q575 155 589 162" fill="#34A853"/>
+
+  <circle cx="605" cy="148" r="14" fill="#E6F4EA"/>
+  <circle cx="605" cy="143" r="8" fill="#34A853"/>
+  <path d="M591 162 Q605 155 619 162" fill="#34A853"/>
+
+  <circle cx="590" cy="135" r="14" fill="#E6F4EA"/>
+  <circle cx="590" cy="130" r="8" fill="#34A853"/>
+  <path d="M576 149 Q590 142 604 149" fill="#34A853"/>
+
+  <text x="595" y="196" text-anchor="middle" font-size="14" font-weight="bold" fill="#202124">チーム・会社で共有するカレンダー</text>
+
+  <!-- 特徴リスト -->
+  <circle cx="465" cy="222" r="5" fill="#34A853"/>
+  <text x="480" y="227" font-size="13" fill="#3C4043">チームメンバー全員が閲覧可能</text>
+
+  <circle cx="465" cy="252" r="5" fill="#34A853"/>
+  <text x="480" y="257" font-size="13" fill="#3C4043">部署・プロジェクトごとに作成</text>
+
+  <circle cx="465" cy="282" r="5" fill="#34A853"/>
+  <text x="480" y="287" font-size="13" fill="#3C4043">会議室の空き状況を共有</text>
+
+  <circle cx="465" cy="312" r="5" fill="#34A853"/>
+  <text x="480" y="317" font-size="13" fill="#3C4043">権限レベルを細かく設定できる</text>
+
+  <!-- バッジ -->
+  <rect x="515" y="336" width="160" height="22" rx="11" fill="#E6F4EA"/>
+  <text x="595" y="351" text-anchor="middle" font-size="12" fill="#34A853" font-weight="bold">慣れてきたら活用しよう</text>
+
+  <!-- 中央の矢印 -->
+  <text x="400" y="230" text-anchor="middle" font-size="28" fill="#DADCE0">⇄</text>
+  <text x="400" y="252" text-anchor="middle" font-size="11" fill="#80868B">連携して</text>
+  <text x="400" y="266" text-anchor="middle" font-size="11" fill="#80868B">使える</text>
+
+  <!-- フッター -->
+  <text x="400" y="390" text-anchor="middle" font-size="12" fill="#80868B">株式会社ふじサンバ DX支援部門</text>
+</svg>

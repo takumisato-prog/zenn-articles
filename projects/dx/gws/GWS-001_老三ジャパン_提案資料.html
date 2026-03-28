@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google Workspace 導入提案｜老三ジャパン株式会社</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Hiragino Sans', 'Yu Gothic', sans-serif;
+    background: #f5f7fa;
+    color: #1a1a2e;
+    line-height: 1.6;
+  }
+
+  /* ヘッダー */
+  .header {
+    background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+    color: white;
+    padding: 48px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    right: -60px; top: -60px;
+    width: 300px; height: 300px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 50%;
+  }
+  .header-logo {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    opacity: 0.7;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  .header-title {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .header-sub {
+    font-size: 15px;
+    opacity: 0.8;
+  }
+  .header-client {
+    margin-top: 24px;
+    font-size: 18px;
+    font-weight: 600;
+    background: rgba(255,255,255,0.15);
+    display: inline-block;
+    padding: 8px 20px;
+    border-radius: 24px;
+  }
+
+  /* コンテンツ */
+  .container { max-width: 960px; margin: 0 auto; padding: 48px 32px; }
+
+  /* セクション共通 */
+  .section { margin-bottom: 56px; }
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #1a73e8;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #e8f0fe;
+  }
+
+  /* 問題カード */
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 12px;
+  }
+  .problem-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    border-left: 4px solid #ea4335;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .problem-icon { font-size: 28px; margin-bottom: 12px; }
+  .problem-title { font-size: 14px; font-weight: 700; margin-bottom: 8px; color: #ea4335; }
+  .problem-desc { font-size: 13px; color: #555; line-height: 1.7; }
+
+  /* 矢印 */
+  .arrow-section {
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+  }
+  .arrow-line {
+    width: 2px;
+    height: 48px;
+    background: linear-gradient(to bottom, #ea4335, #1a73e8);
+    margin: 0 auto;
+  }
+  .arrow-label {
+    display: inline-block;
+    background: #1a73e8;
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 8px 24px;
+    border-radius: 24px;
+    margin: 8px 0;
+    letter-spacing: 0.05em;
+  }
+
+  /* 解決策カード */
+  .solution-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .solution-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    border-left: 4px solid #34a853;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .solution-icon { font-size: 28px; flex-shrink: 0; }
+  .solution-title { font-size: 14px; font-weight: 700; color: #34a853; margin-bottom: 6px; }
+  .solution-desc { font-size: 13px; color: #555; line-height: 1.7; }
+
+  /* 導入フロー */
+  .flow-container { position: relative; }
+  .flow-steps { display: flex; flex-direction: column; gap: 0; }
+  .flow-step {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    position: relative;
+  }
+  .flow-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 23px;
+    top: 52px;
+    width: 2px;
+    height: calc(100% - 20px);
+    background: #e8f0fe;
+  }
+  .flow-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    width: 48px;
+    padding-top: 4px;
+  }
+  .flow-num {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1a73e8, #0d47a1);
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+  .flow-right {
+    flex: 1;
+    background: white;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .flow-week {
+    font-size: 11px;
+    color: #1a73e8;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .flow-step-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 8px;
+  }
+  .flow-tasks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .flow-task {
+    font-size: 12px;
+    background: #e8f0fe;
+    color: #1a73e8;
+    padding: 4px 10px;
+    border-radius: 12px;
+  }
+  .flow-risk {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #ea4335;
+    background: #fce8e6;
+    padding: 6px 12px;
+    border-radius: 8px;
+    display: inline-block;
+  }
+
+  /* リスク対策 */
+  .risk-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .risk-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .risk-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .risk-badge {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 12px;
+  }
+  .risk-high { background: #fce8e6; color: #ea4335; }
+  .risk-mid { background: #fef7e0; color: #f9ab00; }
+  .risk-title { font-size: 14px; font-weight: 700; }
+  .risk-problem { font-size: 13px; color: #666; margin-bottom: 8px; line-height: 1.6; }
+  .risk-solution { font-size: 13px; color: #34a853; line-height: 1.6; }
+  .risk-solution::before { content: '✅ 対策: '; font-weight: 700; }
+
+  /* 費用 */
+  .price-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .price-table th {
+    background: #1a73e8;
+    color: white;
+    padding: 14px 20px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .price-table td {
+    padding: 14px 20px;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f4f8;
+  }
+  .price-table tr:last-child td { border-bottom: none; }
+  .price-table tr:hover td { background: #f8fbff; }
+  .price-total td {
+    font-weight: 700;
+    font-size: 15px;
+    background: #e8f0fe !important;
+    color: #1a73e8;
+  }
+
+  /* フッター */
+  .footer {
+    background: #1a1a2e;
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 24px;
+    font-size: 12px;
+    margin-top: 48px;
+  }
+
+  /* 印刷 */
+  @media print {
+    body { background: white; }
+    .header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ヘッダー -->
+<div class="header">
+  <div class="header-logo">Google Workspace 導入提案資料</div>
+  <div class="header-title">業務環境を一気に刷新し、<br>AIで働く会社へ。</div>
+  <div class="header-sub">現状の課題を解決し、Gemini AIを活用した次世代の働き方を実現します</div>
+  <div class="header-client">老三ジャパン株式会社 様</div>
+</div>
+
+<div class="container">
+
+  <!-- 現状の問題 -->
+  <div class="section">
+    <div class="section-label">01 / Current Issues</div>
+    <div class="section-title">現在の課題</div>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-icon">📧</div>
+        <div class="problem-title">メール環境が旧式</div>
+        <div class="problem-desc">Bizメール＆ウェブはモバイル対応・検索・共有が弱く、日々の業務効率が低下している。</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">📁</div>
+        <div class="problem-title">ファイルが2箇所に分散</div>
+        <div class="problem-desc">社内サーバーとGoogle Driveが混在。大阪・埼玉2拠点間でどこが最新か分からない。</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">⚠️</div>
+        <div class="problem-title">WeChatのリスク</div>
+        <div class="problem-desc">業務連絡がWeChat経由。情報漏洩リスクがあり、会社としてデータを管理できない。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 矢印 -->
+  <div class="arrow-section">
+    <div class="arrow-line"></div>
+    <div><span class="arrow-label">Google Workspace で解決</span></div>
+    <div class="arrow-line"></div>
+  </div>
+
+  <!-- 解決策 -->
+  <div class="section">
+    <div class="section-label">02 / Solutions</div>
+    <div class="section-title">解決策</div>
+    <div class="solution-grid">
+      <div class="solution-card">
+        <div class="solution-icon">✉️</div>
+        <div>
+          <div class="solution-title">Gmailで業務メールを統一</div>
+          <div class="solution-desc">san-ta.co.jp ドメインそのままでGmailへ移行。検索・モバイル・共有が一気に改善されます。</div>
+        </div>
+      </div>
+      <div class="solution-card">
+        <div class="solution-icon">🗂️</div>
+        <div>
+          <div class="solution-title">共有ドライブでファイル一元化</div>
+          <div class="solution-desc">大阪・埼玉どこからでもリアルタイムアクセス。社内サーバー不要で管理コスト削減。</div>
+        </div>
+      </div>
+      <div class="solution-card">
+        <div class="solution-icon">💬</div>
+        <div>
+          <div class="solution-title">Google ChatでWeChat脱却</div>
+          <div class="solution-desc">社内連絡をGoogle Chatに統一。会社管理下に置き、情報漏洩リスクをゼロに。</div>
+        </div>
+      </div>
+      <div class="solution-card">
+        <div class="solution-icon">🤖</div>
+        <div>
+          <div class="solution-title">GeminiでAI活用を実現</div>
+          <div class="solution-desc">メール要約・返信文自動生成・Meet議事録の自動生成。毎日の作業時間を大幅短縮。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 導入フロー -->
+  <div class="section">
+    <div class="section-label">03 / Implementation Flow</div>
+    <div class="section-title">導入の流れ（全7週間）</div>
+    <div class="flow-steps">
+
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-num">1</div>
+        </div>
+        <div class="flow-right">
+          <div class="flow-week">Week 1</div>
+          <div class="flow-step-title">現状調査・要件確認</div>
+          <div class="flow-tasks">
+            <span class="flow-task">サーバー容量確認</span>
+            <span class="flow-task">メールデータ量の把握</span>
+            <span class="flow-task">組織構成ヒアリング</span>
+            <span class="flow-task">移行対象の決定</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-num">2</div>
+        </div>
+        <div class="flow-right">
+          <div class="flow-week">Week 2</div>
+          <div class="flow-step-title">GWS契約・初期設定</div>
+          <div class="flow-tasks">
+            <span class="flow-task">GWS Business Standard 契約</span>
+            <span class="flow-task">ドメイン認証</span>
+            <span class="flow-task">管理者アカウント作成</span>
+            <span class="flow-task">管理者研修</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-num">3</div>
+        </div>
+        <div class="flow-right">
+          <div class="flow-week">Week 3</div>
+          <div class="flow-step-title">組織・ドライブ設計</div>
+          <div class="flow-tasks">
+            <span class="flow-task">全25ユーザー作成</span>
+            <span class="flow-task">組織部門設定</span>
+            <span class="flow-task">共有ドライブ構築</span>
+            <span class="flow-task">権限ポリシー設定</span>
+          </div>
+          <div class="flow-risk">⚠️ 2拠点の権限設計を事前に書面確認</div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-num">4</div>
+        </div>
+        <div class="flow-right">
+          <div class="flow-week">Week 4</div>
+          <div class="flow-step-title">メール移行・並行運用開始</div>
+          <div class="flow-tasks">
+            <span class="flow-task">既存メールデータ移行</span>
+            <span class="flow-task">MXレコード切り替え（深夜実施）</span>
+            <span class="flow-task">旧サーバーと並行運用</span>
+          </div>
+          <div class="flow-risk">⚠️ 切り替えは金曜深夜〜土曜朝に実施</div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-num">5</div>
+        </div>
+        <div class="flow-right">
+          <div class="flow-week">Week 5</div>
+          <div class="flow-step-title">ファイル移行・Chat移行</div>
+          <div class="flow-tasks">
+            <span class="flow-task">優先ファイルをDriveへ移行</span>
+            <span class="flow-task">Google Chat 設定・案内</span>
+            <span class="flow-task">WeChat移行日を社内通達</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-num">6</div>
+        </div>
+        <div class="flow-right">
+          <div class="flow-week">Week 6</div>
+          <div class="flow-step-title">全社研修・Gemini活用説明</div>
+          <div class="flow-tasks">
+            <span class="flow-task">基本操作研修（全員）</span>
+            <span class="flow-task">操作マニュアル配布</span>
+            <span class="flow-task">Gemini活用デモ</span>
+            <span class="flow-task">FAQ資料配布</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-num">7</div>
+        </div>
+        <div class="flow-right">
+          <div class="flow-week">Week 7以降</div>
+          <div class="flow-step-title">運用開始・1ヶ月サポート</div>
+          <div class="flow-tasks">
+            <span class="flow-task">問い合わせ対応（メール・チャット）</span>
+            <span class="flow-task">トラブル対応</span>
+            <span class="flow-task">運用状況の確認</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 移行リスクと対策 -->
+  <div class="section">
+    <div class="section-label">04 / Risk Management</div>
+    <div class="section-title">移行リスクと対策</div>
+    <div class="risk-grid">
+      <div class="risk-card">
+        <div class="risk-header">
+          <span class="risk-badge risk-high">高リスク</span>
+          <span class="risk-title">メール不達の空白時間</span>
+        </div>
+        <div class="risk-problem">MXレコード切り替え時にメールが届かない時間が発生する可能性がある。</div>
+        <div class="risk-solution">金曜深夜に切り替え＋TTL事前短縮。旧サーバーを2週間維持して保険をかける。</div>
+      </div>
+      <div class="risk-card">
+        <div class="risk-header">
+          <span class="risk-badge risk-high">高リスク</span>
+          <span class="risk-title">メールデータの消失</span>
+        </div>
+        <div class="risk-problem">メールソフトのローカル保存データはサーバーにない場合がある。</div>
+        <div class="risk-solution">移行前にPSTで全データをエクスポートしてバックアップを確保。</div>
+      </div>
+      <div class="risk-card">
+        <div class="risk-header">
+          <span class="risk-badge risk-mid">中リスク</span>
+          <span class="risk-title">従業員の操作習熟不足</span>
+        </div>
+        <div class="risk-problem">いきなり切り替えると業務が止まる可能性がある。</div>
+        <div class="risk-solution">管理者を先行研修＋全社マニュアル配布。1ヶ月は弊社がサポート窓口を担当。</div>
+      </div>
+      <div class="risk-card">
+        <div class="risk-header">
+          <span class="risk-badge risk-mid">中リスク</span>
+          <span class="risk-title">WeChat移行の不完全</span>
+        </div>
+        <div class="risk-problem">重要なトーク履歴・ファイルがWeChatに残ったままになる。</div>
+        <div class="risk-solution">移行前にWeChat内の重要ファイルをDriveへ手動保存。移行日を明確に通達。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 費用 -->
+  <div class="section">
+    <div class="section-label">05 / Pricing</div>
+    <div class="section-title">費用概算</div>
+    <table class="price-table">
+      <thead>
+        <tr>
+          <th>項目</th>
+          <th>内容</th>
+          <th>金額</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>GWSライセンス費用</td>
+          <td>Business Standard × 25名（月額）</td>
+          <td>約 51,750円/月<br><span style="font-size:12px;color:#999;">（$17/user/月 × 25名）</span></td>
+        </tr>
+        <tr>
+          <td>導入支援費用</td>
+          <td>初期設定・移行作業・組織設計・権限設定</td>
+          <td>300,000円〜</td>
+        </tr>
+        <tr>
+          <td>研修費用</td>
+          <td>全社研修（半日）＋マニュアル作成</td>
+          <td>80,000円〜</td>
+        </tr>
+        <tr>
+          <td>保守サポート</td>
+          <td>導入後1ヶ月（問い合わせ対応・トラブル対応）</td>
+          <td>50,000円</td>
+        </tr>
+        <tr class="price-total">
+          <td colspan="2">初期費用 合計（税別）</td>
+          <td>430,000円〜</td>
+        </tr>
+        <tr>
+          <td colspan="3" style="font-size:12px;color:#888;padding:12px 20px;">
+            ※ IT導入補助金（最大50%補助）が適用できる場合があります。詳細はご相談ください。
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<div class="footer">
+  本資料は老三ジャパン株式会社様専用の提案資料です。無断転載・第三者への開示はご遠慮ください。
+</div>
+
+</body>
+</html>

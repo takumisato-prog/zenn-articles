@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="380" viewBox="0 0 800 380" font-family="'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif">
+  <!-- 背景 -->
+  <rect width="800" height="380" fill="#F8F9FA" rx="12"/>
+
+  <!-- タイトル -->
+  <text x="400" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#202124">Google Meet と Google Chat の使い分け</text>
+  <text x="400" y="56" text-anchor="middle" font-size="13" fill="#5F6368">コミュニケーションの目的に合わせて選ぼう</text>
+
+  <!-- 中央の VS テキスト -->
+  <circle cx="400" cy="200" r="30" fill="#F8F9FA" stroke="#DADCE0" stroke-width="2"/>
+  <text x="400" y="207" text-anchor="middle" font-size="18" font-weight="bold" fill="#5F6368">VS</text>
+
+  <!-- ===== 左: Google Meet ===== -->
+  <!-- カード -->
+  <rect x="40" y="74" width="330" height="268" fill="white" rx="12" stroke="#00897B" stroke-width="2"/>
+  <!-- ヘッダー -->
+  <rect x="40" y="74" width="330" height="56" fill="#00897B" rx="12"/>
+  <rect x="40" y="112" width="330" height="18" fill="#00897B"/>
+  <!-- ロゴ風アイコン -->
+  <circle cx="90" cy="102" r="20" fill="white" opacity="0.2"/>
+  <text x="90" y="108" text-anchor="middle" font-size="20" fill="white">📹</text>
+  <text x="240" y="107" text-anchor="middle" font-size="16" font-weight="bold" fill="white">Google Meet</text>
+
+  <!-- 使うシーン -->
+  <text x="70" y="156" font-size="12" font-weight="bold" fill="#00897B">こんなときに使う</text>
+
+  <!-- アイテム一覧 -->
+  <rect x="58" y="166" width="294" height="34" fill="#E8F5E9" rx="6"/>
+  <text x="80" y="186" font-size="13" fill="#2E7D32">🎥  複数人で顔を見ながら話し合いたい</text>
+
+  <rect x="58" y="204" width="294" height="34" fill="#E8F5E9" rx="6"/>
+  <text x="80" y="224" font-size="13" fill="#2E7D32">🖥  画面共有しながら説明したい</text>
+
+  <rect x="58" y="242" width="294" height="34" fill="#E8F5E9" rx="6"/>
+  <text x="80" y="262" font-size="13" fill="#2E7D32">🔴  会議を録画・記録したい</text>
+
+  <rect x="58" y="280" width="294" height="34" fill="#E8F5E9" rx="6"/>
+  <text x="80" y="300" font-size="13" fill="#2E7D32">⏱  30分以上の長い打ち合わせ</text>
+
+  <!-- 目安 -->
+  <rect x="58" y="320" width="294" height="10" fill="#E8EAED" rx="5"/>
+  <rect x="58" y="320" width="220" height="10" fill="#00897B" rx="5"/>
+  <text x="205" y="348" text-anchor="middle" font-size="11" fill="#5F6368">会議の充実度：リアルタイム・双方向</text>
+
+  <!-- ===== 右: Google Chat ===== -->
+  <!-- カード -->
+  <rect x="430" y="74" width="330" height="268" fill="white" rx="12" stroke="#1A73E8" stroke-width="2"/>
+  <!-- ヘッダー -->
+  <rect x="430" y="74" width="330" height="56" fill="#1A73E8" rx="12"/>
+  <rect x="430" y="112" width="330" height="18" fill="#1A73E8"/>
+  <!-- ロゴ風アイコン -->
+  <circle cx="480" cy="102" r="20" fill="white" opacity="0.2"/>
+  <text x="480" y="108" text-anchor="middle" font-size="20" fill="white">💬</text>
+  <text x="630" y="107" text-anchor="middle" font-size="16" font-weight="bold" fill="white">Google Chat</text>
+
+  <!-- 使うシーン -->
+  <text x="460" y="156" font-size="12" font-weight="bold" fill="#1A73E8">こんなときに使う</text>
+
+  <!-- アイテム一覧 -->
+  <rect x="448" y="166" width="294" height="34" fill="#E3F2FD" rx="6"/>
+  <text x="470" y="186" font-size="13" fill="#1565C0">✉️  簡単な質問・連絡を伝えたい</text>
+
+  <rect x="448" y="204" width="294" height="34" fill="#E3F2FD" rx="6"/>
+  <text x="470" y="224" font-size="13" fill="#1565C0">📎  ファイル・画像を手軽に送りたい</text>
+
+  <rect x="448" y="242" width="294" height="34" fill="#E3F2FD" rx="6"/>
+  <text x="470" y="262" font-size="13" fill="#1565C0">🕐  相手の返事を待てる非同期連絡</text>
+
+  <rect x="448" y="280" width="294" height="34" fill="#E3F2FD" rx="6"/>
+  <text x="470" y="300" font-size="13" fill="#1565C0">⚡  5分以内で解決できる短い相談</text>
+
+  <!-- 目安 -->
+  <rect x="448" y="320" width="294" height="10" fill="#E8EAED" rx="5"/>
+  <rect x="448" y="320" width="180" height="10" fill="#1A73E8" rx="5"/>
+  <text x="595" y="348" text-anchor="middle" font-size="11" fill="#5F6368">気軽さ：テキスト中心・非同期OK</text>
+
+  <!-- フッター -->
+  <text x="400" y="368" text-anchor="middle" font-size="11" fill="#80868B">© 2026 株式会社ふじサンバ　DX支援部門</text>
+</svg>

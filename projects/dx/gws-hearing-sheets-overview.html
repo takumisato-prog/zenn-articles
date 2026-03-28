@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GWS案件 ヒアリングシート一覧 | Altus</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Helvetica Neue', Arial, 'Hiragino Sans', 'Meiryo', sans-serif;
+    background: #f5f5f5;
+    color: #333;
+    line-height: 1.7;
+  }
+  .header {
+    background: #1a73e8;
+    color: white;
+    padding: 40px 48px;
+  }
+  .header h1 { font-size: 26px; font-weight: 700; margin-bottom: 8px; }
+  .header p { font-size: 14px; opacity: 0.85; }
+
+  .nav {
+    background: white;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0 48px;
+    display: flex;
+    gap: 8px;
+  }
+  .nav a {
+    display: inline-block;
+    padding: 14px 20px;
+    font-size: 13px;
+    color: #555;
+    text-decoration: none;
+    border-bottom: 3px solid transparent;
+    transition: all .2s;
+  }
+  .nav a:hover, .nav a.active { color: #1a73e8; border-bottom-color: #1a73e8; }
+
+  .container { max-width: 960px; margin: 0 auto; padding: 40px 24px; }
+
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  .summary-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    border-top: 4px solid;
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+  }
+  .summary-card.blue  { border-color: #1a73e8; }
+  .summary-card.green { border-color: #34a853; }
+  .summary-card.orange{ border-color: #fa7b17; }
+  .summary-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 12px; }
+  .summary-card .meta { font-size: 12px; color: #777; margin-bottom: 6px; }
+  .summary-card .meta span { font-weight: 600; color: #333; }
+
+  .sheet { background: white; border-radius: 12px; margin-bottom: 40px; box-shadow: 0 1px 4px rgba(0,0,0,.08); overflow: hidden; }
+  .sheet-header {
+    padding: 24px 32px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .sheet-header.blue   { background: #1a73e8; }
+  .sheet-header.green  { background: #34a853; }
+  .sheet-header.orange { background: #fa7b17; }
+  .sheet-header .badge {
+    background: rgba(255,255,255,0.25);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 12px;
+  }
+  .sheet-header h2 { font-size: 20px; font-weight: 700; }
+  .sheet-header p  { font-size: 13px; opacity: 0.9; margin-top: 4px; }
+
+  .sheet-body { padding: 32px; }
+
+  .section {
+    margin-bottom: 32px;
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .section-title {
+    background: #f8f9fa;
+    padding: 12px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #444;
+    border-bottom: 1px solid #e8e8e8;
+  }
+  .section-body { padding: 16px 20px; }
+
+  .question { margin-bottom: 20px; }
+  .question:last-child { margin-bottom: 0; }
+  .q-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .q-label .required {
+    background: #ea4335;
+    color: white;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+    margin-top: 2px;
+  }
+  .q-type {
+    display: inline-block;
+    font-size: 11px;
+    color: #777;
+    background: #f0f0f0;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+  .choices { list-style: none; }
+  .choices li {
+    font-size: 13px;
+    color: #555;
+    padding: 5px 0 5px 24px;
+    position: relative;
+    border-bottom: 1px dashed #f0f0f0;
+  }
+  .choices li:last-child { border-bottom: none; }
+  .choices li::before {
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    content: '';
+  }
+  .choices.checkbox li::before { border-radius: 3px; }
+  .choices.scale li::before { display: none; }
+  .choices.scale li { padding-left: 0; }
+
+  .free-text {
+    border: 1px dashed #ccc;
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #aaa;
+    background: #fafafa;
+  }
+  .help-text { font-size: 12px; color: #888; margin-top: 4px; }
+
+  .grid-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-top: 8px;
+  }
+  .grid-table th {
+    background: #f0f4ff;
+    padding: 8px;
+    text-align: center;
+    font-weight: 600;
+    border: 1px solid #ddd;
+  }
+  .grid-table td {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    color: #555;
+  }
+  .grid-table td:first-child { font-weight: 600; background: #fafafa; }
+
+  .flow-box {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 24px 32px;
+    margin-bottom: 40px;
+  }
+  .flow-box h3 { font-size: 15px; font-weight: 700; margin-bottom: 16px; color: #333; }
+  .flow { display: flex; gap: 0; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .flow-step {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 13px;
+    text-align: center;
+    min-width: 120px;
+  }
+  .flow-step .step-num { font-size: 11px; color: #888; margin-bottom: 4px; }
+  .flow-arrow { color: #aaa; font-size: 18px; }
+
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+  }
+  .tag.blue   { background: #e8f0fe; color: #1a73e8; }
+  .tag.green  { background: #e6f4ea; color: #34a853; }
+  .tag.orange { background: #fce8e6; color: #d93025; }
+
+  footer {
+    text-align: center;
+    padding: 32px;
+    color: #aaa;
+    font-size: 12px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>GWS案件 ヒアリングシート一覧</h1>
+  <p>Google Workspace 関連案件で使用するフォームの詳細設問一覧 | Altus DX支援部門</p>
+</div>
+
+<nav class="nav">
+  <a href="#summary" class="active">概要</a>
+  <a href="#spot">GWSスポット</a>
+  <a href="#stress">研修ストレスチェック</a>
+  <a href="#flow">活用フロー</a>
+</nav>
+
+<div class="container">
+
+  <!-- 概要カード -->
+  <div id="summary" class="summary-grid">
+    <div class="summary-card green">
+      <h3>② GWS導入ヒアリング</h3>
+      <div class="meta">対象 <span>担当者 1名</span></div>
+      <div class="meta">タイミング <span>初回面談前</span></div>
+      <div class="meta">所要時間 <span>約10〜15分</span></div>
+      <div class="meta">セクション数 <span>7</span></div>
+      <div style="margin-top:12px">
+        <span class="tag green">スポット</span>
+        <span class="tag green">環境把握</span>
+        <span class="tag green">移行確認</span>
+      </div>
+    </div>
+    <div class="summary-card orange">
+      <h3>③ GWSストレスチェック</h3>
+      <div class="meta">対象 <span>全社員（匿名）</span></div>
+      <div class="meta">タイミング <span>研修実施前</span></div>
+      <div class="meta">所要時間 <span>約5分</span></div>
+      <div class="meta">セクション数 <span>5</span></div>
+      <div style="margin-top:12px">
+        <span class="tag orange">研修</span>
+        <span class="tag orange">匿名</span>
+        <span class="tag orange">習熟度チェック</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:none" id="dx">
+    <div class="sheet-body">
+
+      <div class="section">
+        <div class="section-title">会社基本情報</div>
+        <div class="section-body">
+          <div class="question">
+            <div class="q-label">会社名 <span class="required">必須</span></div>
+            <div class="q-type">テキスト入力</div>
+          </div>
+          <div class="question">
+            <div class="q-label">ご担当者名・役職 <span class="required">必須</span></div>
+            <div class="q-type">テキスト入力</div>
+          </div>
+          <div class="question">
+            <div class="q-label">業種</div>
+            <div class="q-type">テキスト入力</div>
+            <div class="help-text">例：製造業、飲食業、小売業 など</div>
+          </div>
+          <div class="question">
+            <div class="q-label">従業員数</div>
+            <div class="q-type">ラジオボタン（1択）</div>
+            <ul class="choices">
+              <li>1〜5名</li><li>6〜10名</li><li>11〜30名</li><li>31〜100名</li><li>101名以上</li>
+            </ul>
+          </div>
+          <div class="question">
+            <div class="q-label">主な事業内容</div>
+            <div class="q-type">テキストエリア（自由記述）</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">① 現在の課題・お困りごと</div>
+        <div class="section-body">
+          <div class="question">
+            <div class="q-label">今一番時間がかかっている・手間な業務を教えてください（最大3つ）</div>
+            <div class="q-type">テキストエリア（自由記述）</div>
+            <div class="help-text">例：毎月の請求書作成、在庫確認の集計、会議の議事録作成 など</div>
+          </div>
+          <div class="question">
+            <div class="q-label">上記の業務に1週間でかかる時間（目安）</div>
+            <div class="q-type">グリッド選択</div>
+            <table class="grid-table">
+              <tr>
+                <th></th><th>1時間未満</th><th>1〜3時間</th><th>3〜8時間</th><th>8〜20時間</th><th>20時間以上</th>
+              </tr>
+              <tr><td>業務①</td><td>○</td><td>○</td><td>○</td><td>○</td><td>○</td></tr>
+              <tr><td>業務②</td><td>○</td><td>○</td><td>○</td><td>○</td><td>○</td></tr>
+              <tr><td>業務③</td><td>○</td><td>○</td><td>○</td><td>○</td><td>○</td></tr>
+            </table>
+          </div>
+          <div class="question">
+            <div class="q-label">業務で感じている課題（あてはまるものすべて選択）</div>
+            <div class="q-type">チェックボックス（複数選択可）</div>
+            <ul class="choices checkbox">
+              <li>ミス・抜け漏れが多い</li>
+              <li>情報共有が遅い・属人化している</li>
+              <li>紙・Excel・メールでの管理が煩雑</li>
+              <li>承認・申請の手続きが遅い</li>
+              <li>リモートワーク・テレワークがうまくいっていない</li>
+              <li>ファイル管理がバラバラ（PCローカル・USBなど）</li>
+              <li>会議が多い・議事録管理が大変</li>
+              <li>その他</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">② 現在使っているツール・環境</div>
+        <div class="section-body">
+          <div class="question">
+            <div class="q-label">現在メインで使っているメール・グループウェアは？</div>
+            <div class="q-type">チェックボックス（複数選択可）</div>
+            <ul class="choices checkbox">
+              <li>Gmail（個人アカウント）</li>
+              <li>Google Workspace（法人契約）</li>
+              <li>Microsoft 365（Outlook）</li>
+              <li>その他</li>
+              <li>特に決まっていない</li>
+            </ul>
+          </div>
+          <div class="question">
+            <div class="q-label">現在使っているツール</div>
+            <div class="q-type">チェックボックス（複数選択可）</div>
+            <ul class="choices checkbox">
+              <li>Googleドライブ</li><li>Googleスプレッドシート</li><li>Googleフォーム</li>
+              <li>Microsoft SharePoint / OneDrive</li><li>Dropbox / Box</li>
+              <li>Slack / ChatWork / LINE WORKS</li><li>Zoom / Google Meet</li>
+              <li>kintone / Notion / Monday.com</li><li>freee / マネーフォワード 等の会計ソフト</li>
+              <li>その他</li>
+            </ul>
+          </div>
+          <div class="question">
+            <div class="q-label">PCの環境</div>
+            <div class="q-type">ラジオボタン（1択）</div>
+            <ul class="choices">
+              <li>Windows</li><li>Mac</li><li>Windows・Mac混在</li><li>会社支給PCなし（個人PC使用）</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">③ DXの目的・目標</div>
+        <div class="section-body">
+          <div class="question">
+            <div class="q-label">DX推進で達成したいことを教えてください</div>
+            <div class="q-type">テキストエリア（自由記述）</div>
+            <div class="help-text">例：月30時間の事務作業を削減したい / 在宅勤務を導入したい / 紙をなくしたい</div>
+          </div>
+          <div class="question">
+            <div class="q-label">成功したと感じる基準は何ですか？</div>
+            <div class="q-type">テキストエリア（自由記述）</div>
+            <div class="help-text">できれば数値で。例：週〇時間削減 / ミスを〇%減らす</div>
+          </div>
+          <div class="question">
+            <div class="q-label">DX推進の優先度</div>
+            <div class="q-type">ラジオボタン（1択）</div>
+            <ul class="choices">
+              <li>すぐに着手したい（1ヶ月以内）</li>
+              <li>3ヶ月以内に進めたい</li>
+              <li>半年以内を目処に検討したい</li>
+              <li>まずは情報収集したい</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">④ 体制・予算</div>
+        <div class="section-body">
+          <div class="question">
+            <div class="q-label">社内でDXを担当・推進できる方はいますか？</div>
+            <div class="q-type">ラジオボタン（1択）</div>
+            <ul class="choices">
+              <li>いる（IT担当者・推進できる社員がいる）</li>
+              <li>いない</li>
+              <li>今後育てていきたい</li>
+            </ul>
+          </div>
+          <div class="question">
+            <div class="q-label">月々の予算感</div>
+            <div class="q-type">ラジオボタン（1択）</div>
+            <ul class="choices">
+              <li>月1〜3万円程度</li><li>月3〜10万円程度</li><li>月10万円以上</li>
+              <li>補助金・助成金を活用したい</li><li>まだ決まっていない</li>
+            </ul>
+          </div>
+          <div class="question">
+            <div class="q-label">補助金・助成金の活用について</div>
+            <div class="q-type">ラジオボタン（1択）</div>
+            <ul class="choices">
+              <li>活用したい（IT導入補助金・小規模事業者持続化補助金など）</li>
+              <li>詳しく知りたい</li>
+              <li>特に考えていない</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">⑤ 過去の経緯・懸念点</div>
+        <div class="section-body">
+          <div class="question">
+            <div class="q-label">過去にDX・システム導入を試みたことはありますか？</div>
+            <div class="q-type">ラジオボタン（1択）</div>
+            <ul class="choices"><li>ある</li><li>ない</li></ul>
+          </div>
+          <div class="question">
+            <div class="q-label">「ある」場合：導入したツール名と結果を簡単に教えてください</div>
+            <div class="q-type">テキスト入力</div>
+            <div class="help-text">例：kintoneを入れたが誰も使わなかった</div>
+          </div>
+          <div class="question">
+            <div class="q-label">うまくいかなかった理由（あてはまるものすべて）</div>
+            <div class="q-type">チェックボックス（複数選択可）</div>
+            <ul class="choices checkbox">
+              <li>社員が使いこなせなかった</li>
+              <li>導入後のサポートがなかった</li>
+              <li>コストが高かった</li>
+              <li>業務に合っていなかった</li>
+              <li>その他</li>
+            </ul>
+          </div>
+          <div class="question">
+            <div class="q-label">今回の取り組みで特に心配していることはありますか？</div>
+            <div class="q-type">テキストエリア（自由記述）</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">⑥ その他・自由記述</div>
+        <div class="section-body">
+          <div class="question">
+            <div class="q-label">上記以外に共有したいこと、事前に知ってほしいことがあればご記入ください</div>
+            <div class="q-type">テキストエリア（自由記述）</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ② GWSスポット -->
+  <div id="spot" class="sheet">
+    <div class="sheet-header green">
+      <div>
+        <div class="badge">② GWSスポット</div>
+        <h2>Google Workspace 導入 ヒアリングシート</h2>
+        <p>初回面談前に担当者へ送付。現環境・移行範囲・セキュリティ要件を把握する。</p>
+      </div>
+    </div>
+    <div class="sheet-body">
+
+      <div class="section">
+        <div class="section-title">① 現在のメール・グループウェア環境</div>
+        <div class="section-body">
+          <div class="question">
+            <div class="q-label">現在使っているメールサービスは？</div>
+            <div class="q-type">チェックボックス（複数選択可）</div>
+            <ul class="choices checkbox">
+              <li>Gmail（個人アカウント @gmail.com）</li>
+              <li>Microsoft 365（Exchange / Outlook）</li>
+              <li>Yahoo!メール / 独自ドメインメール</li>
+              <li>オンプレミスのメールサーバー</li>
+              <li>その他</li>
+              <li>メールサービスをほぼ使っていない</li>
+            </ul>
+          </div>
+          <div class="question">
+            <div class="q-label">会社の独自ドメイン（例: company.co.jp）はありますか？</div>
+            <div class="q-type">ラジオボタン（1択）</div>
+            <ul class="choices">
+              <li>ある（独自ドメインで運用中）</li>
+              <li>ない（Gmail個人アカウントを使用）</li>
+              <li>これから取得したい</li>
+            </ul>
+          </div>
+          <div class="question">
+            <div class="q-label">現在のファイル管理・保管場所は？</div>
+            <div class="q-type">チェックボックス（複数選択可）</div>
+            <ul class="choices checkbox">
+              <li>PCのローカル（社内サーバー・NAS）</li>
+              <li>Googleドライブ（個人）</li>
+              <li>Dropbox / Box</li>
+              <li>Microsoft OneDrive / SharePoint</li>
+              <li>USBメモリ・外付けHDD</li>
+              <li>その他</li>
+              <li>特に管理していない</li>
+            </ul>
+          </div>
+          <div class="question">
+            <div class="q-label">社内のコミュニケーション手段は？</div>
+            <div class="q-type">チェックボックス（複数選択可）</div>
+            <ul class="choices checkbox">
+              <li>メール</li><li>LINE / LINE WORKS</li><li>Slack</li>
+              <li>Chatwork</li><li>電話</li>
+              <li>社内掲示板・グループウェア（サイボウズ等）</li><li>その他</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">② 導入の目的・解決したい課題</div>
+        <div class="section-body">
+          <div class="question">
+            <div class="q-label">GWS導入で解決したいこと・目的</div>
+            <div class="q-type">チェックボックス（複数選択可）</div>
+            <ul class="choices checkbox">
+              <li>メールを会社のドメインで統一したい</li>
+              <li>ファイルをクラウドで一元管理したい</li>
+              <li>リモートワーク・テレワークを整備したい</li>
+              <li>ビデオ会議（Google Meet）を導入したい</li>
+              <li>Excelの共同編集をスムーズにしたい</li>
+              <li>情報の属人化を解消したい</li>
+              <li>セキュリティを強化したい</li>
+              <li>Google認定を取得したい</li>
+              <li>その他</li>
+            </ul>
+          </div>
+          <div class="question">
+            <div class="q-label">現在一番困っていることを具体的に教えてください</div>
+            <div class="q-type">テキストエリア（自由記述）</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">③ 移行・引き継ぎの確認</div>
+        <div class="section-body">
+          <div class="question">
+            <div class="q-label">既存メールの移行はどうしますか？</div>
+            <div class="q-type">ラジオボタン（1択）</div>
+            <ul class="choices">
+              <li>過去のメールを全件移行したい</li>
+              <li>直近1年分だけ移行したい</li>
+              <li>移行は不要（新規スタートでOK）</li>
+              <li>まだ決まっていない</li>
+            </ul>
+          </div>
+          <div class="question">
+            <div class="q-label">既存ファイルの移行はどうしますか？</div>
+            <div class="q-type">ラジオボタン（1択）</div>
+            <ul class="choices">
+              <li>既存ファイルをGoogleドライブに全移行したい</li>
+              <li>重要ファイルだけ移行したい</li>
+              <li>移行は不要</li>
+              <li>まだ決まっていない</li>
+            </ul>
+          </div>
+          <div class="question">
+            <div class="q-label">ExcelファイルはGoogleスプレッドシートに移行しますか？</div>
+            <div class="q-type">ラジオボタン（1択）</div>
+            <ul class="choices">
+              <li>ExcelファイルはそのままGoogleスプレッドシートに変換したい</li>
+              <li>ExcelとGoogleシートを併用したい</li>
+              <li>Excelはそのまま使い続けたい</li>
+              <li>まだ決まっていない</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">④ セキュリティ・管理ポリシー</div>
+        <div class="section-body">
+          <div class="question">
+            <div class="q-label">セキュリティ面で希望する設定は？</div>
+            <div class="q-type">チェックボックス（複数選択可）</div>
+            <ul class="choices checkbox">
+              <li>社外へのファイル共有を禁止・制限したい</li>
+              <li>二段階認証を全員に義務付けたい</li>
+              <li>スマートフォンからのアクセス管理をしたい（MDM）</li>
+              <li>メールの誤送信を防ぐ設定をしたい</li>
+              <li>特になし / まだ考えていない</li>
+            </ul>
+          </div>
+          <div class="question">
+            <div class="q-label">組織・権限管理の希望は？</div>
+            <div class="q-type">ラジオボタン（1択）</div>
+            <ul class="choices">
+              <li>部署・チームごとに権限を分けたい</li>
+              <li>全員同じ権限でシンプルに管理したい</li>
+              <li>まだ決まっていない</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">⑤ 研修・サポートの希望</div>
+        <div class="section-body">
+          <div class="question">
+            <div class="q-label">研修・サポートの希望</div>
+            <div class="q-type">チェックボックス（複数選択可）</div>
+            <ul class="choices checkbox">
+              <li>全社員向けの基本操作研修を希望</li>
+              <li>管理者向けの設定・運用研修を希望</li>
+              <li>マニュアル・操作ガイドの作成を希望</li>
+              <li>導入後の保守サポートを希望（月次）</li>
+              <li>特に不要（自社で運用できる）</li>
+            </ul>
+          </div>
+          <div class="question">
+            <div class="q-label">社内でGWSを管理できる方はいますか？</div>
+            <div class="q-type">ラジオボタン（1択）</div>
+            <ul class="choices">
+              <li>いる（専任のIT担当者がいる）</li>
+              <li>いない（総務や代表が兼任）</li>
+              <li>今後育てる予定</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">⑥ スケジュール・予算</div>
+        <div class="section-body">
+          <div class="question">
+            <div class="q-label">導入希望時期</div>
+            <div class="q-type">ラジオボタン（1択）</div>
+            <ul class="choices">
+              <li>1ヶ月以内に導入したい</li><li>2〜3ヶ月以内</li>
+              <li>半年以内</li><li>まだ検討段階</li>
+            </ul>
+          </div>
+          <div class="question">
+            <div class="q-label">費用・契約形態の希望</div>
+            <div class="q-type">ラジオボタン（1択）</div>
+            <ul class="choices">
+              <li>初期費用のみ（月額ライセンスは自社管理）</li>
+              <li>初期費用＋月額サポートを依頼したい</li>
+              <li>補助金（IT導入補助金等）を活用したい</li>
+              <li>まだ決まっていない</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ③ ストレスチェック -->
+  <div id="stress" class="sheet">
+    <div class="sheet-header orange">
+      <div>
+        <div class="badge">③ 研修・匿名</div>
+        <h2>GWSストレスチェック（研修前・全社員向け）</h2>
+        <p>完全匿名。研修内容カスタマイズのための習熟度・困りごとチェック。所要約5分。</p>
+      </div>
+    </div>
+    <div class="sheet-body">
+
+      <div class="section">
+        <div class="section-title">基本属性（匿名・名前なし）</div>
+        <div class="section-body">
+          <div class="question">
+            <div class="q-label">所属部署（近いものを選んでください）</div>
+            <div class="q-type">ラジオボタン（1択）</div>
+            <ul class="choices">
+              <li>経営・管理部門</li><li>営業・販売</li><li>製造・現場</li>
+              <li>総務・人事</li><li>経理・財務</li><li>その他</li>
+            </ul>
+          </div>
+          <div class="question">
+            <div class="q-label">勤続年数</div>
+            <div class="q-type">ラジオボタン（1択）</div>
+            <ul class="choices">
+              <li>1年未満</li><li>1〜3年</li><li>3〜10年</li><li>10年以上</li>
+            </ul>
+          </div>
+          <div class="question">
+            <div class="q-label">年代</div>
+            <div class="q-type">ラジオボタン（1択）</div>
+            <ul class="choices">
+              <li>20代</li><li>30代</li><li>40代</li><li>50代以上</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">① PC・スマホの使い慣れ度</div>
+        <div class="section-body">
+          <div class="question">
+            <div class="q-label">パソコン操作の得意度（1〜5で選んでください）</div>
+            <div class="q-type">ラジオボタン（1択）</div>
+            <ul class="choices scale">
+              <li>1：ほぼ使えない・苦手意識がある</li>
+              <li>2：メール・検索くらいはできる</li>
+              <li>3：ExcelやWordを普通に使える</li>
+              <li>4：関数・グラフ・フォルダ整理など一通りできる</li>
+              <li>5：自分でトラブル解決・応用もできる</li>
+            </ul>
+          </div>
+          <div class="question">
+            <div class="q-label">現在、仕事でよく使うツールは？</div>
+            <div class="q-type">チェックボックス（複数選択可）</div>
+            <ul class="choices checkbox">
+              <li>Excel / Word（Microsoft Office）</li>
+              <li>Googleスプレッドシート / ドキュメント</li>
+              <li>LINE / LINE WORKS</li>
+              <li>Chatwork / Slack</li><li>Zoom</li>
+              <li>kintone / サイボウズ</li>
+              <li>紙・手書きが中心</li><li>その他</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">② Googleツール 習熟度チェック（各ツールを5段階で自己評価）</div>
+        <div class="section-body">
+          <p style="font-size:12px;color:#888;margin-bottom:16px;">1: 使ったことがない　2: 少し使える　3: 普通に使える　4: 応用できる　5: バリバリ使いこなせる</p>
+          <table class="grid-table">
+            <tr>
+              <th style="text-align:left">ツール</th>
+              <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+            </tr>
+            <tr><td>Gmail（メール）</td><td>○</td><td>○</td><td>○</td><td>○</td><td>○</td></tr>
+            <tr><td>Googleドライブ（ファイル保存・共有）</td><td>○</td><td>○</td><td>○</td><td>○</td><td>○</td></tr>
+            <tr><td>Googleドキュメント（文書作成）</td><td>○</td><td>○</td><td>○</td><td>○</td><td>○</td></tr>
+            <tr><td>Googleスプレッドシート（表計算）</td><td>○</td><td>○</td><td>○</td><td>○</td><td>○</td></tr>
+            <tr><td>Googleカレンダー（スケジュール管理）</td><td>○</td><td>○</td><td>○</td><td>○</td><td>○</td></tr>
+            <tr><td>Google Meet（ビデオ会議）</td><td>○</td><td>○</td><td>○</td><td>○</td><td>○</td></tr>
+            <tr><td>Google Chat（チャット・社内連絡）</td><td>○</td><td>○</td><td>○</td><td>○</td><td>○</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">③ 日常業務での困りごと・ストレスポイント</div>
+        <div class="section-body">
+          <div class="question">
+            <div class="q-label">仕事でよく困ること・ストレスに感じることは？</div>
+            <div class="q-type">チェックボックス（複数選択可）</div>
+            <ul class="choices checkbox">
+              <li>ファイルがどこにあるかわからなくなる</li>
+              <li>他の人と同じファイルを同時に編集するのが怖い</li>
+              <li>メールの整理・管理が追いついていない</li>
+              <li>会議の日程調整に時間がかかる</li>
+              <li>ビデオ会議の接続・操作が不安</li>
+              <li>スマホからデータにアクセスできない</li>
+              <li>退職した人のデータがどこにあるかわからない</li>
+              <li>誤って大事なファイルを消してしまいそうで怖い</li>
+              <li>チームのメンバーと情報共有がうまくできていない</li>
+              <li>パスワードを忘れてログインできなくなる</li>
+              <li>特に困っていることはない</li>
+            </ul>
+          </div>
+          <div class="question">
+            <div class="q-label">「これ、もっと楽にならないかな」と感じることがあれば教えてください</div>
+            <div class="q-type">テキストエリア（自由記述）</div>
+            <div class="help-text">どんな小さなことでも構いません</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">④ 研修への期待・不安</div>
+        <div class="section-body">
+          <div class="question">
+            <div class="q-label">研修で学びたいこと・知りたいことは？</div>
+            <div class="q-type">チェックボックス（複数選択可）</div>
+            <ul class="choices checkbox">
+              <li>Gmailの使い方・整理術</li>
+              <li>Googleドライブでのファイル共有・フォルダ整理</li>
+              <li>Googleスプレッドシート（Excelとの違い・基本操作）</li>
+              <li>Google Meet でのビデオ会議の使い方</li>
+              <li>Googleカレンダーでの予定共有・会議設定</li>
+              <li>スマホからGWSを使う方法</li>
+              <li>複数人で同じファイルを編集する方法</li>
+              <li>業務を自動化する方法（GAS・マクロ）</li>
+              <li>特にない</li>
+            </ul>
+          </div>
+          <div class="question">
+            <div class="q-label">研修に対して不安・心配なことは？</div>
+            <div class="q-type">チェックボックス（複数選択可）</div>
+            <ul class="choices checkbox">
+              <li>操作についていけるか不安</li>
+              <li>覚えたことをすぐ忘れてしまいそう</li>
+              <li>研修後に使う機会がなさそう</li>
+              <li>今の仕事のやり方を変えたくない</li>
+              <li>特に不安はない</li>
+              <li>その他</li>
+            </ul>
+          </div>
+          <div class="question">
+            <div class="q-label">研修に希望するスタイルは？</div>
+            <div class="q-type">チェックボックス（複数選択可）</div>
+            <ul class="choices checkbox">
+              <li>ゆっくり丁寧に教えてほしい</li>
+              <li>基本だけ教えてもらえれば自分で応用できる</li>
+              <li>実際の業務に近い例で教えてほしい</li>
+              <li>テキスト・マニュアルを手元に残してほしい</li>
+              <li>後から動画や資料で復習したい</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">⑤ 研修担当者へのメッセージ（自由記述）</div>
+        <div class="section-body">
+          <div class="question">
+            <div class="q-label">要望・メッセージがあれば自由にお書きください</div>
+            <div class="q-type">テキストエリア（自由記述）</div>
+            <div class="help-text">「ここだけは絶対教えてほしい」「こういう進め方は苦手」など何でもOKです</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 活用フロー -->
+  <div id="flow" class="flow-box">
+    <h3>活用フロー</h3>
+    <p style="font-size:13px;color:#666;margin-bottom:20px;">スポット案件</p>
+    <div class="flow">
+      <div class="flow-step"><div class="step-num">STEP 1</div>問い合わせ受付</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="step-num">STEP 2</div>②GWSヒアリング送付</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="step-num">STEP 3</div>回答確認・初回面談</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="step-num">STEP 4</div>提案書作成</div>
+    </div>
+    <p style="font-size:13px;color:#666;margin:24px 0 16px;">研修案件</p>
+    <div class="flow">
+      <div class="flow-step"><div class="step-num">STEP 1</div>研修契約確定</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="step-num">STEP 2</div>③ストレスチェック配布</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="step-num">STEP 3</div>回答集計・分析</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="step-num">STEP 4</div>研修内容カスタマイズ</div>
+    </div>
+  </div>
+
+</div>
+
+<footer>Altus DX支援部門 | 2026-03-28</footer>
+</body>
+</html>

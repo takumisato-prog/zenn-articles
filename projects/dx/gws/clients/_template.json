@@ -1,0 +1,58 @@
+{
+  "meta": {
+    "id": "GWS-000",
+    "status": "hearing",
+    "created_at": "YYYY-MM-DD",
+    "updated_at": "YYYY-MM-DD",
+    "assigned_to": "佐藤"
+  },
+  "client": {
+    "company_name": "",
+    "contact_name": "",
+    "contact_role": "",
+    "industry": "",
+    "employee_count": "",
+    "email": "",
+    "phone": ""
+  },
+  "hearing": {
+    "current_email_service": [],
+    "has_custom_domain": "",
+    "current_storage": [],
+    "communication_tools": [],
+    "migration_email": "",
+    "migration_files": "",
+    "migration_excel": "",
+    "security_requirements": [],
+    "org_policy": "",
+    "training_needs": [],
+    "has_it_person": "",
+    "schedule": "",
+    "budget_type": "",
+    "top_issue": "",
+    "purposes": [],
+    "other_notes": ""
+  },
+  "proposal": {
+    "plan": "",
+    "account_count": null,
+    "monthly_fee": null,
+    "initial_fee": null,
+    "contract_type": "",
+    "subsidy_applicable": false,
+    "proposed_at": ""
+  },
+  "progress": [
+    {
+      "date": "YYYY-MM-DD",
+      "action": "",
+      "note": "",
+      "next_action": ""
+    }
+  ],
+  "result": {
+    "status": "hearing",
+    "closed_at": "",
+    "reason": ""
+  }
+}

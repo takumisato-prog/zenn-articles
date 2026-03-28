@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="380" viewBox="0 0 800 380">
+  <defs>
+    <style>
+      text { font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif; }
+    </style>
+    <marker id="arrowBlue" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#1A73E8"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#34A853"/>
+    </marker>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="800" height="380" fill="#F8F9FA" rx="12"/>
+
+  <!-- タイトル -->
+  <text x="400" y="40" text-anchor="middle" font-size="20" font-weight="bold" fill="#202124">ダイレクトメッセージ vs スペース　どちらを使う？</text>
+
+  <!-- ===== 左側：DM ===== -->
+  <rect x="30" y="62" width="350" height="290" rx="12" fill="#ffffff" stroke="#1A73E8" stroke-width="2"/>
+
+  <!-- DMヘッダー -->
+  <rect x="30" y="62" width="350" height="52" rx="12" fill="#1A73E8"/>
+  <rect x="30" y="90" width="350" height="24" fill="#1A73E8"/>
+
+  <!-- DMアイコン（吹き出し2つ） -->
+  <ellipse cx="62" cy="88" rx="14" ry="11" fill="none" stroke="#ffffff" stroke-width="1.5"/>
+  <ellipse cx="74" cy="95" rx="14" ry="11" fill="none" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="114" y="95" font-size="16" font-weight="bold" fill="#ffffff">ダイレクトメッセージ</text>
+
+  <!-- 人数目安 -->
+  <rect x="50" y="128" width="310" height="36" rx="8" fill="#E8F0FE"/>
+  <text x="205" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#1A73E8">人数の目安：1〜4人</text>
+  <text x="205" y="158" text-anchor="middle" font-size="11" fill="#1A73E8">短期・一時的なやり取り向け</text>
+
+  <!-- DM チェックリスト -->
+  <text x="64" y="190" font-size="13" font-weight="bold" fill="#202124">こんなときに使う</text>
+
+  <!-- チェック項目 -->
+  <rect x="50" y="202" width="16" height="16" rx="4" fill="#1A73E8"/>
+  <text x="58" y="214" text-anchor="middle" font-size="10" fill="#ffffff">✓</text>
+  <text x="76" y="215" font-size="13" fill="#333333">1対1の個別連絡・相談</text>
+
+  <rect x="50" y="228" width="16" height="16" rx="4" fill="#1A73E8"/>
+  <text x="58" y="240" text-anchor="middle" font-size="10" fill="#ffffff">✓</text>
+  <text x="76" y="241" font-size="13" fill="#333333">他の人に見せたくない内容</text>
+
+  <rect x="50" y="254" width="16" height="16" rx="4" fill="#1A73E8"/>
+  <text x="58" y="266" text-anchor="middle" font-size="10" fill="#ffffff">✓</text>
+  <text x="76" y="267" font-size="13" fill="#333333">一時的な少人数のやり取り</text>
+
+  <rect x="50" y="280" width="16" height="16" rx="4" fill="#1A73E8"/>
+  <text x="58" y="292" text-anchor="middle" font-size="10" fill="#ffffff">✓</text>
+  <text x="76" y="293" font-size="13" fill="#333333">返事をすぐにほしいとき</text>
+
+  <!-- DM デメリット -->
+  <rect x="50" y="314" width="310" height="26" rx="6" fill="#FCE8E6"/>
+  <text x="205" y="331" text-anchor="middle" font-size="12" fill="#EA4335">注意：情報が後から追いにくい</text>
+
+  <!-- ===== 中央の矢印・判定 ===== -->
+  <text x="400" y="150" text-anchor="middle" font-size="13" fill="#5F6368">人数は？</text>
+  <!-- 左矢印 -->
+  <line x1="385" y1="158" x2="388" y2="192" stroke="#5F6368" stroke-width="1.5"/>
+  <polygon points="382,190 388,200 394,190" fill="#5F6368"/>
+  <!-- 右矢印 -->
+  <line x1="415" y1="158" x2="412" y2="192" stroke="#5F6368" stroke-width="1.5"/>
+  <polygon points="406,190 412,200 418,190" fill="#5F6368"/>
+
+  <rect x="355" y="200" width="90" height="26" rx="13" fill="#DADCE0"/>
+  <text x="400" y="217" text-anchor="middle" font-size="12" fill="#5F6368">1〜4人</text>
+
+  <rect x="355" y="238" width="90" height="26" rx="13" fill="#DADCE0"/>
+  <text x="400" y="255" text-anchor="middle" font-size="12" fill="#5F6368">5人以上</text>
+
+  <!-- 上部の判定菱形 -->
+  <polygon points="400,80 440,115 400,150 360,115" fill="#ffffff" stroke="#5F6368" stroke-width="1.5"/>
+  <text x="400" y="108" text-anchor="middle" font-size="11" fill="#5F6368">何人で</text>
+  <text x="400" y="122" text-anchor="middle" font-size="11" fill="#5F6368">使う？</text>
+
+  <!-- 左矢印ライン（DM方向） -->
+  <line x1="360" y1="115" x2="300" y2="115" stroke="#1A73E8" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <text x="330" y="108" text-anchor="middle" font-size="11" fill="#1A73E8">1〜4人</text>
+
+  <!-- 右矢印ライン（スペース方向） -->
+  <line x1="440" y1="115" x2="500" y2="115" stroke="#34A853" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <text x="470" y="108" text-anchor="middle" font-size="11" fill="#34A853">5人以上</text>
+
+  <!-- ===== 右側：スペース ===== -->
+  <rect x="420" y="62" width="350" height="290" rx="12" fill="#ffffff" stroke="#34A853" stroke-width="2"/>
+
+  <!-- スペースヘッダー -->
+  <rect x="420" y="62" width="350" height="52" rx="12" fill="#34A853"/>
+  <rect x="420" y="90" width="350" height="24" fill="#34A853"/>
+
+  <!-- スペースアイコン（ハッシュ） -->
+  <text x="452" y="97" font-size="22" font-weight="bold" fill="#ffffff">#</text>
+  <text x="476" y="95" font-size="16" font-weight="bold" fill="#ffffff">スペース</text>
+
+  <!-- 人数目安 -->
+  <rect x="440" y="128" width="310" height="36" rx="8" fill="#E6F4EA"/>
+  <text x="595" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#34A853">人数の目安：5人〜</text>
+  <text x="595" y="158" text-anchor="middle" font-size="11" fill="#34A853">継続的なチーム情報共有向け</text>
+
+  <!-- スペース チェックリスト -->
+  <text x="454" y="190" font-size="13" font-weight="bold" fill="#202124">こんなときに使う</text>
+
+  <!-- チェック項目 -->
+  <rect x="440" y="202" width="16" height="16" rx="4" fill="#34A853"/>
+  <text x="448" y="214" text-anchor="middle" font-size="10" fill="#ffffff">✓</text>
+  <text x="466" y="215" font-size="13" fill="#333333">チーム全体への情報共有</text>
+
+  <rect x="440" y="228" width="16" height="16" rx="4" fill="#34A853"/>
+  <text x="448" y="240" text-anchor="middle" font-size="10" fill="#ffffff">✓</text>
+  <text x="466" y="241" font-size="13" fill="#333333">継続するプロジェクト管理</text>
+
+  <rect x="440" y="254" width="16" height="16" rx="4" fill="#34A853"/>
+  <text x="448" y="266" text-anchor="middle" font-size="10" fill="#ffffff">✓</text>
+  <text x="466" y="267" font-size="13" fill="#333333">後から情報を検索したい</text>
+
+  <rect x="440" y="280" width="16" height="16" rx="4" fill="#34A853"/>
+  <text x="448" y="292" text-anchor="middle" font-size="10" fill="#ffffff">✓</text>
+  <text x="466" y="293" font-size="13" fill="#333333">新メンバーへの引き継ぎ</text>
+
+  <!-- スペース メリット -->
+  <rect x="440" y="314" width="310" height="26" rx="6" fill="#E6F4EA"/>
+  <text x="595" y="331" text-anchor="middle" font-size="12" fill="#34A853">過去の会話をいつでも遡れる</text>
+</svg>
