@@ -22,6 +22,16 @@ var ORANGE = '#fa7b17';
 var RED    = '#ea4335';
 var PURPLE = '#9c27b0';
 
+// 各カラーの淡色バージョン（rgba不使用・GAS対応）
+var LIGHT = {
+  '#1a73e8': '#e8f0fe',
+  '#34a853': '#e6f4ea',
+  '#fa7b17': '#fef3e2',
+  '#ea4335': '#fce8e6',
+  '#9c27b0': '#f3e8fd'
+};
+function lc(hex) { return LIGHT[hex] || '#f5f5f5'; }
+
 // Googleツール定義
 var TOOLS = [
   { key: 'Gmail',    label: 'Gmail',       keyword: 'Gmail' },
@@ -43,7 +53,8 @@ function generateTrainingReport() {
     var data = sheet.getDataRange().getValues();
 
     if (data.length < 2) {
-      Browser.msgBox('⚠️ 回答データがありません。フォームへの回答後に実行してください。');
+      Logger.log('⚠️ 回答データがありません。フォームへの回答後に実行してください。');
+      SpreadsheetApp.getUi().alert('⚠️ 回答データがありません。フォームへの回答後に実行してください。');
       return;
     }
 
@@ -64,11 +75,17 @@ function generateTrainingReport() {
     Logger.log(url);
     Logger.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
 
-    Browser.msgBox('✅ 資料を生成しました！\n\nURLをコピーして開いてください:\n' + url);
+    try {
+      SpreadsheetApp.getUi().alert('✅ 資料を生成しました！\n\nURLをコピーして開いてください:\n' + url);
+    } catch(uiErr) {
+      // スクリプトエディタから実行した場合はログのみ
+    }
 
   } catch(e) {
     Logger.log('❌ エラー: ' + e.message + '\n' + e.stack);
-    Browser.msgBox('❌ エラーが発生しました:\n' + e.message);
+    try {
+      SpreadsheetApp.getUi().alert('❌ エラーが発生しました:\n' + e.message);
+    } catch(uiErr) {}
   }
 }
 
@@ -156,10 +173,10 @@ function buildSlides(a, n) {
   var s1 = deck.getSlides()[0];
   s1.getBackground().setSolidFill(BLUE);
   clearSlide(s1);
-  tx(s1, COMPANY_NAME + ' 様',             50, 160, 820, 50,  22, 'rgba(255,255,255,0.75)', false);
+  tx(s1, COMPANY_NAME + ' 様',             50, 160, 820, 50,  22, '#c6d9fc', false);
   tx(s1, 'Google Workspace\n研修提案資料', 50, 205, 820, 150, 44, '#ffffff', true);
-  tx(s1, '回答者数: ' + n + '名　|　' + today, 50, 370, 820, 36, 16, 'rgba(255,255,255,0.7)', false);
-  tx(s1, 'Altus DX支援部門',              50, 480, 820, 28, 13, 'rgba(255,255,255,0.4)', false);
+  tx(s1, '回答者数: ' + n + '名　|　' + today, 50, 370, 820, 36, 16, '#b0ccf8', false);
+  tx(s1, 'Altus DX支援部門',              50, 480, 820, 28, 13, '#7baaf7', false);
 
   // ---- Slide 2: サマリー ----
   var s2 = addBlankSlide(deck, '#f8f9fa');
@@ -177,7 +194,7 @@ function buildSlides(a, n) {
   ];
   items.forEach(function(item, i) {
     var y = 120 + i * 120;
-    roundRect(s2, 50, y, 820, 105, item.color + '18');
+    roundRect(s2, 50, y, 820, 105, lc(item.color));
     tx(s2, item.icon + '  ' + item.label, 72, y + 12, 600, 28, 14, '#666', false);
     tx(s2, item.value,                    72, y + 46, 780, 44, 20, '#222', true);
   });
@@ -272,11 +289,11 @@ function buildSlides(a, n) {
     // ヘッダーボックス
     rect(s6, x, 115, 200, 55, w.color);
     tx(s6, w.label,  x + 10, 118, 180, 24, 13, '#ffffff', true);
-    tx(s6, w.title,  x + 10, 140, 180, 24, 13, 'rgba(255,255,255,0.85)', false);
+    tx(s6, w.title,  x + 10, 140, 180, 24, 13, '#f0f0f0', false);
     // 矢印
     if (i < 3) tx(s6, '▶', x + 205, 130, 20, 24, 14, '#ccc', false);
     // コンテンツボックス
-    roundRect(s6, x, 180, 200, 300, w.color + '18');
+    roundRect(s6, x, 180, 200, 300, lc(w.color));
     tx(s6, w.content, x + 10, 192, 182, 280, 13, '#333', false);
   });
 
@@ -300,11 +317,11 @@ function buildSlides(a, n) {
 
   actions.forEach(function(act, i) {
     var y = 105 + i * 78;
-    roundRect(s7, 60, y, 800, 65, 'rgba(255,255,255,0.12)');
+    roundRect(s7, 60, y, 800, 65, '#2a5298');
     tx(s7, act, 80, y + 18, 760, 32, 15, '#ffffff', i === 0);
   });
 
-  tx(s7, 'Altus DX支援部門', 60, 510, 820, 28, 13, 'rgba(255,255,255,0.45)', false);
+  tx(s7, 'Altus DX支援部門', 60, 510, 820, 28, 13, '#8ab4f8', false);
 
   return deck;
 }
