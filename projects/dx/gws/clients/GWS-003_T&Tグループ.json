@@ -1,0 +1,76 @@
+{
+  "meta": {
+    "id": "GWS-003",
+    "status": "hearing",
+    "created_at": "2026-03-31",
+    "updated_at": "2026-03-31",
+    "assigned_to": "佐藤"
+  },
+  "client": {
+    "company_name": "T&Tグループ",
+    "contact_name": "",
+    "contact_role": "",
+    "industry": "",
+    "employee_count": "",
+    "email": "",
+    "phone": "",
+    "location": "静岡市",
+    "referral": "しずおか焼津信用金庫 籠上支店 ご紹介"
+  },
+  "hearing": {
+    "current_email_service": [],
+    "has_custom_domain": "",
+    "current_groupware": "",
+    "current_storage": [],
+    "current_server": "",
+    "communication_tools": [],
+    "migration_email": "",
+    "migration_files": "",
+    "migration_excel": "",
+    "security_requirements": [],
+    "org_policy": "",
+    "training_needs": [],
+    "has_it_person": "",
+    "schedule": "",
+    "budget_type": "",
+    "requested_plan": "",
+    "requested_users": null,
+    "top_issue": "",
+    "purposes": [],
+    "other_notes": "信用金庫からの紹介案件。ヒアリングはこれから。"
+  },
+  "pending_confirmations": [
+    "担当者名・連絡先",
+    "従業員数・導入対象人数",
+    "現在のメール・グループウェア環境",
+    "導入の目的・困っていること",
+    "独自ドメインの有無",
+    "ファイル管理方法",
+    "導入希望時期・予算感",
+    "IT担当者の有無",
+    "IT導入補助金の申請状況",
+    "決裁者は誰か"
+  ],
+  "proposal": {
+    "plan": "",
+    "account_count": null,
+    "monthly_fee": null,
+    "initial_fee": null,
+    "contract_type": "",
+    "subsidy_applicable": null,
+    "proposed_at": ""
+  },
+  "progress": [
+    {
+      "date": "2026-03-31",
+      "action": "案件受付",
+      "note": "しずおか焼津信用金庫 籠上支店からの紹介案件。ヒアリングはこれから。",
+      "next_action": "ヒアリング実施→要件整理→提案書作成"
+    }
+  ],
+  "result": {
+    "status": "hearing",
+    "closed_at": "",
+    "reason": ""
+  }
+}
