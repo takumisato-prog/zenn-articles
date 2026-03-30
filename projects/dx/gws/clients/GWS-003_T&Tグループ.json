@@ -7,15 +7,18 @@
     "assigned_to": "佐藤"
   },
   "client": {
-    "company_name": "T&Tグループ",
+    "company_name": "株式会社T&Tグループ",
     "contact_name": "",
     "contact_role": "",
-    "industry": "",
-    "employee_count": "",
+    "industry": "障害福祉サービス事業",
+    "employee_count": "非公開（推定30〜100名・複数施設運営）",
     "email": "",
     "phone": "",
-    "location": "静岡市",
-    "referral": "しずおか焼津信用金庫 籠上支店 ご紹介"
+    "location": "静岡県静岡市葵区井宮159-1（葵区・清水区・駿河区に複数施設）",
+    "established": "2015年",
+    "website": "https://tt-group.co.jp/",
+    "referral": "しずおか焼津信用金庫 籠上支店 ご紹介",
+    "business_summary": "放課後等デイサービス・障がい者グループホーム・訪問看護・訪問介護・就労継続支援A/B型・相談支援など障害福祉サービスを多施設で展開"
   },
   "hearing": {
     "current_email_service": [],
