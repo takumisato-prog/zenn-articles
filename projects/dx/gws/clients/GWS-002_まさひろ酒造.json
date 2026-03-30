@@ -1,0 +1,94 @@
+{
+  "meta": {
+    "id": "GWS-002",
+    "status": "hearing",
+    "created_at": "2026-03-30",
+    "updated_at": "2026-03-30",
+    "assigned_to": "佐藤"
+  },
+  "client": {
+    "company_name": "まさひろ酒造",
+    "contact_name": "",
+    "contact_role": "",
+    "industry": "酒造業",
+    "employee_count": "34名",
+    "email": "",
+    "phone": "",
+    "location": "沖縄県"
+  },
+  "appointment_candidates": [
+    "2026-03-30(月) 15:00以降",
+    "2026-03-31(火) 10:00〜11:00",
+    "2026-03-31(火) 13:00〜15:00",
+    "2026-04-01(水) 終日",
+    "2026-04-03(金) AM"
+  ],
+  "hearing": {
+    "current_email_service": ["独自ドメインメール"],
+    "has_custom_domain": "あり",
+    "current_groupware": "サイボウズ（cybozu）",
+    "current_storage": ["社内サーバー（オンラインストレージ未使用）"],
+    "current_server": "ConoHa",
+    "communication_tools": [],
+    "migration_email": "独自ドメインのままGmailへ移行希望",
+    "migration_files": "社内サーバーからGoogle Driveへの安全な移行を希望",
+    "migration_excel": "未確認",
+    "security_requirements": ["セキュリティ設定支援を希望"],
+    "org_policy": "未確認",
+    "training_needs": [
+      "社員教育・研修",
+      "運用設計支援",
+      "改善提案などの伴走支援"
+    ],
+    "has_it_person": "未確認",
+    "schedule": "未確認",
+    "budget_type": "初期費用・月額費用・支援費用の概算見積もり希望",
+    "requested_plan": "未確認",
+    "requested_users": 34,
+    "top_issue": "サイボウズのワークフロー機能をGWS環境で継続・再現したい。単なる導入でなく業務定着・使い続けられる状態までの伴走支援を重視",
+    "purposes": [
+      "グループウェアをサイボウズからGWSへ移行",
+      "ワークフロー機能の継続・再現",
+      "日報運用のGWS最適化",
+      "社内サーバーからGoogle Driveへのデータ移行",
+      "伴走支援（定着・運用設計・改善提案）",
+      "セキュリティ設定支援"
+    ],
+    "workflow_note": "kintoneは不可。AppSheetは検討可。Googleフォーム・外部連携ツール等の代替案も歓迎。",
+    "cybozu_note": "サイボウズの履歴（特にワークフロー）を保持・参照可能にしたい",
+    "other_notes": "沖縄対応可否の確認を求めている。中小企業向け実績・事例の提示を求めている。オンライン/訪問の対応方法も確認したい。"
+  },
+  "pending_confirmations": [
+    "GWSプランは何を希望しているか（Business Starter / Standard）",
+    "担当者名・連絡先",
+    "独自ドメイン名",
+    "サイボウズのワークフロー件数・データ量",
+    "社内サーバーのデータ量",
+    "現在のサイボウズの契約状況（いつまで使えるか）",
+    "決裁者は誰か",
+    "沖縄への訪問対応希望か・オンラインでよいか",
+    "IT導入補助金の申請状況"
+  ],
+  "proposal": {
+    "plan": "",
+    "account_count": 34,
+    "monthly_fee": null,
+    "initial_fee": null,
+    "contract_type": "導入支援＋伴走支援（月額）",
+    "subsidy_applicable": null,
+    "proposed_at": ""
+  },
+  "progress": [
+    {
+      "date": "2026-03-30",
+      "action": "問い合わせ受付",
+      "note": "GWS導入支援＋伴走支援の依頼。サイボウズからの移行・ワークフロー再現・34名・社内サーバー移行・定着支援を希望。アポ候補5枠あり。",
+      "next_action": "アポ日程を確定→商談実施→確認事項ヒアリング→見積書・提案書送付"
+    }
+  ],
+  "result": {
+    "status": "hearing",
+    "closed_at": "",
+    "reason": ""
+  }
+}
