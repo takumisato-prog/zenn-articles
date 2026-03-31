@@ -2,8 +2,8 @@
   "summary": {
     "total": 3,
     "by_status": {
-      "hearing": 3,
-      "proposal": 0,
+      "hearing": 2,
+      "proposal": 1,
       "negotiating": 0,
       "contracted": 0,
       "lost": 0
@@ -33,12 +33,12 @@
     {
       "id": "GWS-003",
       "company_name": "T&Tグループ",
-      "contact_name": "",
-      "status": "hearing",
+      "contact_name": "増田（総務）",
+      "status": "proposal",
       "created_at": "2026-03-31",
       "updated_at": "2026-03-31",
-      "users": null,
-      "plan": "未確認",
+      "users": 30,
+      "plan": "Business Standard",
       "referral": "しずおか焼津信用金庫 籠上支店"
     }
   ]
