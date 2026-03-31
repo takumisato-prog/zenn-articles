@@ -1,15 +1,15 @@
 {
   "meta": {
     "id": "GWS-003",
-    "status": "hearing",
+    "status": "proposal",
     "created_at": "2026-03-31",
     "updated_at": "2026-03-31",
     "assigned_to": "佐藤"
   },
   "client": {
-    "company_name": "株式会社T&Tグループ",
-    "contact_name": "",
-    "contact_role": "",
+    "company_name": "株式会社T&Tグループ（ティーアンドティーグループ）",
+    "contact_name": "増田（総務）",
+    "contact_role": "総務担当",
     "industry": "障害福祉サービス事業",
     "employee_count": "非公開（推定30〜100名・複数施設運営）",
     "email": "",
@@ -22,67 +22,88 @@
   },
   "hearing": {
     "current_email_service": ["個人Gmail（@gmail.com）を業務利用"],
-    "has_custom_domain": "未確認",
+    "has_custom_domain": "未確定（既存HP/CO.JP流用 or 新規.com取得を検討中）",
     "current_groupware": "なし（個人Googleアカウントを業務利用）",
-    "current_storage": ["個人Googleドライブを業務利用の可能性"],
-    "current_server": "",
-    "communication_tools": [],
+    "current_storage": ["個人Googleドライブ", "ローカルPC（拠点ごとにWindowsノートPC2〜3台）"],
+    "current_server": "社内サーバー・NAS未整備",
+    "communication_tools": ["LINE", "LINE WORKS", "Microsoft Teams（一部）", "メール添付"],
     "migration_email": "個人Gmail→組織Gmail移行",
-    "migration_files": "個人ドライブ→組織共有ドライブ移行",
-    "migration_calendar": "個人カレンダー→組織カレンダー移行",
-    "security_requirements": ["個人情報（利用者情報）の管理強化"],
-    "org_policy": "",
-    "training_needs": ["全責任者向け基本操作研修"],
-    "has_it_person": "未確認",
-    "schedule": "未確認",
-    "budget_type": "IT導入補助金活用希望（業務ソフトとセット申請が必要）",
-    "requested_plan": "Business Standard",
-    "requested_users": 25,
-    "users_note": "17拠点×各1アカウント＝17〜25アカウントが対象。施設長・責任者クラスのみ。現場支援員は対象外。",
-    "facilities_count": 17,
-    "top_issue": "17拠点への情報共有が手書きで非効率。個人アカウント管理による退職リスク。",
-    "purposes": [
-      "17拠点への情報共有をデジタル化（手書き→Drive）",
-      "個人Gmailから組織アカウントへ移行",
-      "施設長会議のオンライン化（Google Meet）",
-      "拠点間チャットの統一（Google Chat）",
-      "IT導入補助金を活用した費用削減"
+    "migration_files": "個人マイドライブ→共有ドライブ移行",
+    "migration_calendar": "個人カレンダー→組織カレンダー移行（現在は主に本部会議室予約のみ利用）",
+    "security_requirements": [
+      "個人情報（利用者情報）の管理強化",
+      "MFA必須化",
+      "外部共有制限",
+      "監査ログ整備",
+      "アカウント共有廃止（現在は拠点単位で1アカウントを複数人共有）"
     ],
-    "subsidy_note": "IT導入補助金はGWS単体では不可。勤怠管理・経費精算などの業務ソフトとセット申請が必要。",
-    "other_notes": "信用金庫からの紹介案件。個人Gmailを業務利用中。手書きで17拠点に情報共有している。"
+    "org_policy": "未文書化。アカウント共有・パスワード管理が曖昧な状態。",
+    "training_needs": [
+      "全責任者向け基本操作研修（3拠点レクチャー＋自走方式を検討）",
+      "研修助成金活用検討（75%補助、10時間以上）"
+    ],
+    "has_it_person": "なし（ベンダーによる外部支援前提）",
+    "schedule": "2週間での主要機能移行を目標。旧環境は数ヶ月バックアップ保持。提案書・見積書は来週中目安。",
+    "budget_type": "静岡市デジタル活用補助金（上限50万円、4月詳細開示予定）＋研修助成金活用検討",
+    "requested_plan": "Business Standard",
+    "requested_users": 30,
+    "users_note": "実態は24〜27名（拠点責任者クラス）。提案は30ユーザーで試算。",
+    "facilities_count": 17,
+    "top_issue": "拠点横断の情報共有がメール添付・手書き中心で非効率。アカウント共有によるセキュリティリスク。ツール乱立（LINE/LINE WORKS/Teams/Gmail）による情報断絶。",
+    "purposes": [
+      "共有ドライブ中心の情報資産化（メール添付・手書き廃止）",
+      "Googleフォーム＋スプレッドシートによる週報・日報・面談・評価・アンケートのデジタル化",
+      "Looker Studioによるダッシュボード可視化",
+      "Google Chatへのコミュニケーション集約（LINE WORKS/Teams廃止方向）",
+      "Google Meet＋カレンダーによる拠点間会議オンライン化",
+      "共有リソース（会議室・社用車）カレンダー管理",
+      "MFA・外部共有制限・監査ログ整備",
+      "補助金活用による費用削減"
+    ],
+    "subsidy_note": "静岡市「中小企業等デジタル活用事業補助金」（上限50万円）が4月開示予定。国のIT導入補助金はツール事業者未登録のため現時点で活用困難。研修助成金（75%補助・10時間以上）も検討。",
+    "domain_note": "既存HP/CO.JP流用か新規.com取得（約2,000円/年）を検討中。管理会社との連携確認が必要。",
+    "it_environment": "Windows統一環境。各拠点にノートPC2〜3台。Google Workspace関連ツールは一部利用済み（Googleフォーム・Docs・Sheets・カレンダーを個人アカウントで利用）。",
+    "other_notes": "信用金庫担当者が次回打合せに合流予定。同席者：栗坂・鈴木・佐藤。パイロット拠点（2〜3拠点）でPoCを行い全拠点展開を検討。NotebookLM/Gemini活用も視野。"
   },
   "pending_confirmations": [
-    "担当者名・連絡先",
-    "独自ドメインの有無",
-    "アカウント数の確定（17 or 25）",
-    "1拠点に複数アカウントが必要かどうか",
-    "IT導入補助金：セットで入れる業務ソフトの選定",
-    "導入希望時期",
-    "IT担当者の有無",
-    "決裁者は誰か",
-    "次回商談の日程"
+    "ドメイン方針の決定（既存CO.JP流用 or 新規.com取得）",
+    "ライセンス数の確定（24〜27名 → 30ユーザーで提案予定）",
+    "パイロット拠点の選定（2〜3拠点）",
+    "静岡市補助金の詳細（4月開示後に確認）",
+    "LINE WORKSとGoogle Chatの役割分担ルール確定",
+    "帳票テンプレートの優先順位（週報・日報・面談・評価・アンケート）",
+    "次回打合せ日程（信用金庫担当者含む）",
+    "決裁者の確認"
   ],
   "proposal": {
     "plan": "Business Standard",
-    "account_count": 25,
-    "monthly_fee_min": 34000,
-    "monthly_fee_max": 50000,
-    "initial_fee": null,
-    "contract_type": "導入支援＋月額ライセンス",
+    "account_count": 30,
+    "annual_fee": 540000,
+    "monthly_fee": 45000,
+    "unit_price": 1500,
+    "initial_fee": 400000,
+    "migration_fee": "規模次第（試算：総額約100万円）",
+    "contract_type": "初期費用＋年間ライセンス",
     "subsidy_applicable": true,
-    "subsidy_note": "業務ソフト（勤怠管理等）とセット申請で最大50%補助",
+    "subsidy_note": "静岡市補助金（上限50万円）採択の場合、年間費用の一部を補填可能。採択有無にかかわらずミニマム構成先行→採択後に年間払い切替・研修拡張を検討。",
     "proposed_at": ""
   },
   "progress": [
     {
       "date": "2026-03-31",
       "action": "初回ヒアリング実施",
-      "note": "17拠点・施設長クラス25名程度。個人Gmailを業務利用中。手書きで拠点間情報共有。IT導入補助金活用希望。業務ソフトとのセット申請が必要。次回日程調整中。",
-      "next_action": "見積書・導入スケジュール・補助金対象ソフト提案を資料化→次回商談"
+      "note": "17拠点・施設長クラス25名程度。個人Gmailを業務利用中。手書きで拠点間情報共有。IT導入補助金活用希望。業務ソフトとのセット申請が必要。",
+      "next_action": "見積書・導入スケジュール・補助金対象ソフト提案を資料化"
+    },
+    {
+      "date": "2026-03-31",
+      "action": "詳細ヒアリング・要件整理実施",
+      "note": "同席者：栗坂・鈴木・佐藤・増田（総務）。課題10項目・期待事項9項目を整理。ユーザー数30（24〜27名実態）、Business Standard、年間54万円＋初期40万円を試算。静岡市補助金（上限50万円、4月詳細開示）活用検討。2週間移行・3拠点PoCを検討。LINE WORKSとGoogle Chatのハイブリッド運用方針。Looker Studio可視化・AppSheet未検討。信用金庫担当者次回合流。",
+      "next_action": "提案書・見積書作成（来週中目安）→次回打合せ（信用金庫担当者含む）→ドメイン・ライセンス・共有ドライブ構成・優先帳票の決定"
     }
   ],
   "result": {
-    "status": "hearing",
+    "status": "proposal",
     "closed_at": "",
     "reason": ""
   }
