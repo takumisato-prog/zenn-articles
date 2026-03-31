@@ -3,7 +3,7 @@
     "id": "GWS-001",
     "status": "hearing",
     "created_at": "2026-03-28",
-    "updated_at": "2026-03-30",
+    "updated_at": "2026-03-31",
     "assigned_to": "佐藤"
   },
   "client": {
@@ -11,7 +11,8 @@
     "company_name_kana": "ラオサンジャパン",
     "contact_name": "厳",
     "contact_role": "",
-    "industry": "繊維貿易・アパレル卸売業",
+    "industry": "繊維貿易・アパレル卸売業（アパレルOEM製造）",
+    "main_client": "しまむら（メイン取引先）",
     "employee_count": "29名（日本法人）/ 導入対象25名",
     "email": "",
     "phone": "06-6533-1337",
@@ -21,7 +22,7 @@
     "capital": "8000万円",
     "representative": "姚 鋒（ヨウ ホウ）",
     "parent_company": "老三集団（中国・江蘇省常州）月産200万枚・従業員2,000名",
-    "business_summary": "中国工場製造のカットソー・ニットを日本の大手量販店・専門店・通販会社に卸す"
+    "business_summary": "アパレルOEM製造。中国工場製造のカットソー・ニットをしまむら等の日本の大手量販店・専門店・通販会社に卸す"
   },
   "hearing": {
     "current_email_service": ["Bizメール＆ウェブ ビジネス（メールソフト使用）"],
